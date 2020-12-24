@@ -23,6 +23,7 @@ public class AirlineBookingUI extends JFrame{
    /////////////////////코드 바뀜///////////////////
 	/////////////////////코드 바뀜///////////////////
 	///////추가///
+	/////////////////
 	public static void main(String[] args) {
       new LoginUIFrame();
    }
