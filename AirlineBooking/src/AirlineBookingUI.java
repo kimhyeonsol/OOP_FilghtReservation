@@ -20,8 +20,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class AirlineBookingUI extends JFrame{
+<<<<<<< main
    /////////////////////코드 바뀜///////////////////
 	
+=======
+>>>>>>> 주석 삭제
 	public static void main(String[] args) {
       new LoginUIFrame();
    }
