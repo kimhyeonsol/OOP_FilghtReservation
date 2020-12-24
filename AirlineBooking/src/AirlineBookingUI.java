@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class AirlineBookingUI extends JFrame{
+
 	public static void main(String[] args) {
       new LoginUIFrame();
    }
