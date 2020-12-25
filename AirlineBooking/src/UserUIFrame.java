@@ -32,6 +32,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
 	FlightResPanel flightResPanel=new FlightResPanel();
 	
 	BufferedImage backImage, menuImage1, menuImage2;
+	BufferedImage Image1, Image2;
 	
 /////////////////////////////////////////////////////////////////////////////////////
 	
@@ -52,7 +53,9 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
 		
 		setVisible(true);
 	}
-	
+	public void managerMunuExit() {
+	      this.dispose();
+	}
 ////////////////////////////////////////사용자 메뉴 패널/////////////////////////////////////////////
 	
 	class MyInfoButton extends JButton{	
@@ -96,6 +99,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
 	           e.printStackTrace();
 	        }
 			setLayout(null);
+			
 			myInfoButton.setBounds(280, 300, 180, 180);
 			flightResButton.setBounds(530, 300, 180, 180);
 			
@@ -125,7 +129,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
 		
 	class MyInfoPanel extends JPanel implements ActionListener{
 		
-		   JButton button = new JButton("뒤로가기");
+		   JButton backButton = new JButton("뒤로가기");
 		   
 		   MyInfoPanel(){
 			     setBackground(Color.lightGray);
@@ -137,10 +141,10 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
 			     lb.setFont(new Font("한컴산뜻돋움", Font.BOLD, 40));
 			     lb.setBounds(350,0,300,100);
 			     
-			     button.setHorizontalAlignment(JLabel.CENTER);
-			     button.setFont(new Font("한컴산뜻돋움", Font.BOLD, 40));
-			     button.setBounds(10,10,80,80);
-			     button.addActionListener(this);
+			     backButton.setHorizontalAlignment(JLabel.CENTER);
+			     backButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 40));
+			     backButton.setBounds(10,10,80,80);
+			     backButton.addActionListener(this);
 			     
 			     JTabbedPane mainJtabUI = new JTabbedPane(JTabbedPane.TOP);
 			     mainJtabUI.setBounds(50,100,900,550);
@@ -148,10 +152,9 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
 			     mainJtabUI.addTab("내 항공편 예약 현황", new MyReservationUpdatePanel());
 			     
 			     add(lb);
-			     add(button);
+			     add(backButton);
 			     add(mainJtabUI);
 			      
-			     
 			     setVisible(true);
 		   }
 		   ////////////////////////////////////////////////////////
@@ -207,27 +210,27 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
 		     class ChangeSeatBtn extends JButton{
 		    	 ChangeSeatBtn(){
 			         try {
-			        	 menuImage2 = ImageIO.read(new File("reservateBTN.jpg"));
+			        	 Image2 = ImageIO.read(new File("좌석변경.png"));
 			           } catch (IOException e) {
 			            e.printStackTrace();
 			         }
 			       }
 			      protected void paintComponent(Graphics g) {
 			         super.paintComponent(g);
-			         g.drawImage(menuImage2,0,0,getWidth(),getHeight(),null);
+			         g.drawImage(Image2,0,0,getWidth(),getHeight(),null);
 			       }
 			  }
 		   	  class CancleResBtn extends JButton{	
 		   		  	  CancleResBtn(){
 				         try {
-				        	 menuImage1 = ImageIO.read(new File("MyinfoBTN.jpg"));
+				        	 Image1 = ImageIO.read(new File("예약변경.png"));
 				           } catch (IOException e) {
 				            e.printStackTrace();
 				         }
 				      }
 				      protected void paintComponent(Graphics g) {
 				         super.paintComponent(g);
-				         g.drawImage(menuImage1,0,0,getWidth(),getHeight(),null);
+				         g.drawImage(Image1,0,0,getWidth(),getHeight(),null);
 				       }
 				}
 		   	  
@@ -250,12 +253,12 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
 		        	scroll.setBounds(30, 50, 830, 280);
 		            add(scroll);
 		            
-		            changeSeatBtn.setBounds(200,350,150,150);
+		            changeSeatBtn.setBounds(30,350,380,150);
 		            changeSeatBtn.addActionListener(this);
 		            add(changeSeatBtn);
 		            
 		            cancleResBtn.addActionListener(this);
-		            cancleResBtn.setBounds(510,350,150,150);
+		            cancleResBtn.setBounds(480,350,380,150);
 		            add(cancleResBtn);
 		         }
 
@@ -281,7 +284,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
 		      @Override
 		      public void actionPerformed(ActionEvent arg0) {
 		         // TODO Auto-generated method stub
-		         if(arg0.getSource() == button) {
+		         if(arg0.getSource() == backButton) {
 		        	 card.show(c, "userMenu");
 		         }
 		      }
@@ -319,12 +322,10 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
 			   }
 			   
 			   class RegisterFlightPanel extends JPanel{
-			
 			         RegisterFlightPanel(){
 			          
 			         }
 			   }
-			 
 			      @Override
 			  public void actionPerformed(ActionEvent arg0) {
 			       // TODO Auto-generated method stub
