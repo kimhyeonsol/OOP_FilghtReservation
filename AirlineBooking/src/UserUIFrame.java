@@ -32,7 +32,8 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
 	FlightResPanel flightResPanel=new FlightResPanel();
 	
 	BufferedImage backImage, menuImage1, menuImage2;
-	BufferedImage Image1, Image2;
+	BufferedImage Image1, Image2, Image3;
+	
 	
 /////////////////////////////////////////////////////////////////////////////////////
 	
@@ -56,6 +57,19 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
 	public void managerMunuExit() {
 	      this.dispose();
 	}
+	 class GoBackButton extends JButton{
+		 GoBackButton(){
+	         try {
+	        	 Image3 = ImageIO.read(new File("뒤로가기.png"));
+	           } catch (IOException e) {
+	            e.printStackTrace();
+	         }
+	       }
+	      protected void paintComponent(Graphics g) {
+	         super.paintComponent(g);
+	         g.drawImage(Image3,0,0,getWidth(),getHeight(),null);
+	       }
+	  }
 ////////////////////////////////////////사용자 메뉴 패널/////////////////////////////////////////////
 	
 	class MyInfoButton extends JButton{	
@@ -129,7 +143,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
 		
 	class MyInfoPanel extends JPanel implements ActionListener{
 		
-		   JButton backButton = new JButton("뒤로가기");
+		   GoBackButton backButton = new GoBackButton();
 		   
 		   MyInfoPanel(){
 			     setBackground(Color.lightGray);
