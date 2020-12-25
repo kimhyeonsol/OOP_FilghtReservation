@@ -100,7 +100,7 @@ public class LoginUIFrame extends JFrame{//로그인 프레임(카드레이 아�
 					loginUIFrameExit();
 		         }
 				if(e.getSource() == loginButton2) {
-			       card.next(c);
+					card.next(c);
 			    }
 			}
 	}

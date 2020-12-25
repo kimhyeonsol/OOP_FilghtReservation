@@ -97,7 +97,8 @@ public class ManagerUIFrame extends JFrame{
 	          }
 	}
 	
-   class ManagerMenuPanel extends JPanel implements ActionListener{
+	
+   class ManagerMenuPanel extends JPanel implements ActionListener{ //관리자 메뉴 패널
 	  GoBackButton backButton = new GoBackButton();
       memberManageButton memButton = new memberManageButton();
       reservationManageButton resButton = new reservationManageButton();
@@ -116,7 +117,6 @@ public class ManagerUIFrame extends JFrame{
          memButton.setBounds(280, 300, 180, 180);
          resButton.setBounds(530, 300, 180, 180);
          
-         backButton.addActionListener(this);
          memButton.addActionListener(this);
          resButton.addActionListener(this);
          
@@ -370,7 +370,7 @@ public class ManagerUIFrame extends JFrame{
 	       
 	       setVisible(true);
 	 }
-	 class ReservationSearch extends JPanel implements ActionListener{
+	 class ReservationSearch extends JPanel implements ActionListener{ //예약 조회
 		 JPanel mainPanel = new JPanel();
          JPanel p[] = new JPanel[2];
          JTextArea textArea = new JTextArea(29,87);
@@ -394,6 +394,7 @@ public class ManagerUIFrame extends JFrame{
 	         mainPanel.add(p[0], BorderLayout.NORTH);
 	         mainPanel.add(p[1], BorderLayout.CENTER);
 	         add(mainPanel);
+	         
 		 }
 
 		@Override
