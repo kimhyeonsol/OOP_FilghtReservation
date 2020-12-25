@@ -1,7 +1,6 @@
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -23,7 +22,7 @@ import javax.swing.JTextField;
 
 public class ManagerUIFrame extends JFrame{
    BufferedImage backImage, menuImage1, menuImage2;
-   MenuPanel menuPanel = new MenuPanel();
+   ManagerMenuPanel managerMenuPanel = new ManagerMenuPanel();
    ManagerMemberUI managerPanel = new ManagerMemberUI();
    
    Container c;
@@ -31,24 +30,31 @@ public class ManagerUIFrame extends JFrame{
          
    ManagerUIFrame(){
       setTitle("관리자 페이지");
-      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      c = this.getContentPane();
-      card = new CardLayout();
-      c.setLayout(card);
-      c.add(menuPanel, "menu");
-      c.add(managerPanel, "manager");
-      
-      setBounds(100, 100, 1000, 700);
-      setVisible(true);
+	  setBounds(100, 100, 1000, 700);
+		this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+		setBackground(Color.black);
+		
+		c=this.getContentPane();
+		card=new CardLayout();
+		
+		this.setLayout(card);
+		
+		add(managerMenuPanel,"menu");
+		add(managerPanel,"manager");
+		setVisible(true);
    }
    public void managerMunuExit() {
       this.dispose();
    }
-   class MenuPanel extends JPanel implements ActionListener{
+   
+   ////////////////////////////메뉴 패널////////////////////////////
+   
+   class ManagerMenuPanel extends JPanel implements ActionListener{
+	   
       memberManageButton memButton = new memberManageButton();
       reservationManageButton resButton = new reservationManageButton();
       
-      MenuPanel(){
+      ManagerMenuPanel(){
          try {
             backImage = ImageIO.read(new File("Menu.png"));
            } catch (IOException e) {
@@ -103,123 +109,145 @@ public class ManagerUIFrame extends JFrame{
             g.drawImage(menuImage2,0,0,getWidth(),getHeight(),null);
           }
    }
-}
-class ManagerMemberUI extends JPanel implements ActionListener{
-   JButton button = new JButton();
-   
-   ManagerMemberUI(){
-      setBackground(Color.lightGray);
-      setLayout(new FlowLayout());
-      
-       JTabbedPane mainJtabUI = new JTabbedPane(JTabbedPane.TOP);
-         
-       mainJtabUI.addTab("회원 변경", new MemberUpdate());
-       mainJtabUI.addTab("회원 삭제", new MemberDelete());
-       
-       add(mainJtabUI);
-       
-       setBounds(200, 150, 1000, 700);
-       setVisible(true);
-   }
-   class MemberUpdate extends JPanel{
-         JPanel mainPanel = new JPanel();
-         JPanel p[] = new JPanel[2];
-         JTextArea textArea = new JTextArea(37,38);
-         JLabel infoLabel[] = new JLabel[5];
-         JTextField textField[] = new JTextField[5];
-         String infoStr[] = {"아이디", "비밀번호", "이메일", "생년월일", "전화번호"};
-         JButton button = new JButton("변경하기");
-         
-         MemberUpdate(){
-            for(int i=0; i<p.length; i++) {
-               p[i] = new JPanel();
-               p[i].setBackground(new Color(176, 224, 230));
-            }
-            p[0].add(new JScrollPane(textArea));
-            
-            p[1].setLayout(null);
-            for(int i=0; i<infoLabel.length; i++) {
-               infoLabel[i] = new JLabel(infoStr[i]);
-               infoLabel[i].setHorizontalAlignment(JLabel.CENTER);
-               infoLabel[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 18));
-            }
-            for(int i=0; i<textField.length; i++) {
-               textField[i] = new JTextField();
-            }
-            for(int i=0; i<5; i++) {
-               infoLabel[i].setLocation(50, 60+(i*80));
-               infoLabel[i].setSize(80,80);
-               p[1].add(infoLabel[i]);
-               textField[i].setLocation(190, 75+(i*80));
-               textField[i].setSize(200,60);
-               p[1].add(textField[i]);
-            }
-            button.setForeground(new Color(255, 255, 255));
-            button.setBackground(new Color(128, 128, 128));
-            button.setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
-            button.setLocation(50, 500);
-            button.setSize(340,50);
-            p[1].add(button);
-            
-            mainPanel.setLayout(new GridLayout(1,2));
-            mainPanel.add(p[0]);
-            mainPanel.add(p[1]);
-            add(mainPanel);
-         }
-      }
-      class MemberDelete extends JPanel{
-         JPanel mainPanel = new JPanel();
-         JPanel p[] = new JPanel[2];
-         JTextArea textArea = new JTextArea(37,38);
-         JLabel infoLabel[] = new JLabel[2];
-         JTextField textField[] = new JTextField[2];
-         String infoStr[] = {"아이디", "비밀번호"};
-         JButton button = new JButton("삭제하기");
-         
-         MemberDelete(){
-            for(int i=0; i<p.length; i++) {
-               p[i] = new JPanel();
-               p[i].setBackground(new Color(176, 224, 230));
-            }
-            p[0].add(new JScrollPane(textArea));
-            
-            p[1].setLayout(null);
-            for(int i=0; i<infoLabel.length; i++) {
-               infoLabel[i] = new JLabel(infoStr[i]);
-               infoLabel[i].setHorizontalAlignment(JLabel.CENTER);
-               infoLabel[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 18));
-            }
-            for(int i=0; i<textField.length; i++) {
-               textField[i] = new JTextField();
-            }
-            for(int i=0; i<2; i++) {
-               infoLabel[i].setLocation(50, 190+(i*80));
-               infoLabel[i].setSize(80,80);
-               p[1].add(infoLabel[i]);
-               textField[i].setLocation(190, 205+(i*80));
-               textField[i].setSize(200,60);
-               p[1].add(textField[i]);
-            }
-            button.setForeground(new Color(255, 255, 255));
-            button.setBackground(new Color(128, 128, 128));
-            button.setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
-            button.setLocation(50, 400);
-            button.setSize(340,50);
-            p[1].add(button);
-            
-            mainPanel.setLayout(new GridLayout(1,2));
-            mainPanel.add(p[0]);
-            mainPanel.add(p[1]);
-            add(mainPanel);
-         }
-      }
-      @Override
-      public void actionPerformed(ActionEvent arg0) {
-         // TODO Auto-generated method stub
-         if(arg0.getSource() == button) {
-            
-         }
-      }
-}
 
+	//////////////////////////////////회원관리 패널///////////////////////////////
+	class ManagerMemberUI extends JPanel implements ActionListener{
+		JButton backButton = new JButton("뒤로가기");
+		
+		ManagerMemberUI(){
+		
+			setBackground(Color.lightGray);
+			setLayout(null);
+			setBounds(200, 150, 1000, 700);
+			
+			JLabel lb=new JLabel("회원정보 관리");
+			lb.setHorizontalAlignment(JLabel.CENTER);
+			lb.setFont(new Font("한컴산뜻돋움", Font.BOLD, 40));
+			lb.setBounds(350,0,300,100);
+			
+			backButton.setHorizontalAlignment(JLabel.CENTER);
+			backButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 40));
+			backButton.setBounds(10,10,80,80);
+			backButton.addActionListener(this);
+			
+			JTabbedPane mainJtabUI = new JTabbedPane(JTabbedPane.TOP);
+			mainJtabUI.setBounds(50,100,900,550);
+			mainJtabUI.addTab("회원 변경", new MemberUpdate());
+			mainJtabUI.addTab("회원 삭제", new MemberDelete());
+			
+			add(lb);
+			add(backButton);
+			add(mainJtabUI);
+			
+			setVisible(true);
+		}
+		
+		/////////////////////////회원 변경////////////////////////////////
+		class MemberUpdate extends JPanel{
+			JPanel mainPanel = new JPanel();
+			JPanel p[] = new JPanel[2];
+			JTextArea textArea = new JTextArea(31,43);
+			JLabel infoLabel[] = new JLabel[6];
+			JTextField textField[] = new JTextField[6];
+			String infoStr[] = {"이름","아이디", "비밀번호", "이메일", "생년월일", "전화번호"};
+			JButton button = new JButton("변경하기");
+			
+			MemberUpdate(){
+				for(int i=0; i<p.length; i++) {
+					p[i] = new JPanel();
+					p[i].setBackground(new Color(176, 224, 230));
+				}
+				p[0].add(new JScrollPane(textArea));
+				
+				p[1].setLayout(null);
+				for(int i=0; i<infoLabel.length; i++) {
+					infoLabel[i] = new JLabel(infoStr[i]);
+					infoLabel[i].setHorizontalAlignment(JLabel.CENTER);
+					infoLabel[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 18));
+				}
+				for(int i=0; i<textField.length; i++) {
+					textField[i] = new JTextField();
+				}
+				for(int i=0; i<6; i++) {
+					infoLabel[i].setLocation(50, 20+(i*65));
+					infoLabel[i].setSize(80,80);
+					p[1].add(infoLabel[i]);
+					textField[i].setLocation(160, 35+(i*65));
+					textField[i].setSize(200,60);
+					p[1].add(textField[i]);
+				}
+				
+				button.setForeground(new Color(255, 255, 255));
+				button.setBackground(new Color(128, 128, 128));
+				button.setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
+				button.setLocation(50, 450);
+				button.setSize(340,50);
+				
+				p[1].add(button);
+				
+				mainPanel.setLayout(new GridLayout(1,2));
+				mainPanel.add(p[0]);
+				mainPanel.add(p[1]);
+				add(mainPanel);
+			}
+		}
+		
+		/////////////////////////회원 삭제////////////////////////////////
+		class MemberDelete extends JPanel{
+			JPanel mainPanel = new JPanel();
+			JPanel p[] = new JPanel[2];
+			JTextArea textArea = new JTextArea(31,43);
+			JLabel infoLabel[] = new JLabel[2];
+			JTextField textField[] = new JTextField[2];
+			String infoStr[] = {"아이디", "비밀번호"};
+			JButton button = new JButton("삭제하기");
+			
+			MemberDelete(){
+				for(int i=0; i<p.length; i++) {
+					p[i] = new JPanel();
+					p[i].setBackground(new Color(176, 224, 230));
+				}
+				p[0].add(new JScrollPane(textArea));
+				
+				p[1].setLayout(null);
+				for(int i=0; i<infoLabel.length; i++) {
+					infoLabel[i] = new JLabel(infoStr[i]);
+					infoLabel[i].setHorizontalAlignment(JLabel.CENTER);
+					infoLabel[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 18));
+				}
+				for(int i=0; i<textField.length; i++) {
+					textField[i] = new JTextField();
+				}
+				for(int i=0; i<2; i++) {
+					infoLabel[i].setLocation(50, 160+(i*80));
+					infoLabel[i].setSize(80,80);
+					p[1].add(infoLabel[i]);
+					textField[i].setLocation(190, 175+(i*80));
+					textField[i].setSize(200,60);
+					p[1].add(textField[i]);
+				}
+				button.setForeground(new Color(255, 255, 255));
+				button.setBackground(new Color(128, 128, 128));
+				button.setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
+				button.setLocation(50, 400);
+				button.setSize(340,50);
+				p[1].add(button);
+				
+				mainPanel.setLayout(new GridLayout(1,2));
+				mainPanel.add(p[0]);
+				mainPanel.add(p[1]);
+				add(mainPanel);
+			}
+		}
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			if(arg0.getSource() == backButton) {
+				card.show(c, "menu");
+			}
+		}
+	}
+
+
+}
 
