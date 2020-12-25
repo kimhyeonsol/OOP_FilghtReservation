@@ -70,35 +70,35 @@ public class ManagerUIFrame extends JFrame{
    ////////////////////////////관리자 메뉴 패널////////////////////////////
    
    class memberManageButton extends JButton{   //회원 관리 버튼
-	      memberManageButton(){
-	            try {
-	               menuImage1 = ImageIO.read(new File("memberButton.jpg"));
-	              } catch (IOException e) {
-	               e.printStackTrace();
-	            }
-	         }
-	         protected void paintComponent(Graphics g) {
-	            super.paintComponent(g);
-	            g.drawImage(menuImage1,0,0,getWidth(),getHeight(),null);
-	          }
-	}
+         memberManageButton(){
+               try {
+                  menuImage1 = ImageIO.read(new File("memberButton.jpg"));
+                 } catch (IOException e) {
+                  e.printStackTrace();
+               }
+            }
+            protected void paintComponent(Graphics g) {
+               super.paintComponent(g);
+               g.drawImage(menuImage1,0,0,getWidth(),getHeight(),null);
+             }
+   }
    
-	class reservationManageButton extends JButton{   //예약 관리 버튼
-	      reservationManageButton(){
-	            try {
-	               menuImage2 = ImageIO.read(new File("reservationButton.jpg"));
-	              } catch (IOException e) {
-	               e.printStackTrace();
-	            }
-	         }
-	         protected void paintComponent(Graphics g) {
-	            super.paintComponent(g);
-	            g.drawImage(menuImage2,0,0,getWidth(),getHeight(),null);
-	          }
-	}
-	
+   class reservationManageButton extends JButton{   //예약 관리 버튼
+         reservationManageButton(){
+               try {
+                  menuImage2 = ImageIO.read(new File("reservationButton.jpg"));
+                 } catch (IOException e) {
+                  e.printStackTrace();
+               }
+            }
+            protected void paintComponent(Graphics g) {
+               super.paintComponent(g);
+               g.drawImage(menuImage2,0,0,getWidth(),getHeight(),null);
+             }
+   }
+   
    class ManagerMenuPanel extends JPanel implements ActionListener{
-	  GoBackButton backButton = new GoBackButton();
+     GoBackButton backButton = new GoBackButton();
       memberManageButton memButton = new memberManageButton();
       reservationManageButton resButton = new reservationManageButton();
       
@@ -135,11 +135,11 @@ public class ManagerUIFrame extends JFrame{
             card.show(c, "manager");
          }
          else if(e.getSource() == resButton) {
-        	 card.show(c, "reservation");
+            card.show(c, "reservation");
          }
          else if(e.getSource() == backButton) {
-        	 new LoginUIFrame();
-        	 managerMenuExit();
+            new LoginUIFrame();
+            managerMenuExit();
          }
       }
    }
@@ -200,7 +200,7 @@ public class ManagerUIFrame extends JFrame{
             searchButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
             searchButton.setForeground(new Color(255, 255, 255));
             searchButton.setBackground(new Color(128, 128, 128));
-	         
+            
             searchPanel[0].setLayout(new FlowLayout());
             searchButton.addActionListener(this);
             searchPanel[0].add(searchButton);
@@ -243,16 +243,16 @@ public class ManagerUIFrame extends JFrame{
             add(mainPanel);
          }
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			if(e.getSource() == searchButton) {	//모든 회원정보 조회하기
-				
-			}
-			else if(e.getSource() == updateButton) { //회원정보 변경하기
-				
-			}
-		}
+      @Override
+      public void actionPerformed(ActionEvent e) {
+         // TODO Auto-generated method stub
+         if(e.getSource() == searchButton) {   //모든 회원정보 조회하기
+            
+         }
+         else if(e.getSource() == updateButton) { //회원정보 변경하기
+            
+         }
+      }
       }
       
       /////////////////////////회원 삭제////////////////////////////////
@@ -268,7 +268,7 @@ public class ManagerUIFrame extends JFrame{
          JButton searchButton = new JButton("조회하기");
          
          MemberDelete(){
-        	 for(int i=0; i<p.length; i++) {
+            for(int i=0; i<p.length; i++) {
                p[i] = new JPanel();
                p[i].setBackground(new Color(176, 224, 230));
                searchPanel[i] = new JPanel();
@@ -321,16 +321,16 @@ public class ManagerUIFrame extends JFrame{
             add(mainPanel);
          }
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			if(e.getSource() == searchButton) {	//모든 회원정보 조회하기
-				
-			}
-			else if(e.getSource() == deleteButton) { //회원 삭제하기
-				
-			}
-		}
+      @Override
+      public void actionPerformed(ActionEvent e) {
+         // TODO Auto-generated method stub
+         if(e.getSource() == searchButton) {   //모든 회원정보 조회하기
+            
+         }
+         else if(e.getSource() == deleteButton) { //회원 삭제하기
+            
+         }
+      }
       }
       
       @Override
@@ -345,73 +345,72 @@ public class ManagerUIFrame extends JFrame{
    /////////////////////////////예약 관리 패널/////////////////////////////////
    
    class ManagerReservationUI extends JPanel implements ActionListener{
-	   GoBackButton backButton = new GoBackButton();
-	   
-	   ManagerReservationUI(){
-		   setBackground(Color.lightGray);
-	       setLayout(null);
-	       setBounds(200, 150, 1000, 700);
-	       
-	       JLabel lb=new JLabel("예약정보 관리");
-	       lb.setHorizontalAlignment(JLabel.CENTER);
-	       lb.setFont(new Font("한컴산뜻돋움", Font.BOLD, 40));
-	       lb.setBounds(350,0,300,100);
-	       
-	       backButton.setBounds(10,10,80,80);
-	       backButton.addActionListener(this);
-	       
-	       JTabbedPane mainJtabUI = new JTabbedPane(JTabbedPane.TOP);
-	       mainJtabUI.setBounds(50,100,900,550);
-	       mainJtabUI.addTab("예약 조회", new ReservationSearch());
-	       
-	       add(lb);
-	       add(backButton);
-	       add(mainJtabUI);
-	       
-	       setVisible(true);
-	 }
-	 class ReservationSearch extends JPanel implements ActionListener{
-		 JPanel mainPanel = new JPanel();
+      GoBackButton backButton = new GoBackButton();
+      
+      ManagerReservationUI(){
+         setBackground(Color.lightGray);
+          setLayout(null);
+          setBounds(200, 150, 1000, 700);
+          
+          JLabel lb=new JLabel("예약정보 관리");
+          lb.setHorizontalAlignment(JLabel.CENTER);
+          lb.setFont(new Font("한컴산뜻돋움", Font.BOLD, 40));
+          lb.setBounds(350,0,300,100);
+          
+          backButton.setBounds(10,10,80,80);
+          backButton.addActionListener(this);
+          
+          JTabbedPane mainJtabUI = new JTabbedPane(JTabbedPane.TOP);
+          mainJtabUI.setBounds(50,100,900,550);
+          mainJtabUI.addTab("예약 조회", new ReservationSearch());
+          
+          add(lb);
+          add(backButton);
+          add(mainJtabUI);
+          
+          setVisible(true);
+    }
+    class ReservationSearch extends JPanel implements ActionListener{
+       JPanel mainPanel = new JPanel();
          JPanel p[] = new JPanel[2];
          JTextArea textArea = new JTextArea(29,87);
          JButton searchButton = new JButton("조회하기");
-		 
-		 ReservationSearch(){
-			 for(int i=0; i<p.length; i++) {
-	               p[i] = new JPanel();
-	               p[i].setBackground(new Color(176, 224, 230));
-	            }
-			 
-			 searchButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
-	         searchButton.setForeground(new Color(255, 255, 255));
-	         searchButton.setBackground(new Color(128, 128, 128));
-			 searchButton.addActionListener(this);
-			 
-			 p[0].add(searchButton);
-	         p[1].add(new JScrollPane(textArea));
-	            
-	         mainPanel.setLayout(new BorderLayout());
-	         mainPanel.add(p[0], BorderLayout.NORTH);
-	         mainPanel.add(p[1], BorderLayout.CENTER);
-	         add(mainPanel);
-		 }
+       
+       ReservationSearch(){
+          for(int i=0; i<p.length; i++) {
+                  p[i] = new JPanel();
+                  p[i].setBackground(new Color(176, 224, 230));
+               }
+          
+          searchButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
+            searchButton.setForeground(new Color(255, 255, 255));
+            searchButton.setBackground(new Color(128, 128, 128));
+          searchButton.addActionListener(this);
+          
+          p[0].add(searchButton);
+            p[1].add(new JScrollPane(textArea));
+               
+            mainPanel.setLayout(new BorderLayout());
+            mainPanel.add(p[0], BorderLayout.NORTH);
+            mainPanel.add(p[1], BorderLayout.CENTER);
+            add(mainPanel);
+       }
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-		 
-	 }
-	 
-	 @Override
+      @Override
+      public void actionPerformed(ActionEvent e) {
+         // TODO Auto-generated method stub
+         
+      }
+    }
+    
+    @Override
      public void actionPerformed(ActionEvent arg0) {
         // TODO Auto-generated method stub
         if(arg0.getSource() == backButton) {
            card.show(c, "managerMenu");
         }
      }
-	   
+      
    }
 
 }
