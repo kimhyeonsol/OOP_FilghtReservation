@@ -21,6 +21,7 @@ public class SelectSeatUIFrame extends JFrame implements ActionListener{
    JButton BSeatButton[] = new JButton[10];
    JButton CSeatButton[] = new JButton[10];
    JButton DSeatButton[] = new JButton[10];
+   JButton resetButton = new JButton("좌석 선택 초기화");
    
    JLabel rowLabel[] = new JLabel[4];
    JLabel columnLabel[] = new JLabel[10];
@@ -60,6 +61,13 @@ public class SelectSeatUIFrame extends JFrame implements ActionListener{
          }
          add(columnLabel[i]);
       }
+      
+      resetButton.setBackground(new Color(128, 128, 128));
+      resetButton.setForeground(Color.white);
+      resetButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
+      //resetButton.setBounds(690,410,150,30);
+      resetButton.addActionListener(this);
+      add(resetButton);
       
       for(int i=0; i<ASeatButton.length; i++) {//좌석달기
     	  
@@ -111,7 +119,6 @@ public class SelectSeatUIFrame extends JFrame implements ActionListener{
       setBounds(100, 100, 900, 600);
       setVisible(true);
    }
-   
    public static void main(String[] args) {
          new SelectSeatUIFrame();
    }
@@ -123,6 +130,18 @@ public class SelectSeatUIFrame extends JFrame implements ActionListener{
 			if(e.getSource() == ASeatButton[i]) {
 				ASeatButton[i].setBackground(new Color(255, 192, 0));
 				ASeatButton[i].setFocusPainted(false);
+			}
+			else if(e.getSource() == BSeatButton[i]) {
+				BSeatButton[i].setBackground(new Color(255, 192, 0));
+				BSeatButton[i].setFocusPainted(false);
+			}
+			else if(e.getSource() == CSeatButton[i]) {
+				CSeatButton[i].setBackground(new Color(255, 192, 0));
+				CSeatButton[i].setFocusPainted(false);
+			}
+			else if(e.getSource() == DSeatButton[i]) {
+				DSeatButton[i].setBackground(new Color(255, 192, 0));
+				DSeatButton[i].setFocusPainted(false);
 			}
 	   }
    }
