@@ -16,11 +16,13 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
@@ -411,7 +413,8 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
 
       class FlightResPanel extends JPanel implements ActionListener{
          GoBackButton backButton = new GoBackButton();
-            
+         JTextArea textArea = new JTextArea();
+         
           FlightResPanel(){
              setBackground(Color.lightGray);
               setLayout(null);
@@ -441,9 +444,67 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
             
             class RegisterFlightPanel extends JPanel{
                   RegisterFlightPanel(){
-                   
+                	  this.setLayout(null);
+                	  add(new FlightSearchPanel());
+                	  JScrollPane scroll=new JScrollPane(textArea);
+                	  add(scroll);
+                	  scroll.setBounds(50,200,800,250);
+                	  add(new FlightSelectPanel());
                   }
             }
+            class FlightSearchPanel extends JPanel{
+            	
+            	JLabel titleLb=new JLabel("항공권 검색");
+            	JLabel lb[]=new JLabel[3];
+            	String lbStr[]= {"가는 날","오는 날","가는 인원"};
+            	JTextField tf[]=new JTextField[3];
+            	
+            	JComboBox combo=new JComboBox();
+            	JRadioButton radio[]=new JRadioButton[2];
+            	String radioStr[]= {"편도","왕복"};
+            
+            
+            	FlightSearchPanel(){
+              	  this.setLayout(null);
+              	  //this.setBackground();
+              	  this.setBounds(0,0,900,200);
+              	  titleLb.setBounds(5,5,200,20);
+              	  titleLb.setFont(new Font("한컴산뜻돋움", Font.BOLD, 20));
+              	  add(titleLb);
+              	  
+              	  //combo.add("인천공항");
+              	  add(combo);
+              	  
+	              for(int i=0; i<lb.length; i++) {
+	              	lb[i] = new JLabel(lbStr[i]);
+	              	lb[i].setHorizontalAlignment(JLabel.CENTER);
+	                lb[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+	               }
+	               for(int i=0; i<tf.length; i++) {
+	               	 tf[i] = new JTextField();
+	               }
+	               for(int i=0; i<lb.length; i++) {
+	                lb[i].setLocation(450, 40+(i*45));
+	                lb[i].setSize(80,40);
+	                add(lb[i]);
+	                tf[i].setLocation(625, 50+(i*50));
+	                tf[i].setSize(200,40);
+	                add(tf[i]);
+	              }
+                 
+                }
+            }
+            class FlightSelectPanel extends JPanel{
+            	FlightSelectPanel(){
+              	  this.setLayout(null);
+              	  this.setBackground(Color.blue);
+              	  this.setBounds(0,450,900,100);
+              	  
+              	  
+              	  
+                }
+            }
+           
                @Override
            public void actionPerformed(ActionEvent arg0) {
                 // TODO Auto-generated method stub
