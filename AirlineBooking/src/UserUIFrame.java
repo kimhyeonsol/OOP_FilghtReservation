@@ -455,31 +455,51 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
             class FlightSearchPanel extends JPanel{
             	
             	JLabel titleLb=new JLabel("항공권 검색");
-            	JLabel lb[]=new JLabel[3];
-            	String lbStr[]= {"가는 날","오는 날","가는 인원"};
-            	JTextField tf[]=new JTextField[3];
             	
             	JComboBox combo=new JComboBox();
+            	String comboStr[]= {"인천","김포","제주","대구","김해"};
             	JRadioButton radio[]=new JRadioButton[2];
             	String radioStr[]= {"편도","왕복"};
+            	
+            	
+            	JLabel lb[]=new JLabel[3];
+            	String lbStr[]= {"가는 날","오는 날","가는 인원"};
+            	
+            	JLabel lb2=new JLabel("출발 공항");
+            	
+            	JTextField tf[]=new JTextField[3];
+            	
             
-            
-            	FlightSearchPanel(){
+            	  FlightSearchPanel(){
               	  this.setLayout(null);
               	  //this.setBackground();
               	  this.setBounds(0,0,900,200);
-              	  titleLb.setBounds(5,5,200,20);
+              	  titleLb.setBounds(14,14,200,20);
               	  titleLb.setFont(new Font("한컴산뜻돋움", Font.BOLD, 20));
               	  add(titleLb);
               	  
-              	  //combo.add("인천공항");
+	              lb2.setHorizontalAlignment(JLabel.CENTER);
+	              lb2.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+	              lb2.setBounds(30,60,100,40);
+	              add(lb2);
+              	  for(int i=0;i<comboStr.length;i++) {
+              		  combo.addItem(comboStr[i]);
+              	  }
+              	  combo.setBounds(160,60,200,50);
+              	combo.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
               	  add(combo);
               	  
-	              for(int i=0; i<lb.length; i++) {
-	              	lb[i] = new JLabel(lbStr[i]);
-	              	lb[i].setHorizontalAlignment(JLabel.CENTER);
-	                lb[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
-	               }
+              	for(int i=0; i<radio.length; i++) {
+	              	radio[i] = new JRadioButton(radioStr[i]);
+	              	radio[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+	              	radio[i].setBounds(120+(100*i),125,100,50);
+	              	add(radio[i]);
+	             }
+	            for(int i=0; i<lb.length; i++) {
+	              lb[i] = new JLabel(lbStr[i]);
+	              lb[i].setHorizontalAlignment(JLabel.CENTER);
+	              lb[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+	            }
 	               for(int i=0; i<tf.length; i++) {
 	               	 tf[i] = new JTextField();
 	               }
@@ -491,17 +511,35 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
 	                tf[i].setSize(200,40);
 	                add(tf[i]);
 	              }
-                 
                 }
             }
             class FlightSelectPanel extends JPanel{
+            	JLabel lb=new JLabel("선택할 항공권 ID: ");
+            	JTextField tf=new JTextField();
+            	JButton btn=new JButton("좌석선택하기");
+            	JButton btn2=new JButton("예약하기");
+            	
             	FlightSelectPanel(){
               	  this.setLayout(null);
-              	  this.setBackground(Color.blue);
               	  this.setBounds(0,450,900,100);
-              	  
-              	  
-              	  
+              	  lb.setBounds(100,15,200,20);
+              	  lb.setFont(new Font("한컴산뜻돋움", Font.BOLD, 20));
+            	  add(lb);
+            	  
+            	  tf.setBounds(280,10,200,40);
+            	  tf.setFont(new Font("한컴산뜻돋움", Font.BOLD, 20));
+            	  add(tf);
+            	  
+            	  btn.setHorizontalAlignment(JLabel.CENTER);
+            	  btn.setFont(new Font("한컴산뜻돋움", Font.BOLD, 20));
+            	  btn.setBounds(510,10,180,40);
+            	  add(btn);
+            	  
+            	  btn2.setHorizontalAlignment(JLabel.CENTER);
+            	  btn2.setFont(new Font("한컴산뜻돋움", Font.BOLD, 20));
+            	  btn2.setBounds(700,10,150,40);
+            	  add(btn2);
+                  
                 }
             }
            
