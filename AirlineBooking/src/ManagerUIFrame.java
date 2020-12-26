@@ -217,6 +217,7 @@ public class ManagerUIFrame extends JFrame{
               
             p[0].setLayout(new BorderLayout());
             
+            searchButton.setFocusPainted(false);
             searchButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
             searchButton.setForeground(new Color(255, 255, 255));
             searchButton.setBackground(new Color(128, 128, 128));
@@ -249,6 +250,7 @@ public class ManagerUIFrame extends JFrame{
             
             deleteButton.setForeground(new Color(255, 255, 255));
             deleteButton.setBackground(new Color(128, 128, 128));
+            deleteButton.setFocusPainted(false);
             deleteButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
             deleteButton.setLocation(50, 400);
             deleteButton.setSize(340,50);
@@ -322,9 +324,10 @@ public class ManagerUIFrame extends JFrame{
                   p[i].setBackground(new Color(176, 224, 230));
                }
           
+          searchButton.setFocusPainted(false);
           searchButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
-            searchButton.setForeground(new Color(255, 255, 255));
-            searchButton.setBackground(new Color(128, 128, 128));
+          searchButton.setForeground(new Color(255, 255, 255));
+          searchButton.setBackground(new Color(128, 128, 128));
           searchButton.addActionListener(this);
           
           p[0].add(searchButton);
@@ -406,6 +409,7 @@ public class ManagerUIFrame extends JFrame{
                
                p[0].setLayout(new BorderLayout());
                
+               searchButton.setFocusPainted(false);
                searchButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
                searchButton.setForeground(new Color(255, 255, 255));
                searchButton.setBackground(new Color(128, 128, 128));
@@ -437,6 +441,7 @@ public class ManagerUIFrame extends JFrame{
                   p[1].add(textField[i]);
                }
                
+               createButton.setFocusPainted(false);
                createButton.setForeground(new Color(255, 255, 255));
                createButton.setBackground(new Color(128, 128, 128));
                createButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
@@ -480,6 +485,7 @@ public class ManagerUIFrame extends JFrame{
                
                p[0].setLayout(new BorderLayout());
                
+               searchButton.setFocusPainted(false);
                searchButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
                searchButton.setForeground(new Color(255, 255, 255));
                searchButton.setBackground(new Color(128, 128, 128));
@@ -511,6 +517,7 @@ public class ManagerUIFrame extends JFrame{
                   p[1].add(textField[i]);
                }
                
+               updateButton.setFocusPainted(false);
                updateButton.setForeground(new Color(255, 255, 255));
                updateButton.setBackground(new Color(128, 128, 128));
                updateButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
@@ -553,6 +560,7 @@ public class ManagerUIFrame extends JFrame{
                  
                p[0].setLayout(new BorderLayout());
                
+               searchButton.setFocusPainted(false);
                searchButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
                searchButton.setForeground(new Color(255, 255, 255));
                searchButton.setBackground(new Color(128, 128, 128));
@@ -577,6 +585,7 @@ public class ManagerUIFrame extends JFrame{
                textField.setSize(200,60);
                p[1].add(textField);
                
+               deleteButton.setFocusPainted(false);
                deleteButton.setForeground(new Color(255, 255, 255));
                deleteButton.setBackground(new Color(128, 128, 128));
                deleteButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
