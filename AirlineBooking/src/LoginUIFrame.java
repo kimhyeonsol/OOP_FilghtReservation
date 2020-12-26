@@ -27,6 +27,8 @@ public class LoginUIFrame extends JFrame{//로그인 프레임(카드레이 아�
 	LoginUIPanel loginUIpanel=new LoginUIPanel();
 	SignUpPanel signUpPanel=new SignUpPanel();
 	
+	String userId="";
+	
 	LoginUIFrame(){
 		setTitle("LoginUIFrame");
 		setBounds(400, 300, 500, 380);
@@ -158,7 +160,8 @@ public class LoginUIFrame extends JFrame{//로그인 프레임(카드레이 아�
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			if(e.getSource() == loginButton[0]) {
-				new UserUIFrame();
+				userId=loginTextField[0].getText();
+				new UserUIFrame(userId);
 				loginUIFrameExit();
 	        }
 			if(e.getSource() == loginButton[1]) {
