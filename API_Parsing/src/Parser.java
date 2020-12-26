@@ -59,12 +59,12 @@ public class Parser {
         
         //stringList.size()
         for(int i=0; i<stringList.size(); i++) {
-        	System.out.println(stringList.get(i));
+//        	System.out.println(stringList.get(i));
         	URL url = new URL(stringList.get(i).toString());
         	HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Content-type", "application/json");
-            System.out.println("Response code: " + conn.getResponseCode());
+//            System.out.println("Response code: " + conn.getResponseCode());
             BufferedReader rd;
             if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
                 rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -84,7 +84,7 @@ public class Parser {
                 JSONParser jsonParser = new JSONParser();
                 //System.out.println("제발   " + sb.toString());
                 JSONObject jsonObj = (JSONObject) jsonParser.parse(sb.toString());
-                System.out.println(jsonObj);
+//                System.out.println(jsonObj);
                 jsonObj = (JSONObject) jsonObj.get("response");
                 jsonObj = (JSONObject) jsonObj.get("body");
                 //System.out.println("!!!!!!!!!!!!" + jsonObj.get("items"));
@@ -93,8 +93,17 @@ public class Parser {
                 	continue;
                 jsonObj = (JSONObject) jsonObj.get("items");
                 
-                JSONArray memberArray = (JSONArray) jsonObj.get("item");
-
+                JSONArray memberArray;
+                try {
+                	memberArray = (JSONArray) jsonObj.get("item"); // data: [ {...}, {...} ]
+                } catch(ClassCastException e) {
+                	memberArray  = new JSONArray();
+                	memberArray.add((JSONObject) jsonObj.get("item"));
+                	
+//                	JSONArray memberArray = (JSONArray) [jsonObj.get("item")]; // data: [ {...}, {...} ]
+                }
+                // data: {} -> data['airlineNm']
+                // data: [{}]
                 //System.out.println("=====Members=====");
                 
                 for(int ii=0 ; ii<memberArray.size() ; ii++){
