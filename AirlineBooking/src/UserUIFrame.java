@@ -110,7 +110,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
    }
    
    class UserMenuPanel extends JPanel implements ActionListener{
-	  GoBackButton backButton = new GoBackButton();
+     GoBackButton backButton = new GoBackButton();
       MyInfoButton myInfoButton = new MyInfoButton();
       FlightResButton flightResButton = new FlightResButton();
       
@@ -149,8 +149,8 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
             card.show(c, "reservation");
          }
          else if(e.getSource() == backButton) {
-        	 new LoginUIFrame();
-        	 userMenuExit();
+            new LoginUIFrame();
+            userMenuExit();
          }
       }
     } 
@@ -453,6 +453,19 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                 	  scroll.setBounds(50,200,800,250);
                 	  add(new FlightSelectPanel());
                   }
+                  for(int i=0; i<tf.length; i++) {
+                      tf[i] = new JTextField();
+                  }
+                  for(int i=0; i<lb.length; i++) {
+                   lb[i].setLocation(450, 40+(i*45));
+                   lb[i].setSize(80,40);
+                   add(lb[i]);
+                   tf[i].setLocation(625, 50+(i*50));
+                   tf[i].setSize(200,40);
+                   add(tf[i]);
+                 }
+                 
+                }
             }
             class FlightSearchPanel extends JPanel implements ActionListener{
             	
