@@ -37,6 +37,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
    BufferedImage Image1, Image2, Image3;
    
    String _userId="";
+   int resNum=0;
    
 /////////////////////////////////////////////////////////////////////////////////////
    
@@ -414,6 +415,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
       class FlightResPanel extends JPanel implements ActionListener{
          GoBackButton backButton = new GoBackButton();
          JTextArea textArea = new JTextArea();
+         JTextField tf2[]=new JTextField[3];
          
           FlightResPanel(){
              setBackground(Color.lightGray);
@@ -452,7 +454,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                 	  add(new FlightSelectPanel());
                   }
             }
-            class FlightSearchPanel extends JPanel{
+            class FlightSearchPanel extends JPanel implements ActionListener{
             	
             	JLabel titleLb=new JLabel("항공권 검색");
             	
@@ -467,10 +469,9 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
             	
             	JLabel lb2=new JLabel("출발 공항");
             	
-            	JTextField tf[]=new JTextField[3];
             	
-            
-            	  FlightSearchPanel(){
+           
+            	FlightSearchPanel(){
               	  this.setLayout(null);
               	  //this.setBackground();
               	  this.setBounds(0,0,900,200);
@@ -500,24 +501,34 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
 	              lb[i].setHorizontalAlignment(JLabel.CENTER);
 	              lb[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
 	            }
-	               for(int i=0; i<tf.length; i++) {
-	               	 tf[i] = new JTextField();
+	               for(int i=0; i<tf2.length; i++) {
+	            	   tf2[i] = new JTextField();
 	               }
 	               for(int i=0; i<lb.length; i++) {
-	                lb[i].setLocation(450, 40+(i*45));
+	                lb[i].setLocation(450, 50+(i*45));
 	                lb[i].setSize(80,40);
 	                add(lb[i]);
-	                tf[i].setLocation(625, 50+(i*50));
-	                tf[i].setSize(200,40);
-	                add(tf[i]);
+	                tf2[i].setLocation(625, 50+(i*50));
+	                tf2[i].setSize(200,40);
+	                add(tf2[i]);
 	              }
-                }
+	               
+              }
+
+				@Override
+		     public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					
+					
+				}
+            	
             }
-            class FlightSelectPanel extends JPanel{
+            class FlightSelectPanel extends JPanel implements ActionListener{
             	JLabel lb=new JLabel("선택할 항공권 ID: ");
             	JTextField tf=new JTextField();
             	JButton btn=new JButton("좌석선택하기");
             	JButton btn2=new JButton("예약하기");
+            	
             	
             	FlightSelectPanel(){
               	  this.setLayout(null);
@@ -533,16 +544,27 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
             	  btn.setHorizontalAlignment(JLabel.CENTER);
             	  btn.setFont(new Font("한컴산뜻돋움", Font.BOLD, 20));
             	  btn.setBounds(510,10,180,40);
+            	  btn.addActionListener(this);
             	  add(btn);
             	  
             	  btn2.setHorizontalAlignment(JLabel.CENTER);
             	  btn2.setFont(new Font("한컴산뜻돋움", Font.BOLD, 20));
             	  btn2.setBounds(700,10,150,40);
+            	  btn2.addActionListener(this);
             	  add(btn2);
-                  
+            	  
                 }
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					if(e.getSource()==btn) {
+						resNum=Integer.valueOf(tf2[2].getText());
+						new SelectSeatUIFrame(resNum);
+					}
+				}
             }
-           
+            
                @Override
            public void actionPerformed(ActionEvent arg0) {
                 // TODO Auto-generated method stub
