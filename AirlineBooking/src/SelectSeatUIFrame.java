@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,11 +9,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class SelectSeatUIFrame extends JFrame implements ActionListener{
-   JPanel p[] = new JPanel[2];
+	Container c = getContentPane();
+	
+   JPanel p[] = new JPanel[1];
    
    JButton ASeatButton[] = new JButton[10];
    JButton BSeatButton[] = new JButton[10];
@@ -20,7 +22,7 @@ public class SelectSeatUIFrame extends JFrame implements ActionListener{
    JButton DSeatButton[] = new JButton[10];
    JButton resetButton = new JButton("좌석 선택 초기화");
    
-
+   
    JLabel rowLabel[] = new JLabel[4];
    JLabel columnLabel[] = new JLabel[10];
    
@@ -31,16 +33,10 @@ public class SelectSeatUIFrame extends JFrame implements ActionListener{
    JTextArea ta=new JTextArea();
    
    SelectSeatUIFrame(int resNum){
-	   _resNum=resNum;
+      _resNum=resNum;
       setTitle("좌석 선택 페이지");
-      setLayout(new BorderLayout());
-      setBounds(100, 100, 900, 600);
+      setLayout(null);
       
-      for(int i=0; i<p.length; i++) {
-         p[i] = new JPanel();
-      }
-      p[0].setBackground(Color.WHITE);
-      p[0].setLayout(null);
       for(int i=0; i<rowLabel.length; i++) {
          rowLabel[i] = new JLabel(rowStr[i]);
          rowLabel[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 25));
@@ -119,11 +115,8 @@ public class SelectSeatUIFrame extends JFrame implements ActionListener{
             DSeatButton[i].setBackground(new Color(46, 117, 182));
          }
       }
-     
-      add(p[0], BorderLayout.CENTER);
-      add(p[1], BorderLayout.SOUTH);
       
-      
+      setBounds(100, 100, 900, 600);
       setVisible(true);
    }
   
@@ -132,30 +125,30 @@ public class SelectSeatUIFrame extends JFrame implements ActionListener{
       // TODO Auto-generated method stub
       for(int i=0; i<ASeatButton.length; i++) {
          if(e.getSource() == ASeatButton[i]) {
-        	 cnt++;
-        	 if(cnt>_resNum)
-        		 return;
+            cnt++;
+            if(cnt>_resNum)
+               return;
             ASeatButton[i].setBackground(new Color(255, 192, 0));
             ASeatButton[i].setFocusPainted(false);
          }
          else if(e.getSource() == BSeatButton[i]) {
-        	 cnt++;
-        	 if(cnt>_resNum)
-        		 return;
+            cnt++;
+            if(cnt>_resNum)
+               return;
             BSeatButton[i].setBackground(new Color(255, 192, 0));
             BSeatButton[i].setFocusPainted(false);
          }
          else if(e.getSource() == CSeatButton[i]) {
-        	 cnt++;
-        	 if(cnt>_resNum)
-        		 return;
+            cnt++;
+            if(cnt>_resNum)
+               return;
             CSeatButton[i].setBackground(new Color(255, 192, 0));
             CSeatButton[i].setFocusPainted(false);
          }
          else if(e.getSource() == DSeatButton[i]) {
-        	 cnt++;
-        	 if(cnt>_resNum)
-        		 return;
+            cnt++;
+            if(cnt>_resNum)
+               return;
             DSeatButton[i].setBackground(new Color(255, 192, 0));
             DSeatButton[i].setFocusPainted(false);
          }
