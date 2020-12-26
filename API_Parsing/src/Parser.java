@@ -11,14 +11,93 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+import com.sun.jdi.connect.spi.Connection;
 
 public class Parser {
 	
 	static int index=0;
 	static String[][] realOutput = new String[20][2];
 	 
-    public static void main(String[] args) throws IOException {
-    	
+	   
+	   Scanner scanner=new Scanner(System.in);
+	   
+	   String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+	   String jdbcUrl = "jdbc:mysql://localhost:3306/airplanereservation?&serverTimezone=Asia/Seoul&useSSL=false";
+	   
+	   java.sql.Connection conn;
+	   
+	   PreparedStatement pstmt;
+	   ResultSet rs;
+	
+	
+	public Parser() throws SQLException {
+
+		ArrayList<Info> list = null;
+		try {
+			list = parsing();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		connectDB();
+		
+		for(Info li:list) {
+			insertAPInfo(li);
+		}
+		
+		closeDB();
+	}
+   
+	public void closeDB() {
+		try {
+			pstmt.close();
+//			rs.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void insertAPInfo(Info in) {
+		String sql = "insert into airlineinfo(airLineNm, arrAirportNm, arrPlandTime, depAirportNm, depPlandTime, economyCharge,prestigeCharge)  values(?,?,?,?,?,?,?)";
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, in.getAirlineNm());
+			pstmt.setString(2, in.getArrAirportNm());
+			pstmt.setString(3, in.getArrPlandTime());
+			pstmt.setString(4, in.depAirportNm);
+			pstmt.setString(5, in.depPlandTime);
+			pstmt.setInt(6, in.getEconomyCharge());
+			pstmt.setInt(7, in.getPrestigeCharge());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void connectDB() throws SQLException {
+		try {
+			Class.forName(jdbcDriver);
+			conn = DriverManager.getConnection(jdbcUrl, "root", "111111");// check your username and pw
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+    public static void main(String[] args) throws SQLException  {
+        new Parser();
+    }
+    
+    public ArrayList<Info> parsing() throws IOException{
+
     	int n=5;
     	String[] airport = {"NAARKSI", "NAARKSS", "NAARKPC", "NAARKTN", "NAARKPK"};
         String[] output = new String[n];
@@ -37,7 +116,7 @@ public class Parser {
         ArrayList<StringBuilder> stringList = new ArrayList<StringBuilder>();
         
       
-        for(int i=0; i<depTime.length; i++) {
+        for(int i=0; i<1; i++) {
         	for(int airportIdx=0; airportIdx<20; airportIdx++) {
         		StringBuilder urlBuilder = new StringBuilder("http://openapi.tago.go.kr/openapi/service/DmstcFlightNvgInfoService/getFlightOpratInfoList"); /*URL*/
            	 	urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=HoQJoMcIclVOuYTbwxyCnXUyrecaDhPKFkHIzaVPxyXJdqFazyYIeXDPa9hDjYdpg7zLbyXTiVPVyyAdgJ4yKw%3D%3D"); /*Service Key*/
@@ -136,24 +215,22 @@ public class Parser {
             
         }
         
+        return list;
  
-        for(Info i:list)
-        {
-        	System.out.println("항공사 "+i.getAirlineNm());
-          System.out.println("출발 공항 "+i.getArrAirportNm());
-          System.out.println("출발 시간 "+i.getArrPlandTime());
-          System.out.println("도착 공항 "+i.getDepAirportNm());
-          System.out.println("도착 시간 "+i.getDepPlandTime());
-          System.out.println("economyCharge "+i.getEconomyCharge());
-          System.out.println("prestigeCharge "+i.getPrestigeCharge());
-          
-          System.out.println("----------------------------");
-      }
-        
-        
-        
-       
+//        for(Info i:list)
+//        {
+//        	System.out.println("항공사 "+i.getAirlineNm());
+//          System.out.println("출발 공항 "+i.getArrAirportNm());
+//          System.out.println("출발 시간 "+i.getArrPlandTime());
+//          System.out.println("도착 공항 "+i.getDepAirportNm());
+//          System.out.println("도착 시간 "+i.getDepPlandTime());
+//          System.out.println("economyCharge "+i.getEconomyCharge());
+//          System.out.println("prestigeCharge "+i.getPrestigeCharge());
+//          
+//          System.out.println("----------------------------");
+//      }
     }
+    
     
     //////////////////////////////////////////////////////////////////////////////
     //permutation method
