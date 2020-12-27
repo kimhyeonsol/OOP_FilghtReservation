@@ -19,8 +19,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class AirlineBookingUI extends JFrame{
+////////////////////메인 클래스
 
+public class AirlineBookingUI extends JFrame{
 	public static void main(String[] args) {
       new LoginUIFrame();
    }
