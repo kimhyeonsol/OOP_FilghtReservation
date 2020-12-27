@@ -47,7 +47,7 @@ public class AirLineDAO {
 	}
 
 	// 전체 가져오기
-	public ArrayList<AirLineDTO> getAll() throws SQLException {
+	public ArrayList<AirLineDTO> getAllALInfo() throws SQLException {
 		// connectDB();
 		sql = "select * from airlineinfo";
 
@@ -102,6 +102,7 @@ public class AirLineDAO {
 
 		return null;
 	}
+	
 
 	public Vector<String> getItems() {
 		Vector<String> arr = new Vector<String>();
@@ -119,7 +120,7 @@ public class AirLineDAO {
 		return arr;
 	}
 
-	public void updateProduct(AirLineDTO p) {
+	public void updateALInfo(AirLineDTO p) {
 		sql = "UPDATE airlineinfo SET arrPlandTime = ?, depPlandTime = ?, economyCharge = ?, prestigeCharge = ? WHERE ID = ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -140,7 +141,7 @@ public class AirLineDAO {
 		}
 	}
 
-	public void addProduct(AirLineDTO p) {
+	public void addALInfo(AirLineDTO p) {
 
 		try {
 			sql = "insert into airlineinfo values(0, ?, ?, ?, ?, ?, ?, ?)";
@@ -169,7 +170,7 @@ public class AirLineDAO {
 
 	}
 
-	public void delProduct(int ID) {
+	public void delALInfo(int ID) {
 
 		try {
 			sql = "delete from airlineinfo where ID = ?";
