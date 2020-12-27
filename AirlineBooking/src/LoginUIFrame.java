@@ -28,10 +28,10 @@ public class LoginUIFrame extends JFrame{
    SignUpPanel signUpPanel=new SignUpPanel();
    
    String userId="";//사용자 아이디 문자열
-   
+		   
    LoginUIFrame(){
       setTitle("LoginUIFrame");
-      setBounds(400, 300, 500, 380);
+      setBounds(450, 200, 500, 380);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       
       c=this.getContentPane();
@@ -52,6 +52,7 @@ public class LoginUIFrame extends JFrame{
    class StartUIPanel extends JPanel implements ActionListener{
          ManagerButton managerButton = new ManagerButton();//관리자 버튼
          UserButton userButton = new UserButton();//사용자 버튼
+         
          public StartUIPanel() {
            try {
               backImage = ImageIO.read(new File("loginImg.jpg"));
@@ -151,23 +152,23 @@ public class LoginUIFrame extends JFrame{
          for(int i=0; i<loginButton.length; i++) {
             loginButton[i] = new JButton(loginButtonStr[i]);
             loginButton[i].setForeground(new Color(255, 255, 255));
-            loginButton[i].setBackground(new Color(128, 128, 128));
+            loginButton[i].setBackground(new Color(37, 51, 42));
             loginButton[i].setFocusPainted(false);
             loginButton[i].addActionListener(this);
             add(loginButton[i]);
          }
-         loginButton[0].setBounds(83, 240, 327, 30);
+         loginButton[0].setBounds(65, 240, 345, 30);
          loginButton[1].setBounds(280, 284, 130, 27);
          loginButton[0].setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
          loginButton[1].setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
         
          //뒤로가기 버튼 부착
          backButton.setForeground(new Color(255, 255, 255));
-         backButton.setBackground(new Color(128, 128, 128));
+         backButton.setBackground(new Color(37, 51, 42));
          backButton.setFocusPainted(false);
          backButton.addActionListener(this);
          backButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
-         backButton.setBounds(83, 284, 130, 27);
+         backButton.setBounds(65, 284, 130, 27);
          add(backButton);
       }
       
@@ -209,7 +210,7 @@ public class LoginUIFrame extends JFrame{
          public SignUpPanel() {
             
             setLayout(null);
-            this.setBackground(new Color(124,143,157));
+            this.setBackground(new Color(113,151,126));
             
             //타이틀 라벨 부착
             titleLabel.setForeground(Color.white);
@@ -233,7 +234,7 @@ public class LoginUIFrame extends JFrame{
              }
              
             //돌아가기 버튼 부착
-             backButton.setBackground(new Color(128, 128, 128));
+             backButton.setBackground(new Color(37, 51, 42));
              backButton.setFocusPainted(false);
              backButton.setForeground(Color.white);
              backButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
@@ -242,7 +243,7 @@ public class LoginUIFrame extends JFrame{
              add(backButton);
              
              //회원가입 버튼 부착
-             signUpButton.setBackground(new Color(128, 128, 128));
+             signUpButton.setBackground(new Color(37, 51, 42));
              signUpButton.setFocusPainted(false);
              signUpButton.setForeground(Color.white);
              signUpButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
