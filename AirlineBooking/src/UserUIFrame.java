@@ -39,7 +39,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
    CardLayout card;
    
    BufferedImage backImage, menuImage1, menuImage2;
-   BufferedImage Image1, Image2, Image3;
+   BufferedImage Image1, Image2, Image3, pageImg;
    
    String _userId="";//이 페이지의 사용자 ID
    int resNum=0;//탑승할 인원수
@@ -51,7 +51,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
       
       _userId=userId;
       setTitle(userId+" 페이지");
-      setBounds(100, 100, 1000, 700);
+      setBounds(250, 50, 1000, 700);
       this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
       setBackground(Color.black);
       
@@ -173,8 +173,12 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
          GoBackButton backButton = new GoBackButton();//뒤로가기 버튼
          
          MyInfoPanel(){//내 프로필 카드 생성자
-             setLayout(null);
-              setBackground(Color.lightGray);
+        	  try {
+       		    pageImg = ImageIO.read(new File("pageImg.jpg"));
+              } catch (IOException e) {
+                 e.printStackTrace();
+              }
+              setLayout(null);
               setBounds(200, 150, 1000, 700);
               
               JLabel lb=new JLabel("마이 페이지");
@@ -195,6 +199,11 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
       
               setVisible(true);
          }
+         protected void paintComponent(Graphics g) {
+             super.paintComponent(g);
+             g.drawImage(pageImg,0,0,getWidth(),getHeight(),null);
+         }
+         
  
          //////////////////////////////////////////////////////////내 정보 수정하기 탭팬///////////////////////////////////////////////////////////
          class MyInfoUpdatePanel extends JPanel implements ActionListener{
@@ -225,14 +234,14 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                 
                 for(int i=0; i<p.length; i++) {
                    p[i] = new JPanel();
-                   p[i].setBackground(new Color(176, 224, 230));
+                   p[i].setBackground(new Color(209, 233, 255));
                 }
                 
                 /////////////////////////////////내 정보 문서로 저장하는 패널 p[0]
                 p[0].setLayout(new BorderLayout());
                 for(int i=0; i<savePanel.length; i++) {
                    savePanel[i] = new JPanel();
-                   savePanel[i].setBackground(new Color(176, 224, 230));
+                   savePanel[i].setBackground(new Color(209, 233, 255));
                 }
                 
                 savePanel[0].setLayout(new GridLayout(2,1));
@@ -370,7 +379,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                
                MyReservationUpdatePanel(){//패널 생성자
                  setLayout(null);
-                 setBackground(new Color(176, 224, 230));
+                 setBackground(new Color(209, 233, 255));
                  
                  pageName.setBounds(10,10,200,30);//페이지 이름 라벨
                  pageName.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
@@ -478,7 +487,11 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
        JTextArea destAirportTextArea=new JTextArea();
          
       FlightResPanel(){
-         setBackground(Color.lightGray);
+    	 try {
+     		    pageImg = ImageIO.read(new File("pageImg.jpg"));
+         } catch (IOException e) {
+               e.printStackTrace();
+         }
          setLayout(null);
          setBounds(200, 150, 1000, 700);
          
@@ -500,12 +513,16 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
               
          setVisible(true);
       }
+      protected void paintComponent(Graphics g) {
+          super.paintComponent(g);
+          g.drawImage(pageImg,0,0,getWidth(),getHeight(),null);
+      }
             
       class RegisterFlightPanel extends JPanel implements ActionListener,ItemListener{
         ButtonGroup group = new ButtonGroup();
          
          RegisterFlightPanel(){
-            this.setBackground(new Color(176,224,230));
+            this.setBackground(new Color(209, 233, 255));
             this.setLayout(null);
             
             titleLb.setBounds(14,14,200,20);
@@ -549,7 +566,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                   radio[i] = new JRadioButton(radioStr[i]);
                   radio[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
                   radio[i].setBounds(120+(100*i),135,100,45);
-                  radio[i].setBackground(new Color(176,224,230));
+                  radio[i].setBackground(new Color(209, 233, 255));
                   radio[i].addItemListener(this);
                   group.add(radio[i]);
                   add(radio[i]);
@@ -579,7 +596,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                flightSearchButton.setForeground(new Color(255, 255, 255));
                flightSearchButton.setBackground(new Color(128, 128, 128));
                flightSearchButton.setFocusPainted(false);
-               flightSearchButton.setBounds(670,180,150,30);
+               flightSearchButton.setBounds(675,187,150,30);
                flightSearchButton.addActionListener(this);
                add(flightSearchButton);
             
@@ -694,9 +711,12 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
       LinkedList<Integer> seatlist=new LinkedList<Integer>();
       JButton[] seatButton=new JButton[40];
       
-      
       SelectSeatPanel( ){
-         setBackground(Color.lightGray);
+    	 try {
+   		    pageImg = ImageIO.read(new File("pageImg.jpg"));
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
          setLayout(null);
          setBounds(200, 150, 1000, 700);
                
@@ -718,14 +738,14 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
          
          setVisible(true);
       }
-          
+      protected void paintComponent(Graphics g) {
+          super.paintComponent(g);
+          g.drawImage(pageImg,0,0,getWidth(),getHeight(),null);
+      }
           
       class SelectSeatTab extends JPanel implements ActionListener{
-
           Container c = getContentPane();
           
-          
-               
           JButton resetButton = new JButton("좌석 선택 초기화");//좌석 선택 초기화 버튼
           
           JLabel rowLabel[] = new JLabel[4];
@@ -736,7 +756,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                
          
           SelectSeatTab(){
-             this.setBackground(new Color(176,224,230));
+             this.setBackground(new Color(209, 233, 255));
              setBounds(100, 100, 900, 600);
              setLayout(null);
                 
@@ -896,6 +916,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
          // TODO Auto-generated method stub
          if(e.getSource() == backButton) {//뒤로가기 버튼
             card.show(c, "reservation");
+            
             cnt=0;
            seatlist.clear();
            selectedSeatTextarea.setText("");

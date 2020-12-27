@@ -37,7 +37,7 @@ public class LoginUIFrame extends JFrame{
    
    LoginUIFrame(){
       setTitle("LoginUIFrame");
-      setBounds(400, 300, 500, 380);
+      setBounds(450, 200, 500, 380);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       
       c=this.getContentPane();
