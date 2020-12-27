@@ -52,9 +52,11 @@ public class ManagerUIFrame extends JFrame{
       
       setVisible(true);
    }
+   
    public void managerMenuExit() {
       this.dispose();
    }
+   
    class GoBackButton extends JButton{
        GoBackButton(){
             try {
@@ -71,7 +73,7 @@ public class ManagerUIFrame extends JFrame{
    
    ////////////////////////////관리자 메뉴 패널////////////////////////////
    
-    class memberManageButton extends JButton{   //회원 관리 버튼
+    class memberManageButton extends JButton{//회원 관리 버튼
          memberManageButton(){
                try {
                   menuImage1 = ImageIO.read(new File("memberButton.jpg"));
@@ -98,6 +100,7 @@ public class ManagerUIFrame extends JFrame{
                g.drawImage(menuImage2,0,0,getWidth(),getHeight(),null);
          }
     }
+    
     class flightManageButton extends JButton{   //항공 관리 버튼
          flightManageButton(){
                try {
