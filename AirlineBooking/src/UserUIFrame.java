@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -44,7 +45,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
    int resNum=0;//탑승할 인원수
    
    JTextArea selectedSeatTextarea=new JTextArea();//선택된 좌석 출력되는 textArea
-   
+  
    ///////////////////////////////////////////생성자//////////////////////////////////////////////////////////////////
    UserUIFrame(String userId){//사용자 ID를 매개변수로 프레임 생성
       
@@ -375,6 +376,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                  pageName.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
                  add(pageName);
                  
+                 textArea.setEditable(false);
                  JScrollPane scroll=new JScrollPane(textArea);//자기 항공편 예약 현황 나타남
                  scroll.setBounds(30, 50, 830, 280);
                   add(scroll);
@@ -447,9 +449,6 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
          
       GoBackButton backButton = new GoBackButton();//뒤로가기 버튼
          
-      JTextArea textArea = new JTextArea();//내가 선택한 조건에 맞는 비행기가 출력되는 textArea
-      
-
       JLabel titleLb=new JLabel("항공권 검색");
       
       JLabel lb[]=new JLabel[3];//비행기 선택 조건 레이블
@@ -467,11 +466,16 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
        JLabel airport1Label=new JLabel("출발 공항");
        JLabel airport2Label=new JLabel("도착 공항");
        
-       JLabel chooseFightLabel=new JLabel("선택할 항공권 ID: ");
-       JTextField selectedFlightIDTextField=new JTextField();
+       JLabel chooseFightLabel1=new JLabel("가는 항공권 ID: ");
+       JTextField selectedFlightIDTextField1=new JTextField();
+       
+       JLabel chooseFightLabel2=new JLabel("오는 항공권 ID: ");
+       JTextField selectedFlightIDTextField2=new JTextField();
+       
        JButton selectSeatButton=new JButton("좌석선택하기");
        
-      
+       JTextArea departureAirportTextArea=new JTextArea();
+       JTextArea destAirportTextArea=new JTextArea();
          
       FlightResPanel(){
          setBackground(Color.lightGray);
@@ -498,14 +502,15 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
       }
             
       class RegisterFlightPanel extends JPanel implements ActionListener,ItemListener{
-                 
+        ButtonGroup group = new ButtonGroup();
+         
          RegisterFlightPanel(){
             this.setBackground(new Color(176,224,230));
             this.setLayout(null);
             
             titleLb.setBounds(14,14,200,20);
-               titleLb.setFont(new Font("한컴산뜻돋움", Font.BOLD, 20));
-               add(titleLb);
+            titleLb.setFont(new Font("한컴산뜻돋움", Font.BOLD, 20));
+            add(titleLb);
                
                //////////////////////////////////검색조건부분////////////////////////////////////////
                
@@ -521,6 +526,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                }
                departureAirportCombo.setBounds(160,50,200,35);
                departureAirportCombo.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+               departureAirportCombo.addActionListener(this);
                add(departureAirportCombo);
                
                //도착공항 레이블
@@ -535,6 +541,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                }
                destAirportCombo.setBounds(160,95,200,35);
                destAirportCombo.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+               destAirportCombo.addActionListener(this);
                add(destAirportCombo);
              
                //편도,왕복 라디오버튼
@@ -544,6 +551,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                   radio[i].setBounds(120+(100*i),135,100,45);
                   radio[i].setBackground(new Color(176,224,230));
                   radio[i].addItemListener(this);
+                  group.add(radio[i]);
                   add(radio[i]);
                }
                
@@ -571,36 +579,57 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                flightSearchButton.setForeground(new Color(255, 255, 255));
                flightSearchButton.setBackground(new Color(128, 128, 128));
                flightSearchButton.setFocusPainted(false);
-               flightSearchButton.setBounds(350,178,200,30);
+               flightSearchButton.setBounds(670,180,150,30);
                flightSearchButton.addActionListener(this);
                add(flightSearchButton);
             
-               //////////////////////////////////textArea부분////////////////////////////////////////
+            //////////////////////////////////textArea부분////////////////////////////////////////
                
                //선택항 조건에 대한 항공기 목록 출력하는 textArea
-            JScrollPane scroll=new JScrollPane(textArea);
+               
+            departureAirportTextArea.setEditable(false);
+            JScrollPane scroll=new JScrollPane(departureAirportTextArea);
             add(scroll);
-            scroll.setBounds(50,220,800,250);
+            scroll.setBounds(20,230,400,200);
+            
+            destAirportTextArea.setEditable(false);
+            scroll=new JScrollPane(destAirportTextArea);
+            add(scroll);
+            scroll.setBounds(470,230,400,200);
             
             //////////////////////////////////예약할 항공기 선택하는 부분////////////////////////////////////////
             
-            //라벨부착
-            chooseFightLabel.setBounds(150,485,200,20);
-               chooseFightLabel.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
-               add(chooseFightLabel);
+            //가는 비행기 라벨부착
+            chooseFightLabel1.setBounds(50,445,200,20);
+            chooseFightLabel1.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+            add(chooseFightLabel1);
              
-               //선택한 항공기 ID값 받아오는 텍스트필드
-               selectedFlightIDTextField.setBounds(330,480,200,35);
-               selectedFlightIDTextField.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
-               add(selectedFlightIDTextField);
                
-               //좌석선택하기 버튼
+            //선택한 항공기 ID값 받아오는 텍스트필드
+            selectedFlightIDTextField1.setBounds(200,440,200,35);
+            selectedFlightIDTextField1.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+            add(selectedFlightIDTextField1);
+               
+             
+            //오는 비행기 라벨부착
+            chooseFightLabel2.setBounds(500,445,200,20);
+            chooseFightLabel2.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+            add(chooseFightLabel2);
+                
+                  
+            //선택한 항공기 ID값 받아오는 텍스트필드
+            selectedFlightIDTextField2.setBounds(650,440,200,35);
+            selectedFlightIDTextField2.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+            add(selectedFlightIDTextField2);
+               
+               
+            //좌석선택하기 버튼
                selectSeatButton.setHorizontalAlignment(JLabel.CENTER);
                selectSeatButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
                selectSeatButton.setForeground(new Color(255, 255, 255));
                selectSeatButton.setBackground(new Color(128, 128, 128));
                selectSeatButton.setFocusPainted(false);
-               selectSeatButton.setBounds(540,480,180,35);
+               selectSeatButton.setBounds(350,480,200,35);
                selectSeatButton.addActionListener(this);
                add(selectSeatButton);
                
@@ -620,8 +649,14 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                }
                resNum=Integer.valueOf(flightsearchTextField[2].getText()); 
                selectedSeatTextarea.setText("");
-               System.out.println(selectedSeatTextarea.getText()+"*");
                card.show(c, "selectSeat");
+            }
+            
+            if(e.getSource()==departureAirportCombo) {//출발 공항 콤보박스
+                int index=departureAirportCombo.getSelectedIndex();
+            }
+            if(e.getSource()==destAirportCombo) {//도착 공항 콤보박스
+               int index=destAirportCombo.getSelectedIndex();
             }
          }
       
@@ -631,10 +666,12 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
             
             if(radio[0].isSelected()) {//편도가 선택된 경우
                flightsearchTextField[1].setEditable(false);
+               selectedFlightIDTextField2.setEditable(false);
             }
             
             if(radio[1].isSelected()) {//왕복이 선택된 경우
                flightsearchTextField[1].setEditable(true);
+               selectedFlightIDTextField2.setEditable(true);
             }
          }
       } 
@@ -780,11 +817,11 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
              add(selecLb);
                 
              //자기 항공편 예약 현황 나타나는 textArea부착
+             selectedSeatTextarea.setEditable(false);
              JScrollPane scroll=new JScrollPane(selectedSeatTextarea);
              selectedSeatTextarea.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
              scroll.setBounds(80, 460, 500, 40);
              add(scroll);
-             System.out.println(selectedSeatTextarea.getText()+"**");
                 
              //예약하기 버튼
              reserveButton.setHorizontalAlignment(JLabel.CENTER);
@@ -810,47 +847,45 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
              
              for(int i=0; i<seatButton.length; i++) {
                 
-            	 if(e.getSource() == seatButton[i]) {
-            		for(int j=0;j<seatlist.size();j++) {
-            			if(i==seatlist.get(j)) {
-            				return;
-            			}
-            		}
-            		seatlist.add(i);
-                	cnt++;
-                	if(cnt>resNum) {
-                		return;
-                	}
-                	seatButton[i].setBackground(new Color(255, 192, 0));
-                	seatButton[i].setFocusPainted(false);
-                	String str="";
-                	if(i<10) {
-                		str+="A";
-                	}
-                	else if(i<20) {
-                		str+="B";
-                	}
-                	else if(i<30) {
-                		str+="C";
-                	}
-                	else if(i<40) {
-                		str+="D";
-                	}
-                	selectedSeatTextarea.setText(selectedSeatTextarea.getText()+"  "+str+(i%10+1));
-                	System.out.println(selectedSeatTextarea.getText()+"***");
-                
-            	 }
+                if(e.getSource() == seatButton[i]) {
+                  for(int j=0;j<seatlist.size();j++) {
+                     if(i==seatlist.get(j)) {
+                        return;
+                     }
+                  }
+                  seatlist.add(i);
+                   cnt++;
+                   if(cnt>resNum) {
+                      return;
+                   }
+                   seatButton[i].setBackground(new Color(255, 192, 0));
+                   seatButton[i].setFocusPainted(false);
+                   String str="";
+                   if(i<10) {
+                      str+="A";
+                   }
+                   else if(i<20) {
+                      str+="B";
+                   }
+                   else if(i<30) {
+                      str+="C";
+                   }
+                   else if(i<40) {
+                      str+="D";
+                   }
+                   selectedSeatTextarea.setText(selectedSeatTextarea.getText()+"  "+str+(i%10+1));
+                }
                 
                 else if(e.getSource() == resetButton) {//좌석초기화 버튼
-                	if(i%10 == 0) {
-                		seatButton[i].setBackground(new Color(112, 48, 160));
-                	}
-                	else {
-                		seatButton[i].setBackground(new Color(46, 117, 182));
-                	}
-                	cnt=0;
-                	seatlist.clear();
-                	selectedSeatTextarea.setText("");
+                   if(i%10 == 0) {
+                      seatButton[i].setBackground(new Color(112, 48, 160));
+                   }
+                   else {
+                      seatButton[i].setBackground(new Color(46, 117, 182));
+                   }
+                   cnt=0;
+                   seatlist.clear();
+                   selectedSeatTextarea.setText("");
                 }
              }
           }
@@ -861,19 +896,18 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
          // TODO Auto-generated method stub
          if(e.getSource() == backButton) {//뒤로가기 버튼
             card.show(c, "reservation");
-            
             cnt=0;
-        	seatlist.clear();
-        	selectedSeatTextarea.setText("");
-        	
-        	for(int i=0;i<40;i++) {
-        		if(i%10 == 0) {
-            		seatButton[i].setBackground(new Color(112, 48, 160));
-            	}
-            	else {
-            		seatButton[i].setBackground(new Color(46, 117, 182));
-            	}
-        	}
+           seatlist.clear();
+           selectedSeatTextarea.setText("");
+           
+           for(int i=0;i<40;i++) {
+              if(i%10 == 0) {
+                  seatButton[i].setBackground(new Color(112, 48, 160));
+               }
+               else {
+                  seatButton[i].setBackground(new Color(46, 117, 182));
+               }
+           }
          }
       }
    }

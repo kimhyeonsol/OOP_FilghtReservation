@@ -31,7 +31,7 @@ public class ReservationDAO {
 	public void connectDB() throws SQLException {
 		try {
 			Class.forName(jdbcDriver);
-			conn = DriverManager.getConnection(jdbcUrl, "madang", "madang");
+			conn = DriverManager.getConnection(jdbcUrl, "root", "root");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
