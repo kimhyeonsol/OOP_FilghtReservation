@@ -19,13 +19,12 @@ public class ReservationDAO {
 	String sql;
 
 	UserDAO daoUser;
-	//AirLineDAO daoAL;
+	AirLineDAO daoAL;
 	
-	public ReservationDAO(UserDAO daoUser/*, AirLineDAO daoAL*/ ) throws SQLException {
+	public ReservationDAO(UserDAO daoUser, AirLineDAO daoAL ) throws SQLException {
 		connectDB();
 		this.daoUser = daoUser;
-//		this.daoAL = daoAL;
-		
+		this.daoAL = daoAL;
 	}
 	
 	
@@ -62,7 +61,7 @@ public class ReservationDAO {
 			r.setID(rs.getInt("ID"));
 			
 			r.setUser(daoUser.getUser(rs.getString("name")));
-//			r.setInfo(daoAL.getALInfo(rs.getString("info")));
+			r.setInfo(daoAL.getALInfo(rs.getInt("info")));
 			r.setSeatNum(rs.getInt("seatNum"));
 			datas.add(r);
 			items.add(String.valueOf(rs.getInt("ID")));
@@ -85,7 +84,7 @@ public class ReservationDAO {
 			r = new Reservation();
 			r.setID(rs.getInt("ID"));
 			r.setUser(daoUser.getUser(rs.getString("name")));
-//			r.setInfo(daoAL.getALInfo(rs.getString("info")));
+			r.setInfo(daoAL.getALInfo(rs.getInt("info")));
 			r.setSeatNum(rs.getInt("seatNum"));
 			
 		} catch (SQLException e) {

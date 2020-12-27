@@ -24,9 +24,9 @@ public class Reservation {
 		return user.getID();
 	}
 	
-//	public int getInfoID() {
-//		return info.getID();
-//	}
+	public int getInfoID() {
+		return info.getID();
+	}
 	
 	
 
