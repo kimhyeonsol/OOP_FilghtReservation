@@ -39,7 +39,7 @@ public class UserDAO {
 
 	public ArrayList<User> getAll() throws SQLException {
 		connectDB();
-		sql = "select * from product";
+		sql = "select * from user";
 
 		ArrayList<User> datas = new ArrayList<User>();
 
@@ -48,33 +48,37 @@ public class UserDAO {
 
 		while (rs.next()) {
 			User p = new User();
-			p.setPrcode(rs.getInt("prcode"));
-			p.setPrname(rs.getString("prname"));
-			p.setPrice(rs.getInt("price"));
-			p.setManufacture(rs.getString("manufacture"));
+			p.setID(rs.getString("ID"));
+			p.setID(rs.getString("name"));
+			p.setID(rs.getString("pw"));
+			p.setID(rs.getString("email"));
+			p.setID(rs.getString("birth"));
+			p.setID(rs.getString("phone"));
 			datas.add(p);
-			items.add(String.valueOf(rs.getInt("prcode")));
+			items.add(String.valueOf(rs.getString("ID")));
 		}
 
 		return datas;
 
 	}
 
-	public User getUser(int prcode) {
-		sql = "select * from product where prcde = ?";
+	public User getUser(String ID) {
+		sql = "select * from user where ID = ?";
 		User p = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, prcode);
+			pstmt.setString(1, ID);
 			rs = pstmt.executeQuery();
 
 			rs.next();
 			p = new User();
-			p.setPrcode(rs.getInt("prcode"));
-			p.setPrname(rs.getString("prname"));
-			p.setPrice(rs.getInt("price"));
-			p.setManufacture(rs.getString("manufacture"));
-
+			
+			p.setID(rs.getString("ID"));
+			p.setID(rs.getString("name"));
+			p.setID(rs.getString("pw"));
+			p.setID(rs.getString("email"));
+			p.setID(rs.getString("birth"));
+			p.setID(rs.getString("phone"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -82,15 +86,17 @@ public class UserDAO {
 	}
 
 	public boolean newUser(User p) {
-		sql = "insert into product(prcode, prname, price, manufacture) " + "values(?, ?, ?, ?)";
+		sql = "insert into user(ID, name, pw, email, birth, phone) " + "values(?,?,?,?,?,?)";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setInt(1, p.getPrcode());
-			pstmt.setString(2, p.getPrname());
-			pstmt.setInt(3, p.getPrice());
-			pstmt.setString(4, p.getManufacture());
+			int i=1;
+			pstmt.setString(i++, p.getID());
+			pstmt.setString(i++, p.getName());
+			pstmt.setString(i++, p.getPw());
+			pstmt.setString(i++, p.getEmail());
+			pstmt.setString(i++, p.getBirth());
+			pstmt.setString(i++, p.getPhone());
 			pstmt.executeQuery();
 			return true;
 		} catch (SQLException e) {
@@ -100,14 +106,18 @@ public class UserDAO {
 	}
 
 	public boolean updateUser(User p) {
-		sql = "update product set prname = ?, price = ?, manufacture = ? where prcode = ?";
+		sql = "update user set name = ?, pw = ?, email = ?, birth = ?, phone = ?, where ID = ?";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, p.getPrname());
-			pstmt.setInt(2, p.getPrice());
-			pstmt.setString(3, p.getManufacture());
-			pstmt.setInt(4, p.getPrcode());
+			
+			int i=1;
+			pstmt.setString(i++, p.getName());
+			pstmt.setString(i++, p.getPw());
+			pstmt.setString(i++, p.getEmail());
+			pstmt.setString(i++, p.getBirth());
+			pstmt.setString(i++, p.getPhone());
+			pstmt.setString(i++, p.getID());
 			pstmt.executeQuery();
 			return true;
 		} catch (SQLException e) {
@@ -116,12 +126,12 @@ public class UserDAO {
 		}
 	}
 
-	public boolean deleteUser(int prcode) {
-		sql = "delete from product where prcode = ?";
+	public boolean deleteUser(String ID) {
+		sql = "delete from user where ID = ?";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, prcode);
+			pstmt.setString(1, ID);
 			pstmt.executeQuery();
 			return true;
 		} catch (SQLException e) {
