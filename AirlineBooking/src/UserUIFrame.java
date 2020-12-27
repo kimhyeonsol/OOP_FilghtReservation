@@ -470,8 +470,6 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                String lbStr[]= {"가는 날","오는 날","가는 인원"};
                
                JLabel lb2=new JLabel("출발 공항");
-               
-               
            
                FlightSearchPanel(){
                    this.setLayout(null);
@@ -518,7 +516,8 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                  }
                   
               }
-
+               
+               
             @Override
            public void actionPerformed(ActionEvent e) {
                // TODO Auto-generated method stub

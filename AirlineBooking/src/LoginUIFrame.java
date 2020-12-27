@@ -144,7 +144,7 @@ public class LoginUIFrame extends JFrame{//로그인 프레임(카드레이 아�
 	      for(int i=0; i<loginButton.length; i++) {
 	         loginButton[i] = new JButton(loginButtonStr[i]);
 	         loginButton[i].setForeground(new Color(255, 255, 255));
-	         loginButton[i].setBackground(new Color(128, 128, 128));
+	         loginButton[i].setBackground(new Color(37, 51, 42));
 	         loginButton[i].setFocusPainted(false);
 	         loginButton[i].addActionListener(this);
 	      }
@@ -197,7 +197,7 @@ public class LoginUIFrame extends JFrame{//로그인 프레임(카드레이 아�
 		   public SignUpPanel() {
 			   
 		      setLayout(null);
-		      this.setBackground(new Color(124,143,157));
+		      this.setBackground(new Color(113,151,126));
 		      label.setForeground(Color.white);
 			  label.setFont(new Font("맑은 고딕", Font.BOLD, 25));
 			  label.setBounds(26, 10, 100, 40);
