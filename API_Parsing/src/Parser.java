@@ -21,13 +21,14 @@ import com.sun.jdi.connect.spi.Connection;
 
 public class Parser {
 	
+	static int count=0;
 	static int index=0;
 	static String[][] realOutput = new String[20][2];
 	 
 	   
 	   Scanner scanner=new Scanner(System.in);
 	   
-	   String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+	   String jdbcDriver = "com.mysql.jdbc.Driver";
 	   String jdbcUrl = "jdbc:mysql://localhost:3306/airplanereservation?&serverTimezone=Asia/Seoul&useSSL=false";
 	   
 	   java.sql.Connection conn;
@@ -51,6 +52,7 @@ public class Parser {
 			insertAPInfo(li);
 		}
 		
+		System.out.println(count);
 		closeDB();
 	}
    
@@ -69,7 +71,10 @@ public class Parser {
 		
 		
 		try {
+			
 			pstmt = conn.prepareStatement(sql);
+			if(pstmt==null)
+				System.out.println("!");
 			pstmt.setString(1, in.getAirlineNm());
 			pstmt.setString(2, in.getArrAirportNm());
 			pstmt.setString(3, in.getArrPlandTime());
@@ -81,12 +86,13 @@ public class Parser {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		count++;
 	}
 	
 	public void connectDB() throws SQLException {
 		try {
 			Class.forName(jdbcDriver);
-			conn = DriverManager.getConnection(jdbcUrl, "root", "111111");// check your username and pw
+			conn = DriverManager.getConnection(jdbcUrl, "root", "0000");// check your username and pw
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -99,7 +105,7 @@ public class Parser {
     public ArrayList<Info> parsing() throws IOException{
 
     	int n=5;
-    	String[] airport = {"NAARKSI", "NAARKSS", "NAARKPC", "NAARKTN", "NAARKPK"};
+    	String[] airport = {"NAARKSI", "NAARKSS", 	"NAARKPC", "NAARKTN", "NAARKPK"};
         String[] output = new String[n];
         boolean[] visited = new boolean[n];
         ArrayList<Info> list = new ArrayList<Info>();
@@ -116,7 +122,7 @@ public class Parser {
         ArrayList<StringBuilder> stringList = new ArrayList<StringBuilder>();
         
       
-        for(int i=0; i<1; i++) {
+        for(int i=0; i<depTime.length; i++) {
         	for(int airportIdx=0; airportIdx<20; airportIdx++) {
         		StringBuilder urlBuilder = new StringBuilder("http://openapi.tago.go.kr/openapi/service/DmstcFlightNvgInfoService/getFlightOpratInfoList"); /*URL*/
            	 	urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=HoQJoMcIclVOuYTbwxyCnXUyrecaDhPKFkHIzaVPxyXJdqFazyYIeXDPa9hDjYdpg7zLbyXTiVPVyyAdgJ4yKw%3D%3D"); /*Service Key*/
