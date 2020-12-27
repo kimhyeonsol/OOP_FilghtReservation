@@ -517,7 +517,6 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                }
                departureAirportCombo.setBounds(160,50,200,35);
                departureAirportCombo.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
-               departureAirportCombo.addActionListener(this);
                add(departureAirportCombo);
                
                //도착공항 레이블
@@ -532,7 +531,6 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                }
                destAirportCombo.setBounds(160,95,200,35);
                destAirportCombo.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
-               destAirportCombo.addActionListener(this);
                add(destAirportCombo);
              
                //편도,왕복 라디오버튼
@@ -605,6 +603,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
 		   }
 		   @Override
 		   public void actionPerformed(ActionEvent e) {
+			   // TODO Auto-generated method stub
 			   
 			   if(e.getSource()==flightSearchButton) {//비행기 검색하기 버튼
 				   
@@ -618,18 +617,11 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
 				   resNum=Integer.valueOf(flightsearchTextField[2].getText());  
 				   card.show(c, "selectSeat");
 			   }
-			   
-			   /////////콤보박스///////////////
-			   
-			   //출발공항 index
-			   int departIndex=departureAirportCombo.getSelectedIndex();
-			   //도착공항 index
-			   int destIndex=destAirportCombo.getSelectedIndex();
-			   
 		   }
 		
 		   @Override
 		   public void itemStateChanged(ItemEvent e) {
+			   // TODO Auto-generated method stub
 			   
 			   if(radio[0].isSelected()) {//편도가 선택된 경우
 				   flightsearchTextField[1].setEditable(false);
@@ -821,11 +813,9 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
 				   return;//밑에 for문이니깐  예약하기 버튼이면 걍 return 시켜주기
 			   }
 			   
-			   //좌석 선택하면 버튼 색깔 변하는 이벤트 핸들러
-			   //좌석선택 초기화 버튼 이벤트 핸들러
 			   for(int i=0; i<ASeatButton.length; i++) {
 				   
-				   if(e.getSource() == ASeatButton[i]) {
+				   if(e.getSource() == ASeatButton[i]) {//A좌석 선택
                         cnt++;
                         if(cnt>resNum)
                            return;
@@ -833,7 +823,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                         ASeatButton[i].setFocusPainted(false);
                         ta.setText(ta.getText()+"  A"+(i+1));
                      }
-                     else if(e.getSource() == BSeatButton[i]) {
+                     else if(e.getSource() == BSeatButton[i]) {//B좌석 선택
                         cnt++;
                         if(cnt>resNum)
                            return;
@@ -841,7 +831,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                         BSeatButton[i].setFocusPainted(false);
                         ta.setText(ta.getText()+"  B"+(i+1));
                      }
-                     else if(e.getSource() == CSeatButton[i]) {
+                     else if(e.getSource() == CSeatButton[i]) {//C좌석 선택
                         cnt++;
                         if(cnt>resNum)
                            return;
@@ -849,7 +839,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                         CSeatButton[i].setFocusPainted(false);
                         ta.setText(ta.getText()+"  C"+(i+1));
                      }
-                     else if(e.getSource() == DSeatButton[i]) {
+                     else if(e.getSource() == DSeatButton[i]) {//D좌석 선택
                         cnt++;
                         if(cnt>resNum)
                            return;
