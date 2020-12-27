@@ -73,8 +73,9 @@ public class AirLineDAO {
 		return datas;
 	}
 
+	
 	// ID에 해당하는 정보 가져오기
-	public AirLineDTO getProduct(int ID) {
+	public AirLineDTO getALInfo(int ID) {
 		AirLineDTO p = new AirLineDTO();
 		try {
 			sql = "select * from airlineinfo where ID = ? ";
