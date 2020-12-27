@@ -106,7 +106,7 @@ public class UserDAO {
 	}
 
 	public boolean updateUser(User p) {
-		sql = "update user set name = ?, pw = ?, email = ?, birth = ?, phone = ?, where ID = ?";
+		sql = "update user set name = ?, pw = ?, email = ?, birth = ?, phone = ? where ID = ?";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
