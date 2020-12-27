@@ -9,7 +9,7 @@ import java.util.Vector;
 public class ReservationDAO {
 
 	String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-	String jdbcUrl = "jdbc:mysql://localhost/reservation?&serverTimezone=Asia/Seoul&useSSL=false";
+	String jdbcUrl = "jdbc:mysql://localhost/airplanereservation?&serverTimezone=Asia/Seoul&useSSL=false";
 	Connection conn;
 
 	PreparedStatement pstmt;
@@ -48,7 +48,6 @@ public class ReservationDAO {
 	}
 
 	public ArrayList<Reservation> getAll() throws SQLException {
-		connectDB();
 		sql = "select * from reservation";
 
 		ArrayList<Reservation> datas = new ArrayList<Reservation>();
@@ -56,15 +55,18 @@ public class ReservationDAO {
 		items = new Vector<String>();
 		items.add("전체");
 
+		pstmt = conn.prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		
 		while (rs.next()) {
 			Reservation r = new Reservation();
 			r.setID(rs.getInt("ID"));
 			
-			r.setUser(daoUser.getUser(rs.getString("name")));
+			r.setUser(daoUser.getUser(rs.getString("user")));
 			r.setInfo(daoAL.getALInfo(rs.getInt("info")));
 			r.setSeatNum(rs.getInt("seatNum"));
 			datas.add(r);
-			items.add(String.valueOf(rs.getInt("ID")));
+//			items.add(String.valueOf(rs.getInt("ID")));
 		}
 
 		return datas;
@@ -83,7 +85,7 @@ public class ReservationDAO {
 
 			r = new Reservation();
 			r.setID(rs.getInt("ID"));
-			r.setUser(daoUser.getUser(rs.getString("name")));
+			r.setUser(daoUser.getUser(rs.getString("user")));
 			r.setInfo(daoAL.getALInfo(rs.getInt("info")));
 			r.setSeatNum(rs.getInt("seatNum"));
 			
@@ -92,6 +94,57 @@ public class ReservationDAO {
 		}
 		return r;
 	}
+	
+	public ArrayList<Reservation> getReservationListByUser(String UserID) throws SQLException {
+		sql = "select * from reservation where user = ?";
+
+		ArrayList<Reservation> datas = new ArrayList<Reservation>();
+
+		items = new Vector<String>();
+		items.add("전체");
+
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, UserID);
+		rs = pstmt.executeQuery();
+		
+		while (rs.next()) {
+			Reservation r = new Reservation();
+			r.setID(rs.getInt("ID"));
+			
+			r.setUser(daoUser.getUser(rs.getString("user")));
+			r.setInfo(daoAL.getALInfo(rs.getInt("info")));
+			r.setSeatNum(rs.getInt("seatNum"));
+			datas.add(r);
+//			items.add(String.valueOf(rs.getInt("ID")));
+		}
+
+		return datas;
+	
+	}
+	
+	public ArrayList<Reservation> getReservationListByALInfo(int ALInfoID) throws SQLException {
+		sql = "select * from reservation where info = ?";
+
+		ArrayList<Reservation> datas = new ArrayList<Reservation>();
+
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, ALInfoID);
+		rs = pstmt.executeQuery();
+		
+		while (rs.next()) {
+			Reservation r = new Reservation();
+			r.setID(rs.getInt("ID"));
+			
+			r.setUser(daoUser.getUser(rs.getString("user")));
+			r.setInfo(daoAL.getALInfo(rs.getInt("info")));
+			r.setSeatNum(rs.getInt("seatNum"));
+			datas.add(r);
+//			items.add(String.valueOf(rs.getInt("ID")));
+		}
+
+		return datas;
+	}
+	
 
 	public boolean newReservation(Reservation r) {
 		sql = "insert into reservation(ID, user, info, seatNum) " + "values(?,?,?,?)";
@@ -101,9 +154,9 @@ public class ReservationDAO {
 			int i=1;
 			pstmt.setInt(i++, r.getID());
 			pstmt.setString(i++, r.getUserID());
-//			pstmt.setInt(i++, r.getInfoID());
+			pstmt.setInt(i++, r.getInfoID());
 			pstmt.setInt(i++, r.getSeatNum());
-			pstmt.executeQuery();
+			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -118,10 +171,10 @@ public class ReservationDAO {
 			pstmt = conn.prepareStatement(sql);
 			int i=1;
 			pstmt.setString(i++, p.getUserID());
-//			pstmt.setInt(i++, p.getInfoID());
+			pstmt.setInt(i++, p.getInfoID());
 			pstmt.setInt(i++, p.getSeatNum());
 			pstmt.setInt(i++, p.getID());
-			pstmt.executeQuery();
+			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -135,7 +188,7 @@ public class ReservationDAO {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, ID);
-			pstmt.executeQuery();
+			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();

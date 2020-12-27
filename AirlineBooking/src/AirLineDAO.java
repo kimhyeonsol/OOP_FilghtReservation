@@ -8,8 +8,8 @@ import java.util.Vector;
 
 public class AirLineDAO {
 
-	String jdbcDriver = "com.mysql.jdbc.Driver";
-	String jdbcUrl = "jdbc:mysql://localhost/sampledb?serverTimezone=Asia/Seoul&useSSL=false";
+	String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+	String jdbcUrl = "jdbc:mysql://localhost/airplanereservation?serverTimezone=Asia/Seoul&useSSL=false";
 	Connection conn;
 
 	PreparedStatement pstmt;
@@ -26,7 +26,7 @@ public class AirLineDAO {
 		try {
 			Class.forName(jdbcDriver);
 
-			conn = DriverManager.getConnection(jdbcUrl, "root", "0000");
+			conn = DriverManager.getConnection(jdbcUrl, "root", "111111");
 			if (conn == null)
 				System.out.println("conn is null");
 		} catch (Exception e) {

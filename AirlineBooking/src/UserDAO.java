@@ -18,10 +18,16 @@ public class UserDAO {
 	Vector<String> items = null;
 	String sql;
 
+	
+	public UserDAO() throws SQLException {
+		connectDB();
+	}
+	
 	public void connectDB() throws SQLException {
 		try {
 			Class.forName(jdbcDriver);
-			conn = DriverManager.getConnection(jdbcUrl, "root", "111111");
+			conn = DriverManager.getConnection(jdbcUrl, "javaoop", "111111");
+			System.out.println("DB 연결");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -38,7 +44,6 @@ public class UserDAO {
 	}
 
 	public ArrayList<User> getAll() throws SQLException {
-		connectDB();
 		sql = "select * from user";
 
 		ArrayList<User> datas = new ArrayList<User>();
@@ -46,14 +51,17 @@ public class UserDAO {
 		items = new Vector<String>();
 		items.add("전체");
 
+		pstmt = conn.prepareStatement(sql);
+		rs = pstmt.executeQuery();
+
 		while (rs.next()) {
 			User p = new User();
 			p.setID(rs.getString("ID"));
-			p.setID(rs.getString("name"));
-			p.setID(rs.getString("pw"));
-			p.setID(rs.getString("email"));
-			p.setID(rs.getString("birth"));
-			p.setID(rs.getString("phone"));
+			p.setName(rs.getString("name"));
+			p.setPw(rs.getString("pw"));
+			p.setEmail(rs.getString("email"));
+			p.setBirth(rs.getString("birth"));
+			p.setPhone(rs.getString("phone"));
 			datas.add(p);
 			items.add(String.valueOf(rs.getString("ID")));
 		}
@@ -74,11 +82,11 @@ public class UserDAO {
 			p = new User();
 			
 			p.setID(rs.getString("ID"));
-			p.setID(rs.getString("name"));
-			p.setID(rs.getString("pw"));
-			p.setID(rs.getString("email"));
-			p.setID(rs.getString("birth"));
-			p.setID(rs.getString("phone"));
+			p.setName(rs.getString("name"));
+			p.setPw(rs.getString("pw"));
+			p.setEmail(rs.getString("email"));
+			p.setBirth(rs.getString("birth"));
+			p.setPhone(rs.getString("phone"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -86,10 +94,11 @@ public class UserDAO {
 	}
 
 	public boolean newUser(User p) {
-		sql = "insert into user(ID, name, pw, email, birth, phone) " + "values(?,?,?,?,?,?)";
+		sql = "insert into user(ID, name, pw, email, birth, phone) values(?,?,?,?,?,?)";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
 			int i=1;
 			pstmt.setString(i++, p.getID());
 			pstmt.setString(i++, p.getName());
@@ -97,7 +106,7 @@ public class UserDAO {
 			pstmt.setString(i++, p.getEmail());
 			pstmt.setString(i++, p.getBirth());
 			pstmt.setString(i++, p.getPhone());
-			pstmt.executeQuery();
+			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -118,7 +127,7 @@ public class UserDAO {
 			pstmt.setString(i++, p.getBirth());
 			pstmt.setString(i++, p.getPhone());
 			pstmt.setString(i++, p.getID());
-			pstmt.executeQuery();
+			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -132,7 +141,7 @@ public class UserDAO {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, ID);
-			pstmt.executeQuery();
+			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
