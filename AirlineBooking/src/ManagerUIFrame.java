@@ -31,6 +31,8 @@ public class ManagerUIFrame extends JFrame{
    ManagerReservationUI reservationPanel = new ManagerReservationUI();
    ManagerFlightUI flightPanel = new ManagerFlightUI();
    
+   String font = "함초롬돋움";
+   
    Container c;
    CardLayout card;
          

@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 
 public class LoginUIFrame extends JFrame{
    
+	
    Container c;
    CardLayout card;
    
@@ -31,7 +32,7 @@ public class LoginUIFrame extends JFrame{
    LoginUIPanel loginUIpanel=new LoginUIPanel();
    SignUpPanel signUpPanel=new SignUpPanel();
    
-   String userId="";//사용자 아이디 문자열
+   String userId="", font = "함초롬돋움";//사용자 아이디 문자열
    
    UserDAO dao;
    
@@ -243,7 +244,7 @@ public class LoginUIFrame extends JFrame{
             
             //타이틀 라벨 부착
             titleLabel.setForeground(Color.white);
-            titleLabel.setFont(new Font("맑은 고딕", Font.BOLD, 25));
+            titleLabel.setFont(new Font(font, Font.BOLD, 25));
             titleLabel.setBounds(26, 10, 100, 40);
             add(titleLabel);
             
