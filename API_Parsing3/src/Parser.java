@@ -28,7 +28,7 @@ public class Parser {
 	   
 	   Scanner scanner=new Scanner(System.in);
 	   
-	   String jdbcDriver = "com.mysql.jdbc.Driver";
+	   String jdbcDriver = "com.mysql.cj.jdbc.Driver";
 	   String jdbcUrl = "jdbc:mysql://localhost:3306/airplanereservation?&serverTimezone=Asia/Seoul&useSSL=false";
 	   
 	   java.sql.Connection conn;
@@ -92,7 +92,8 @@ public class Parser {
 	public void connectDB() throws SQLException {
 		try {
 			Class.forName(jdbcDriver);
-			conn = DriverManager.getConnection(jdbcUrl, "mandang", "mandang");// check your username and pw
+			conn = DriverManager.getConnection(jdbcUrl, "root", "hyerin14953594");// check your username and pw
+			System.out.println("연결완료");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -120,12 +121,11 @@ public class Parser {
         					, "20210118", "20210119", "20210120", "20210121", "20210122", "20210123", "20210124"};
     	
         ArrayList<StringBuilder> stringList = new ArrayList<StringBuilder>();
-        
       
-        for(int i=0; i<depTime.length; i++) {
+        for(int i=0; i<1; i++) {
         	for(int airportIdx=0; airportIdx<20; airportIdx++) {
         		StringBuilder urlBuilder = new StringBuilder("http://openapi.tago.go.kr/openapi/service/DmstcFlightNvgInfoService/getFlightOpratInfoList"); /*URL*/
-           	 	urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=HoQJoMcIclVOuYTbwxyCnXUyrecaDhPKFkHIzaVPxyXJdqFazyYIeXDPa9hDjYdpg7zLbyXTiVPVyyAdgJ4yKw%3D%3D"); /*Service Key*/
+           	 	urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=9XM100EpBVaMTakx00Mzeq3pGlcrD6RKcvnx9lP7%2B39TonkVG21ZgXt3Bz9DO99royEYXc%2BKVfbvNZ58FWjH1Q%3D%3D"); /*Service Key*/
                 urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
                 urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지 번호*/
                 urlBuilder.append("&" + URLEncoder.encode("depAirportId","UTF-8") + "=" + URLEncoder.encode(realOutput[airportIdx][0], "UTF-8")); /*출발공항ID*/

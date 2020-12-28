@@ -24,19 +24,21 @@ import javax.swing.JTextField;
 
 public class ManagerUIFrame extends JFrame{
    BufferedImage backImage, menuImage1, menuImage2, menuImage3;
-   BufferedImage Image3, pageImg;
+   BufferedImage backButtonImg, pageImg;
    
    ManagerMenuPanel managerMenuPanel = new ManagerMenuPanel();
    MemberManagerUI managerPanel = new MemberManagerUI();
    ManagerReservationUI reservationPanel = new ManagerReservationUI();
    ManagerFlightUI flightPanel = new ManagerFlightUI();
    
+   String font = "함초롬돋움";
+   
    Container c;
    CardLayout card;
          
    ManagerUIFrame(){
       setTitle("관리자 페이지");
-      setBounds(100, 100, 1000, 700);
+      setBounds(250, 50, 1000, 700);
       this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
       setBackground(Color.black);
       
@@ -52,26 +54,28 @@ public class ManagerUIFrame extends JFrame{
       
       setVisible(true);
    }
+   
    public void managerMenuExit() {
       this.dispose();
    }
+   
    class GoBackButton extends JButton{
        GoBackButton(){
             try {
-               Image3 = ImageIO.read(new File("뒤로가기.png"));
+            	backButtonImg = ImageIO.read(new File("뒤로가기.png"));
               } catch (IOException e) {
                e.printStackTrace();
             }
        }
        protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            g.drawImage(Image3,0,0,getWidth(),getHeight(),null);
+            g.drawImage(backButtonImg,0,0,getWidth(),getHeight(),null);
        }
     }
    
    ////////////////////////////관리자 메뉴 패널////////////////////////////
    
-    class memberManageButton extends JButton{   //회원 관리 버튼
+    class memberManageButton extends JButton{//회원 관리 버튼
          memberManageButton(){
                try {
                   menuImage1 = ImageIO.read(new File("memberButton.jpg"));
@@ -98,6 +102,7 @@ public class ManagerUIFrame extends JFrame{
                g.drawImage(menuImage2,0,0,getWidth(),getHeight(),null);
          }
     }
+    
     class flightManageButton extends JButton{   //항공 관리 버튼
          flightManageButton(){
                try {
@@ -175,30 +180,29 @@ public class ManagerUIFrame extends JFrame{
         MemberManagerUI(){
       	  try {
       		  pageImg = ImageIO.read(new File("pageImg.jpg"));
-               } catch (IOException e) {
+          } catch (IOException e) {
                 e.printStackTrace();
-        }
-      	
-      	setLayout(null);
-        setBounds(200, 150, 1000, 700);
+          }
+      	  setLayout(null);
+          setBounds(200, 150, 1000, 700);
         
-        JLabel lb=new JLabel("회원정보 관리");
-        lb.setHorizontalAlignment(JLabel.CENTER);
-        lb.setFont(new Font("한컴산뜻돋움", Font.BOLD, 40));
-        lb.setBounds(350,0,300,100);
+          JLabel lb=new JLabel("회원정보 관리");
+          lb.setHorizontalAlignment(JLabel.CENTER);
+          lb.setFont(new Font("맑은고딕", Font.BOLD, 40));
+          lb.setBounds(350,0,300,100);
         
-        backButton.setBounds(10,10,80,80);
-        backButton.addActionListener(this);
+          backButton.setBounds(10,10,80,80);
+          backButton.addActionListener(this);
         
-        JTabbedPane mainJtabUI = new JTabbedPane(JTabbedPane.TOP);
-        mainJtabUI.setBounds(50,100,900,550);
-        mainJtabUI.addTab("회원 삭제", new MemberDelete());
+          JTabbedPane mainJtabUI = new JTabbedPane(JTabbedPane.TOP);
+          mainJtabUI.setBounds(50,100,900,550);
+          mainJtabUI.addTab("회원 삭제", new MemberDelete());
         
-        add(lb);
-        add(backButton);
-        add(mainJtabUI);
+          add(lb);
+          add(backButton);
+          add(mainJtabUI);
         
-        setVisible(true);
+          setVisible(true);
       }
       protected void paintComponent(Graphics g) {
           super.paintComponent(g);
@@ -213,11 +217,12 @@ public class ManagerUIFrame extends JFrame{
           JTextArea textArea = new JTextArea(29,43); //회원 조회 textArea
           JLabel infoLabel[] = new JLabel[2]; //회원 삭제 라벨
           String infoStr[] = {"아이디", "비밀번호"};
-          JTextField textField[] = new JTextField[2]; //회원 삭제 텍스트필드
-          JButton deleteButton = new JButton("삭제하기"); //삭제하기 버튼
-          JButton searchButton = new JButton("조회하기"); //조회하기 버튼
+          JTextField memDeletetextField[] = new JTextField[2]; //회원 삭제 텍스트필드
+          JButton memDeleteButton = new JButton("삭제하기"); //삭제하기 버튼
+          JButton memSearchButton = new JButton("조회하기"); //조회하기 버튼
           
           MemberDelete(){
+        	  
               for(int i=0; i<p.length; i++) {
                  p[i] = new JPanel();
                  p[i].setBackground(new Color(209, 233, 255));
@@ -227,14 +232,16 @@ public class ManagerUIFrame extends JFrame{
                 
               p[0].setLayout(new BorderLayout());
               
-              searchButton.setFocusPainted(false);
-              searchButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
-              searchButton.setForeground(new Color(255, 255, 255));
-              searchButton.setBackground(new Color(128, 128, 128));
+              memSearchButton.setFocusPainted(false);
+              memSearchButton.setFont(new Font("맑은고딕", Font.BOLD, 15));
+              memSearchButton.setForeground(new Color(255, 255, 255));
+              memSearchButton.setBackground(new Color(128, 128, 128));
                 
               searchPanel[0].setLayout(new FlowLayout());
-              searchButton.addActionListener(this);
-              searchPanel[0].add(searchButton);
+              memSearchButton.addActionListener(this);
+              searchPanel[0].add(memSearchButton);
+              
+              textArea.setEditable(false);
               searchPanel[1].add(new JScrollPane(textArea));
                 
               p[0].add(searchPanel[0], BorderLayout.NORTH);
@@ -244,28 +251,28 @@ public class ManagerUIFrame extends JFrame{
               for(int i=0; i<infoLabel.length; i++) {
                  infoLabel[i] = new JLabel(infoStr[i]);
                  infoLabel[i].setHorizontalAlignment(JLabel.CENTER);
-                 infoLabel[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 18));
+                 infoLabel[i].setFont(new Font("맑은고딕", Font.BOLD, 18));
               }
-              for(int i=0; i<textField.length; i++) {
-                 textField[i] = new JTextField();
+              for(int i=0; i<memDeletetextField.length; i++) {
+            	  memDeletetextField[i] = new JTextField();
               }
               for(int i=0; i<2; i++) {
                  infoLabel[i].setLocation(50, 160+(i*80));
                  infoLabel[i].setSize(80,80);
                  p[1].add(infoLabel[i]);
-                 textField[i].setLocation(190, 175+(i*80));
-                 textField[i].setSize(200,60);
-                 p[1].add(textField[i]);
+                 memDeletetextField[i].setLocation(190, 175+(i*80));
+                 memDeletetextField[i].setSize(200,60);
+                 p[1].add(memDeletetextField[i]);
               }
               
-              deleteButton.setForeground(new Color(255, 255, 255));
-              deleteButton.setBackground(new Color(128, 128, 128));
-              deleteButton.setFocusPainted(false);
-              deleteButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
-              deleteButton.setLocation(50, 400);
-              deleteButton.setSize(340,50);
-              deleteButton.addActionListener(this);
-              p[1].add(deleteButton);
+              memDeleteButton.setForeground(new Color(255, 255, 255));
+              memDeleteButton.setBackground(new Color(128, 128, 128));
+              memDeleteButton.setFocusPainted(false);
+              memDeleteButton.setFont(new Font("맑은고딕", Font.BOLD, 17));
+              memDeleteButton.setLocation(50, 400);
+              memDeleteButton.setSize(340,50);
+              memDeleteButton.addActionListener(this);
+              p[1].add(memDeleteButton);
               
               mainPanel.setLayout(new GridLayout(1,2));
               mainPanel.add(p[0]);
@@ -276,10 +283,10 @@ public class ManagerUIFrame extends JFrame{
            @Override
            public void actionPerformed(ActionEvent e) {
               // TODO Auto-generated method stub
-              if(e.getSource() == searchButton) {   //조회하기 버튼 누를 경우 모든 회원정보 조회
+              if(e.getSource() == memSearchButton) {   //조회하기 버튼 누를 경우 모든 회원정보 조회
                 
               }
-              else if(e.getSource() == deleteButton) { //삭제하기 버튼 누를 경우 해당 회원 삭제
+              else if(e.getSource() == memDeleteButton) { //삭제하기 버튼 누를 경우 해당 회원 삭제
                 
               }
            }
@@ -300,13 +307,17 @@ public class ManagerUIFrame extends JFrame{
       GoBackButton backButton = new GoBackButton();
       
       ManagerReservationUI(){
-         setBackground(Color.lightGray);
+    	  try {
+      		  pageImg = ImageIO.read(new File("pageImg.jpg"));
+          } catch (IOException e) {
+                e.printStackTrace();
+          }
           setLayout(null);
           setBounds(200, 150, 1000, 700);
           
           JLabel lb=new JLabel("예약정보 관리");
           lb.setHorizontalAlignment(JLabel.CENTER);
-          lb.setFont(new Font("한컴산뜻돋움", Font.BOLD, 40));
+          lb.setFont(new Font("맑은고딕", Font.BOLD, 40));
           lb.setBounds(350,0,300,100);
           
           backButton.setBounds(10,10,80,80);
@@ -322,25 +333,31 @@ public class ManagerUIFrame extends JFrame{
           
           setVisible(true);
     }
+    protected void paintComponent(Graphics g) {
+          super.paintComponent(g);
+          g.drawImage(pageImg,0,0,getWidth(),getHeight(),null);
+    }
+    
     class ReservationSearch extends JPanel implements ActionListener{ //예약 조회
        JPanel mainPanel = new JPanel();
          JPanel p[] = new JPanel[2];
          JTextArea textArea = new JTextArea(29,87); //예약 조회 textArea
-         JButton searchButton = new JButton("조회하기"); //조회 버튼
+         JButton reservationSearchButton = new JButton("조회하기"); //조회 버튼
        
        ReservationSearch(){
           for(int i=0; i<p.length; i++) {
                   p[i] = new JPanel();
-                  p[i].setBackground(new Color(176, 224, 230));
+                  p[i].setBackground(new Color(209, 233, 255));
                }
           
-          searchButton.setFocusPainted(false);
-          searchButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
-          searchButton.setForeground(new Color(255, 255, 255));
-          searchButton.setBackground(new Color(128, 128, 128));
-          searchButton.addActionListener(this);
+          reservationSearchButton.setFocusPainted(false);
+          reservationSearchButton.setFont(new Font("맑은고딕", Font.BOLD, 15));
+          reservationSearchButton.setForeground(new Color(255, 255, 255));
+          reservationSearchButton.setBackground(new Color(128, 128, 128));
+          reservationSearchButton.addActionListener(this);
           
-          p[0].add(searchButton);
+          p[0].add(reservationSearchButton);
+          textArea.setEditable(false);
           p[1].add(new JScrollPane(textArea));
                
           mainPanel.setLayout(new BorderLayout());
@@ -353,7 +370,7 @@ public class ManagerUIFrame extends JFrame{
        @Override
        public void actionPerformed(ActionEvent e) {
           // TODO Auto-generated method stub
-          if(e.getSource() == searchButton) { //조회하기 버튼 누를 경우 현재 모든 예약 조회
+          if(e.getSource() == reservationSearchButton) { //조회하기 버튼 누를 경우 현재 모든 예약 조회
         	  
           }
        }
@@ -375,13 +392,18 @@ public class ManagerUIFrame extends JFrame{
       GoBackButton backButton = new GoBackButton();
       
       ManagerFlightUI(){
+    	    try {
+      		    pageImg = ImageIO.read(new File("pageImg.jpg"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             setBackground(Color.lightGray);
             setLayout(null);
             setBounds(200, 150, 1000, 700);
             
             JLabel lb=new JLabel("항공정보 관리");
             lb.setHorizontalAlignment(JLabel.CENTER);
-            lb.setFont(new Font("한컴산뜻돋움", Font.BOLD, 40));
+            lb.setFont(new Font("맑은고딕", Font.BOLD, 40));
             lb.setBounds(350,0,300,100);
             
             backButton.setBounds(10,10,80,80);
@@ -399,36 +421,41 @@ public class ManagerUIFrame extends JFrame{
             
             setVisible(true);
       }
+      protected void paintComponent(Graphics g) {
+          super.paintComponent(g);
+          g.drawImage(pageImg,0,0,getWidth(),getHeight(),null);
+      }
       
       class FlightCreate extends JPanel implements ActionListener{ //항공 등록 패널
             JPanel mainPanel = new JPanel();
             JPanel p[] = new JPanel[2];
             JPanel searchPanel[] = new JPanel[2];
             JTextArea textArea = new JTextArea(29,43); //모든 항공 조회 textArea
-            JLabel infoLabel[] = new JLabel[8]; //항공 등록 라벨
-            String infoStr[] = {"항공편명","항공사명", "출발시간", "도착시간", "일반운임", "비즈니스운임", "출발공항", "도착공항"};
-            JTextField textField[] = new JTextField[8]; //항공 등록 텍스트필드
-            JButton createButton = new JButton("등록하기"); //등록하기 버튼
-            JButton searchButton = new JButton("조회하기"); //조회하기 버튼
+            JLabel infoLabel[] = new JLabel[7]; //항공 등록 라벨
+            String infoStr[] = {"항공사명", "출발시간", "도착시간", "일반운임", "비즈니스운임", "출발공항", "도착공항"};
+            JTextField fliCreatetextField[] = new JTextField[7]; //항공 등록 텍스트필드
+            JButton flightCreateButton = new JButton("등록하기"); //등록하기 버튼
+            JButton flightSearchButton = new JButton("조회하기"); //조회하기 버튼
             
             FlightCreate(){
                for(int i=0; i<p.length; i++) {
                   p[i] = new JPanel();
-                  p[i].setBackground(new Color(176, 224, 230));
+                  p[i].setBackground(new Color(209, 233, 255));
                   searchPanel[i] = new JPanel();
-                  searchPanel[i].setBackground(new Color(176, 224, 230));
+                  searchPanel[i].setBackground(new Color(209, 233, 255));
                }
                
                p[0].setLayout(new BorderLayout());
                
-               searchButton.setFocusPainted(false);
-               searchButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
-               searchButton.setForeground(new Color(255, 255, 255));
-               searchButton.setBackground(new Color(128, 128, 128));
+               flightSearchButton.setFocusPainted(false);
+               flightSearchButton.setFont(new Font("맑은고딕", Font.BOLD, 15));
+               flightSearchButton.setForeground(new Color(255, 255, 255));
+               flightSearchButton.setBackground(new Color(128, 128, 128));
                
                searchPanel[0].setLayout(new FlowLayout());
-               searchButton.addActionListener(this);
-               searchPanel[0].add(searchButton);
+               flightSearchButton.addActionListener(this);
+               searchPanel[0].add(flightSearchButton);
+               textArea.setEditable(false);
                searchPanel[1].add(new JScrollPane(textArea));
                
                p[0].add(searchPanel[0], BorderLayout.NORTH);
@@ -439,29 +466,29 @@ public class ManagerUIFrame extends JFrame{
                for(int i=0; i<infoLabel.length; i++) {
                   infoLabel[i] = new JLabel(infoStr[i]);
                   infoLabel[i].setHorizontalAlignment(JLabel.CENTER);
-                  infoLabel[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 18));
+                  infoLabel[i].setFont(new Font("맑은고딕", Font.BOLD, 18));
                }
-               for(int i=0; i<textField.length; i++) {
-                  textField[i] = new JTextField();
+               for(int i=0; i<fliCreatetextField.length; i++) {
+            	   fliCreatetextField[i] = new JTextField();
                }
-               for(int i=0; i<8; i++) {
-                  infoLabel[i].setLocation(45, 23+(i*50));
+               for(int i=0; i<7; i++) {
+                  infoLabel[i].setLocation(45, 45+(i*55));
                   infoLabel[i].setSize(120,60);
                   p[1].add(infoLabel[i]);
-                  textField[i].setLocation(165, 35+(i*50));
-                  textField[i].setSize(200,40);
-                  p[1].add(textField[i]);
+                  fliCreatetextField[i].setLocation(165, 57+(i*55));
+                  fliCreatetextField[i].setSize(200,40);
+                  p[1].add(fliCreatetextField[i]);
                }
                
-               createButton.setFocusPainted(false);
-               createButton.setForeground(new Color(255, 255, 255));
-               createButton.setBackground(new Color(128, 128, 128));
-               createButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
-               createButton.setLocation(50, 450);
-               createButton.setSize(340,50);
-               createButton.addActionListener(this);
+               flightCreateButton.setFocusPainted(false);
+               flightCreateButton.setForeground(new Color(255, 255, 255));
+               flightCreateButton.setBackground(new Color(128, 128, 128));
+               flightCreateButton.setFont(new Font("맑은고딕", Font.BOLD, 17));
+               flightCreateButton.setLocation(50, 450);
+               flightCreateButton.setSize(340,50);
+               flightCreateButton.addActionListener(this);
                
-               p[1].add(createButton);
+               p[1].add(flightCreateButton);
                
                mainPanel.setLayout(new GridLayout(1,2));
                mainPanel.add(p[0]);
@@ -471,10 +498,10 @@ public class ManagerUIFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                // TODO Auto-generated method stub
-               if(e.getSource() == createButton) { //등록하기 버튼 누를 경우 해당 항공 등록
+               if(e.getSource() == flightCreateButton) { //등록하기 버튼 누를 경우 해당 항공 등록
             	   
                }
-               else if(e.getSource() == searchButton) { //조회하기 버튼 누를 경우 모든 항공 조회
+               else if(e.getSource() == flightSearchButton) { //조회하기 버튼 누를 경우 모든 항공 조회
             	   
                }
             }
@@ -486,29 +513,30 @@ public class ManagerUIFrame extends JFrame{
             JPanel searchPanel[] = new JPanel[2];
             JTextArea textArea = new JTextArea(29,43); //모든 항공 조회 textArea
             JLabel infoLabel[] = new JLabel[5]; //항공 변경 라벨
-            String infoStr[] = {"항공편명","출발시간", "도착시간", "일반운임", "비즈니스운임"};
-            JTextField textField[] = new JTextField[5]; //항공 변경 텍스트필드
-            JButton updateButton = new JButton("변경하기"); //변경하기 버튼
-            JButton searchButton = new JButton("조회하기"); //조회하기 버튼
+            String infoStr[] = {"항공편코드","출발시간", "도착시간", "일반운임", "비즈니스운임"};
+            JTextField fliUpdatetextField[] = new JTextField[5]; //항공 변경 텍스트필드
+            JButton flightUpdateButton = new JButton("변경하기"); //변경하기 버튼
+            JButton flightSearchButton = new JButton("조회하기"); //조회하기 버튼
             
             FlightUpdate(){
                for(int i=0; i<p.length; i++) {
                   p[i] = new JPanel();
-                  p[i].setBackground(new Color(176, 224, 230));
+                  p[i].setBackground(new Color(209, 233, 255));
                   searchPanel[i] = new JPanel();
-                  searchPanel[i].setBackground(new Color(176, 224, 230));
+                  searchPanel[i].setBackground(new Color(209, 233, 255));
                }
                
                p[0].setLayout(new BorderLayout());
                
-               searchButton.setFocusPainted(false);
-               searchButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
-               searchButton.setForeground(new Color(255, 255, 255));
-               searchButton.setBackground(new Color(128, 128, 128));
+               flightSearchButton.setFocusPainted(false);
+               flightSearchButton.setFont(new Font("맑은고딕", Font.BOLD, 15));
+               flightSearchButton.setForeground(new Color(255, 255, 255));
+               flightSearchButton.setBackground(new Color(128, 128, 128));
                
                searchPanel[0].setLayout(new FlowLayout());
-               searchButton.addActionListener(this);
-               searchPanel[0].add(searchButton);
+               flightSearchButton.addActionListener(this);
+               searchPanel[0].add(flightSearchButton);
+               textArea.setEditable(false);
                searchPanel[1].add(new JScrollPane(textArea));
                
                p[0].add(searchPanel[0], BorderLayout.NORTH);
@@ -519,29 +547,29 @@ public class ManagerUIFrame extends JFrame{
                for(int i=0; i<infoLabel.length; i++) {
                   infoLabel[i] = new JLabel(infoStr[i]);
                   infoLabel[i].setHorizontalAlignment(JLabel.CENTER);
-                  infoLabel[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 18));
+                  infoLabel[i].setFont(new Font("맑은고딕", Font.BOLD, 18));
                }
-               for(int i=0; i<textField.length; i++) {
-                  textField[i] = new JTextField();
+               for(int i=0; i<fliUpdatetextField.length; i++) {
+            	   fliUpdatetextField[i] = new JTextField();
                }
                for(int i=0; i<5; i++) {
                   infoLabel[i].setLocation(45, 35+(i*75));
                   infoLabel[i].setSize(120,80);
                   p[1].add(infoLabel[i]);
-                  textField[i].setLocation(165, 50+(i*75));
-                  textField[i].setSize(200,60);
-                  p[1].add(textField[i]);
+                  fliUpdatetextField[i].setLocation(165, 50+(i*75));
+                  fliUpdatetextField[i].setSize(200,60);
+                  p[1].add(fliUpdatetextField[i]);
                }
                
-               updateButton.setFocusPainted(false);
-               updateButton.setForeground(new Color(255, 255, 255));
-               updateButton.setBackground(new Color(128, 128, 128));
-               updateButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
-               updateButton.setLocation(50, 450);
-               updateButton.setSize(340,50);
-               updateButton.addActionListener(this);
+               flightUpdateButton.setFocusPainted(false);
+               flightUpdateButton.setForeground(new Color(255, 255, 255));
+               flightUpdateButton.setBackground(new Color(128, 128, 128));
+               flightUpdateButton.setFont(new Font("맑은고딕", Font.BOLD, 17));
+               flightUpdateButton.setLocation(50, 450);
+               flightUpdateButton.setSize(340,50);
+               flightUpdateButton.addActionListener(this);
                
-               p[1].add(updateButton);
+               p[1].add(flightUpdateButton);
                
                mainPanel.setLayout(new GridLayout(1,2));
                mainPanel.add(p[0]);
@@ -551,10 +579,10 @@ public class ManagerUIFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                // TODO Auto-generated method stub
-               if(e.getSource() == updateButton) { //변경하기 버튼 누를 경우 해당 항공 변경
+               if(e.getSource() == flightUpdateButton) { //변경하기 버튼 누를 경우 해당 항공 변경
             	   
                }
-               else if(e.getSource() == searchButton) { //조회하기 버튼 누를 경우 모든 항공 조회
+               else if(e.getSource() == flightSearchButton) { //조회하기 버튼 누를 경우 모든 항공 조회
             	   
                }
             }
@@ -566,28 +594,29 @@ public class ManagerUIFrame extends JFrame{
             JPanel searchPanel[] = new JPanel[2];
             JTextArea textArea = new JTextArea(29,43); //모든 항공 조회 textArea
             JLabel infoLabel = new JLabel("항공편코드"); //항공 삭제 라벨
-            JTextField textField = new JTextField(); //항공 삭제 텍스트필드
-            JButton deleteButton = new JButton("삭제하기"); //삭제하기 버튼
-            JButton searchButton = new JButton("조회하기"); //조회하기 버튼
+            JTextField fliDeletetextField = new JTextField(); //항공 삭제 텍스트필드
+            JButton flightDeleteButton = new JButton("삭제하기"); //삭제하기 버튼
+            JButton flightSearchButton = new JButton("조회하기"); //조회하기 버튼
             
             FlightDelete(){
                for(int i=0; i<p.length; i++) {
                   p[i] = new JPanel();
-                  p[i].setBackground(new Color(176, 224, 230));
+                  p[i].setBackground(new Color(209, 233, 255));
                   searchPanel[i] = new JPanel();
-                  searchPanel[i].setBackground(new Color(176, 224, 230));
+                  searchPanel[i].setBackground(new Color(209, 233, 255));
                }
                  
                p[0].setLayout(new BorderLayout());
                
-               searchButton.setFocusPainted(false);
-               searchButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
-               searchButton.setForeground(new Color(255, 255, 255));
-               searchButton.setBackground(new Color(128, 128, 128));
+               flightSearchButton.setFocusPainted(false);
+               flightSearchButton.setFont(new Font("맑은고딕", Font.BOLD, 15));
+               flightSearchButton.setForeground(new Color(255, 255, 255));
+               flightSearchButton.setBackground(new Color(128, 128, 128));
                  
                searchPanel[0].setLayout(new FlowLayout());
-               searchButton.addActionListener(this);
-               searchPanel[0].add(searchButton);
+               flightSearchButton.addActionListener(this);
+               searchPanel[0].add(flightSearchButton);
+               textArea.setEditable(false);
                searchPanel[1].add(new JScrollPane(textArea));
                  
                p[0].add(searchPanel[0], BorderLayout.NORTH);
@@ -596,23 +625,23 @@ public class ManagerUIFrame extends JFrame{
                p[1].setLayout(null);
                
                infoLabel.setHorizontalAlignment(JLabel.CENTER);
-               infoLabel.setFont(new Font("한컴산뜻돋움", Font.BOLD, 18));
+               infoLabel.setFont(new Font("맑은고딕", Font.BOLD, 18));
      
                infoLabel.setLocation(45, 160);
                infoLabel.setSize(120,90);
                p[1].add(infoLabel);
-               textField.setLocation(185, 175);
-               textField.setSize(200,60);
-               p[1].add(textField);
+               fliDeletetextField.setLocation(185, 175);
+               fliDeletetextField.setSize(200,60);
+               p[1].add(fliDeletetextField);
                
-               deleteButton.setFocusPainted(false);
-               deleteButton.setForeground(new Color(255, 255, 255));
-               deleteButton.setBackground(new Color(128, 128, 128));
-               deleteButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
-               deleteButton.setLocation(50, 390);
-               deleteButton.setSize(340,50);
-               deleteButton.addActionListener(this);
-               p[1].add(deleteButton);
+               flightDeleteButton.setFocusPainted(false);
+               flightDeleteButton.setForeground(new Color(255, 255, 255));
+               flightDeleteButton.setBackground(new Color(128, 128, 128));
+               flightDeleteButton.setFont(new Font("맑은고딕", Font.BOLD, 17));
+               flightDeleteButton.setLocation(50, 390);
+               flightDeleteButton.setSize(340,50);
+               flightDeleteButton.addActionListener(this);
+               p[1].add(flightDeleteButton);
                
                mainPanel.setLayout(new GridLayout(1,2));
                mainPanel.add(p[0]);
@@ -622,10 +651,10 @@ public class ManagerUIFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                // TODO Auto-generated method stub
-               if(e.getSource() == deleteButton) { //삭제하기 버튼 누를 경우 해당 항공 삭제
+               if(e.getSource() == flightDeleteButton) { //삭제하기 버튼 누를 경우 해당 항공 삭제
             	   
                }
-               else if(e.getSource() == searchButton) { //조회하기 버튼 누를 경우 모든 항공 조회
+               else if(e.getSource() == flightSearchButton) { //조회하기 버튼 누를 경우 모든 항공 조회
             	   
                }
             }

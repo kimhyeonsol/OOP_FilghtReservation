@@ -8,16 +8,21 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class LoginUIFrame extends JFrame{
    
+	
    Container c;
    CardLayout card;
    
@@ -27,11 +32,13 @@ public class LoginUIFrame extends JFrame{
    LoginUIPanel loginUIpanel=new LoginUIPanel();
    SignUpPanel signUpPanel=new SignUpPanel();
    
-   String userId="";//사용자 아이디 문자열
+   String userId="", font = "함초롬돋움";//사용자 아이디 문자열
+   
+   UserDAO dao;
    
    LoginUIFrame(){
       setTitle("LoginUIFrame");
-      setBounds(400, 300, 500, 380);
+      setBounds(450, 200, 500, 380);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       
       c=this.getContentPane();
@@ -52,6 +59,7 @@ public class LoginUIFrame extends JFrame{
    class StartUIPanel extends JPanel implements ActionListener{
          ManagerButton managerButton = new ManagerButton();//관리자 버튼
          UserButton userButton = new UserButton();//사용자 버튼
+         
          public StartUIPanel() {
            try {
               backImage = ImageIO.read(new File("loginImg.jpg"));
@@ -132,7 +140,7 @@ public class LoginUIFrame extends JFrame{
          //로그인 레이블 부착
          for(int i=0; i<loginLabel.length; i++) {
             loginLabel[i] = new JLabel(loginLabelStr[i]);
-            loginLabel[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 20));
+            loginLabel[i].setFont(new Font("맑은고딕", Font.BOLD, 20));
             add(loginLabel[i]);
          }
          loginLabel[0].setBounds(66, 135, 82, 40);
@@ -151,23 +159,23 @@ public class LoginUIFrame extends JFrame{
          for(int i=0; i<loginButton.length; i++) {
             loginButton[i] = new JButton(loginButtonStr[i]);
             loginButton[i].setForeground(new Color(255, 255, 255));
-            loginButton[i].setBackground(new Color(128, 128, 128));
+            loginButton[i].setBackground(new Color(37, 51, 42));
             loginButton[i].setFocusPainted(false);
             loginButton[i].addActionListener(this);
             add(loginButton[i]);
          }
-         loginButton[0].setBounds(83, 240, 327, 30);
+         loginButton[0].setBounds(65, 240, 345, 30);
          loginButton[1].setBounds(280, 284, 130, 27);
-         loginButton[0].setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
-         loginButton[1].setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
+         loginButton[0].setFont(new Font("맑은고딕", Font.BOLD, 17));
+         loginButton[1].setFont(new Font("맑은고딕", Font.BOLD, 15));
         
          //뒤로가기 버튼 부착
          backButton.setForeground(new Color(255, 255, 255));
-         backButton.setBackground(new Color(128, 128, 128));
+         backButton.setBackground(new Color(37, 51, 42));
          backButton.setFocusPainted(false);
          backButton.addActionListener(this);
-         backButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
-         backButton.setBounds(83, 284, 130, 27);
+         backButton.setFont(new Font("맑은고딕", Font.BOLD, 15));
+         backButton.setBounds(65, 284, 130, 27);
          add(backButton);
       }
       
@@ -180,13 +188,16 @@ public class LoginUIFrame extends JFrame{
          
          if(e.getSource() == loginButton[0]) {//로그인 버튼
             userId=loginTextField[0].getText();
-            new UserUIFrame(userId);
+        	if(dao.getUser(userId)==null) {
+        		JOptionPane.showMessageDialog(null, "존재하지 않는 회원정보입니다.");
+                return;
+            }
+        	new UserUIFrame(userId);
             loginUIFrameExit();
-           }
-         
+         }
          else if(e.getSource() == loginButton[1]) {//회원가입 버튼
             card.next(c);
-           }
+         }
          
          else if(e.getSource() == backButton) {//돌아가기 버튼
             card.show(c, "1");
@@ -205,22 +216,21 @@ public class LoginUIFrame extends JFrame{
          JButton signUpButton = new JButton("회원가입");//회원가입 버튼
          JButton backButton = new JButton("돌아가기");//뒤로가기 버튼
          
-         
          public SignUpPanel() {
             
             setLayout(null);
-            this.setBackground(new Color(124,143,157));
+            this.setBackground(new Color(113,151,126));
             
             //타이틀 라벨 부착
             titleLabel.setForeground(Color.white);
-            titleLabel.setFont(new Font("맑은 고딕", Font.BOLD, 25));
-            titleLabel.setBounds(26, 10, 100, 40);
+            titleLabel.setFont(new Font(font, Font.BOLD, 25));
+            titleLabel.setBounds(26, 10, 200, 40);
             add(titleLabel);
             
             //회원정보 라벨 부착
             for(int i=0; i<infoLabel.length; i++) {
                 infoLabel[i] = new JLabel(infoStr[i]);
-                infoLabel[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+                infoLabel[i].setFont(new Font("맑은고딕", Font.BOLD, 16));
                 infoLabel[i].setBounds(80, 64+(40*i), 150, 23);
                 add(infoLabel[i]);
              }
@@ -233,23 +243,28 @@ public class LoginUIFrame extends JFrame{
              }
              
             //돌아가기 버튼 부착
-             backButton.setBackground(new Color(128, 128, 128));
+             backButton.setBackground(new Color(37, 51, 42));
              backButton.setFocusPainted(false);
              backButton.setForeground(Color.white);
-             backButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
+             backButton.setFont(new Font("맑은고딕", Font.BOLD, 17));
              backButton.setBounds(80, 308, 120, 23);
              backButton.addActionListener(this);
              add(backButton);
              
              //회원가입 버튼 부착
-             signUpButton.setBackground(new Color(128, 128, 128));
+             signUpButton.setBackground(new Color(37, 51, 42));
              signUpButton.setFocusPainted(false);
              signUpButton.setForeground(Color.white);
-             signUpButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
+             signUpButton.setFont(new Font("맑은고딕", Font.BOLD, 17));
              signUpButton.setBounds(290, 308, 120, 23);
              signUpButton.addActionListener(this);
              add(signUpButton);
-             
+             try {
+					dao = new UserDAO();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+			}
          }
          protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -257,8 +272,21 @@ public class LoginUIFrame extends JFrame{
          @Override
          public void actionPerformed(ActionEvent e) {
             if(e.getSource() == signUpButton) {//회원가입 버튼
-               card.previous(c);
-               }
+            	User user=new User();
+            	user.setID(textField[1].getText());
+            	user.setName(textField[0].getText());
+            	user.setPw(textField[2].getText());
+            	user.setEmail(textField[3].getText());
+            	user.setBirth(textField[4].getText());
+            	user.setPhone(textField[5].getText());
+				
+            	if(!dao.newUser(user)) {
+            		JOptionPane.showMessageDialog(null, "사용불가능한 ID입니다.");
+            		return;
+            	}
+            	JOptionPane.showMessageDialog(null, "회원가입되었습니다!!");
+            	card.previous(c);
+             }
             else if(e.getSource() == backButton) {//돌아가기 버튼
                card.show(c, "2");
             }

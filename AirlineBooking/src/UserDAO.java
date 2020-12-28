@@ -6,10 +6,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
+
 public class UserDAO {
 
 	String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-	String jdbcUrl = "jdbc:mysql://localhost/airplanereservation?&serverTimezone=Asia/Seoul&useSSL=false";
+	String jdbcUrl = "jdbc:mysql://localhost:3306/airplanereservation?&serverTimezone=Asia/Seoul&useSSL=false";
 	Connection conn;
 
 	PreparedStatement pstmt;
@@ -26,7 +28,7 @@ public class UserDAO {
 	public void connectDB() throws SQLException {
 		try {
 			Class.forName(jdbcDriver);
-			conn = DriverManager.getConnection(jdbcUrl, "javaoop", "111111");
+			conn = DriverManager.getConnection(jdbcUrl, "root", "root");
 			System.out.println("DB 연결");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -69,7 +71,7 @@ public class UserDAO {
 		return datas;
 
 	}
-
+	
 	public User getUser(String ID) {
 		sql = "select * from user where ID = ?";
 		User p = null;
