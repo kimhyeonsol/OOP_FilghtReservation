@@ -37,7 +37,7 @@ public class ManagerUIFrame extends JFrame{
    Container c;
    CardLayout card;
          
-   ManagerUIFrame(){
+   public ManagerUIFrame(){
       setTitle("관리자 페이지");
       setBounds(250, 50, 1000, 700);
       this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);

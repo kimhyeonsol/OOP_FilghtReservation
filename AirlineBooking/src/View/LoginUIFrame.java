@@ -25,12 +25,12 @@ import Model.UserDAO;
 public class LoginUIFrame extends JFrame{
    
 	
-   Container c;
-   CardLayout card;
+   public Container c;
+   public CardLayout card;
    
    BufferedImage backImage,btn1Image,btn2Image,Image;
    
-   StartUIPanel startUIPanel=new StartUIPanel();
+   public StartUIPanel startUIPanel=new StartUIPanel();
    public LoginUIPanel loginUIpanel=new LoginUIPanel();
    SignUpPanel signUpPanel=new SignUpPanel();
    
@@ -58,9 +58,9 @@ public class LoginUIFrame extends JFrame{
     }
    
    ///////////////////////////////////////////////관리자, 사용자 선택 카드/////////////////////////////////
-   class StartUIPanel extends JPanel implements ActionListener{
-         ManagerButton managerButton = new ManagerButton();//관리자 버튼
-         UserButton userButton = new UserButton();//사용자 버튼
+   public class StartUIPanel extends JPanel {
+         public ManagerButton managerButton = new ManagerButton();//관리자 버튼
+         public UserButton userButton = new UserButton();//사용자 버튼
          
          public StartUIPanel() {
            try {
@@ -70,8 +70,8 @@ public class LoginUIFrame extends JFrame{
            }
             setLayout(null);
            
-            managerButton.addActionListener(this);
-            userButton.addActionListener(this);
+//            managerButton.addActionListener(this);
+//            userButton.addActionListener(this);
            
             managerButton.setBounds(50, 150, 150, 150);
             userButton.setBounds(280, 150, 150, 150);
@@ -112,17 +112,17 @@ public class LoginUIFrame extends JFrame{
             }
          }
          
-         @Override
-         
-         public void actionPerformed(ActionEvent e) {
-            if(e.getSource() == managerButton) {//관리자 버튼
-               new ManagerUIFrame();
-               loginUIFrameExit();
-            }
-            if(e.getSource() == userButton) {//사용자 버튼
-               card.next(c);
-            }
-         }
+//         @Override
+//         
+//         public void actionPerformed(ActionEvent e) {
+//            if(e.getSource() == managerButton) {//관리자 버튼
+//               new ManagerUIFrame();
+//               loginUIFrameExit();
+//            }
+//            if(e.getSource() == userButton) {//사용자 버튼
+//               card.next(c);
+//            }
+//         }
    }
    //////////////////////////////////////////////로그인 카드////////////////////////////////////////////
    public class LoginUIPanel extends JPanel implements ActionListener{
@@ -296,7 +296,8 @@ public class LoginUIFrame extends JFrame{
    }
    
    public void addButtonActionListener(ActionListener listener) {
-	   loginUIpanel.backButton.addActionListener(listener);
+	   startUIPanel.userButton.addActionListener(listener);
+	   startUIPanel.managerButton.addActionListener(listener);
    }
    
 }

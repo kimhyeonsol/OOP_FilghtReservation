@@ -73,11 +73,17 @@ public class MainController {
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					Object obj = e.getSource();
-					if(obj == v.loginUIpanel.backButton) {
-						System.out.println("굳!");
+					if(obj == v.startUIPanel.managerButton) {
+						System.out.println("매니저");
+			               new ManagerUIFrame();
+			               v.loginUIFrameExit();
+					}
+					if(obj == v.startUIPanel.userButton) {
+						System.out.println("사용자");
+						v.card.next(v.c);
 					}
 					
-					
+				
 				}
 				
 			});
