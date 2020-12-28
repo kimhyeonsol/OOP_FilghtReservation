@@ -431,9 +431,9 @@ public class ManagerUIFrame extends JFrame{
             JPanel p[] = new JPanel[2];
             JPanel searchPanel[] = new JPanel[2];
             JTextArea textArea = new JTextArea(29,43); //모든 항공 조회 textArea
-            JLabel infoLabel[] = new JLabel[8]; //항공 등록 라벨
-            String infoStr[] = {"항공편명","항공사명", "출발시간", "도착시간", "일반운임", "비즈니스운임", "출발공항", "도착공항"};
-            JTextField fliCreatetextField[] = new JTextField[8]; //항공 등록 텍스트필드
+            JLabel infoLabel[] = new JLabel[7]; //항공 등록 라벨
+            String infoStr[] = {"항공사명", "출발시간", "도착시간", "일반운임", "비즈니스운임", "출발공항", "도착공항"};
+            JTextField fliCreatetextField[] = new JTextField[7]; //항공 등록 텍스트필드
             JButton flightCreateButton = new JButton("등록하기"); //등록하기 버튼
             JButton flightSearchButton = new JButton("조회하기"); //조회하기 버튼
             
@@ -471,11 +471,11 @@ public class ManagerUIFrame extends JFrame{
                for(int i=0; i<fliCreatetextField.length; i++) {
             	   fliCreatetextField[i] = new JTextField();
                }
-               for(int i=0; i<8; i++) {
-                  infoLabel[i].setLocation(45, 23+(i*50));
+               for(int i=0; i<7; i++) {
+                  infoLabel[i].setLocation(45, 45+(i*55));
                   infoLabel[i].setSize(120,60);
                   p[1].add(infoLabel[i]);
-                  fliCreatetextField[i].setLocation(165, 35+(i*50));
+                  fliCreatetextField[i].setLocation(165, 57+(i*55));
                   fliCreatetextField[i].setSize(200,40);
                   p[1].add(fliCreatetextField[i]);
                }
@@ -513,7 +513,7 @@ public class ManagerUIFrame extends JFrame{
             JPanel searchPanel[] = new JPanel[2];
             JTextArea textArea = new JTextArea(29,43); //모든 항공 조회 textArea
             JLabel infoLabel[] = new JLabel[5]; //항공 변경 라벨
-            String infoStr[] = {"항공편명","출발시간", "도착시간", "일반운임", "비즈니스운임"};
+            String infoStr[] = {"항공편코드","출발시간", "도착시간", "일반운임", "비즈니스운임"};
             JTextField fliUpdatetextField[] = new JTextField[5]; //항공 변경 텍스트필드
             JButton flightUpdateButton = new JButton("변경하기"); //변경하기 버튼
             JButton flightSearchButton = new JButton("조회하기"); //조회하기 버튼
