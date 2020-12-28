@@ -524,8 +524,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
          RegisterFlightPanel(){
             this.setBackground(new Color(209, 233, 255));
             this.setLayout(null);
-            
-            titleLb.setBounds(14,14,200,20);
+            titleLb.setBounds(14,14,220,20);
             titleLb.setFont(new Font("한컴산뜻돋움", Font.BOLD, 20));
             add(titleLb);
                
