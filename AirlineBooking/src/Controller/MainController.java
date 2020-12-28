@@ -73,7 +73,7 @@ public class MainController {
 					}
 
 //					public class MyInfoUpdatePanel extends JPanel {
-					if (e.getSource() == v.myInfoPanel.myInfoUpdatePanel.saveButton) {// 내정보 문서로 저장하기 버튼
+					if (obj == v.myInfoPanel.myInfoUpdatePanel.saveButton) {// 내정보 문서로 저장하기 버튼
 						int ret = v.myInfoPanel.myInfoUpdatePanel.chooser.showSaveDialog(null);
 						if (ret != JFileChooser.APPROVE_OPTION) {
 							JOptionPane.showMessageDialog(null, "경로를 선택하지 않았습니다");
@@ -94,14 +94,14 @@ public class MainController {
 						System.out.println("SAVE Done...");
 					}
 
-					else if (e.getSource() == v.myInfoPanel.myInfoUpdatePanel.updateButton) {// 내정보 변경하기 버튼
+					else if (obj == v.myInfoPanel.myInfoUpdatePanel.updateButton) {// 내정보 변경하기 버튼
 						String memo = new String("*항공예약시스템에 저장된 내 정보*\r\n\r\n");
 						for (int i = 0; i < 6; i++) {
 							memo += (v.myInfoPanel.myInfoUpdatePanel.infoStr[i] + ": "
 									+ v.myInfoPanel.myInfoUpdatePanel.textField[i].getText() + "\r\n");
 						}
 						v.myInfoPanel.myInfoUpdatePanel.textArea.setText(memo);
-					} else if (e.getSource() == v.myInfoPanel.myInfoUpdatePanel.cancelButton) {// 프로그램 탈퇴하기 버튼
+					} else if (obj == v.myInfoPanel.myInfoUpdatePanel.cancelButton) {// 프로그램 탈퇴하기 버튼
 						String memo = new String("*항공예약시스템에 저장된 내 정보*\r\n\r\n");
 						for (int i = 0; i < 6; i++) {
 							memo += (v.myInfoPanel.myInfoUpdatePanel.infoStr[i] + ": "
@@ -111,14 +111,14 @@ public class MainController {
 					}
 
 //					public class MyReservationUpdatePanel extends JPanel {// 내 항공편 예약 현황
-					if (e.getSource() == v.myInfoPanel.myReservationUpdatePanel.changeSeatBtn) {// 자리변경하기 버튼
+					if (obj == v.myInfoPanel.myReservationUpdatePanel.changeSeatBtn) {// 자리변경하기 버튼
 						String resnum = JOptionPane.showInputDialog("자리변경 할 항공편의 예약번호를 입력하세요");
 						if (resnum != null) {
 							////////// dB에서 해당 항공기 예약정보를 삭제하고
 							////////// 항공편 자리선택 화면으로 가서 다시 예약
 							v.card.show(v.c, "selectSeat");
 						}
-					} else if (e.getSource() == v.myInfoPanel.myReservationUpdatePanel.cancleResBtn) {// 예약취소하기 버튼
+					} else if (obj == v.myInfoPanel.myReservationUpdatePanel.cancleResBtn) {// 예약취소하기 버튼
 						String resnum = JOptionPane.showInputDialog("예약취소 할 항공편의 예약번호를 입력하세요");
 						if (resnum != null) {
 							////////// dB에서 해당 항공기 예약정보를 삭제
@@ -127,16 +127,16 @@ public class MainController {
 					}
 
 //					public FlightResPanel flightResPanel;
+					if (obj == v.flightResPanel.backButton) {// 뒤로가기 버튼
+						v.card.show(v.c, "userMenu");
+					}
+
+//					public class RegisterFlightPanel extends JPanel implements ItemListener {
 					if (obj == v.flightResPanel.flightSearchButton) {// 비행기 검색하기 버튼
 
 					}
 
-//					public class RegisterFlightPanel extends JPanel implements ItemListener {
-					if (e.getSource() == v.flightResPanel.flightSearchButton) {// 비행기 검색하기 버튼
-
-					}
-
-					if (e.getSource() == v.flightResPanel.selectSeatButton1) {// 가는자리선택하기 버튼
+					if (obj == v.flightResPanel.selectSeatButton1) {// 가는자리선택하기 버튼
 						if (v.flightResPanel.flightsearchTextField[2].getText().equals("")) {// 인원수 textfield 비어있으면
 							JOptionPane.showMessageDialog(null, "탑승할 인원을 선택하세요!");
 							return;
@@ -145,7 +145,7 @@ public class MainController {
 						v.card.show(v.c, "selectSeat");
 					}
 
-					if (e.getSource() == v.flightResPanel.selectSeatButton2) {// 오는자리선택하기 버튼
+					if (obj == v.flightResPanel.selectSeatButton2) {// 오는자리선택하기 버튼
 						if (v.flightResPanel.flightsearchTextField[2].getText().equals("")) {// 인원수 textfield 비어있으면
 							JOptionPane.showMessageDialog(null, "탑승할 인원을 선택하세요!");
 							return;
@@ -154,10 +154,10 @@ public class MainController {
 						v.card.show(v.c, "selectSeat");
 					}
 
-					if (e.getSource() == v.flightResPanel.departureAirportCombo) {// 출발 공항 콤보박스
+					if (obj == v.flightResPanel.departureAirportCombo) {// 출발 공항 콤보박스
 						int index = v.flightResPanel.departureAirportCombo.getSelectedIndex();
 					}
-					if (e.getSource() == v.flightResPanel.destAirportCombo) {// 도착 공항 콤보박스
+					if (obj == v.flightResPanel.destAirportCombo) {// 도착 공항 콤보박스
 						int index = v.flightResPanel.destAirportCombo.getSelectedIndex();
 					}
 
@@ -187,7 +187,7 @@ public class MainController {
 					}
 
 //					public SelectSeatPanel selectSeatPanel;
-					if (e.getSource() == v.selectSeatPanel.backButton) {// 뒤로가기 버튼
+					if (obj == v.selectSeatPanel.backButton) {// 뒤로가기 버튼
 						v.card.show(v.c, "reservation");
 
 						v.selectSeatPanel.cnt = 0;
@@ -203,7 +203,7 @@ public class MainController {
 						}
 					}
 //					public class SelectSeatTab extends JPanel {
-					if (e.getSource() == v.selectSeatPanel.reserveButton) {// 예약하기버튼
+					if (obj == v.selectSeatPanel.reserveButton) {// 예약하기버튼
 						JOptionPane.showMessageDialog(null, "예약되셨습니다!");
 						v.card.show(v.c, "reservation");
 						v.selectSeatPanel.cnt = 0;
@@ -221,7 +221,7 @@ public class MainController {
 
 					for (int i = 0; i < v.selectSeatPanel.seatButton.length; i++) {
 
-						if (e.getSource() == v.selectSeatPanel.seatButton[i]) {
+						if (obj == v.selectSeatPanel.seatButton[i]) {
 							for (int j = 0; j < v.selectSeatPanel.seatlist.size(); j++) {
 								if (i == v.selectSeatPanel.seatlist.get(j)) {
 									return;
@@ -248,7 +248,7 @@ public class MainController {
 									.setText(v.selectedSeatTextarea.getText() + "  " + str + (i % 10 + 1));
 						}
 
-						else if (e.getSource() == v.selectSeatPanel.selectSeatTab.resetButton) {// 좌석초기화 버튼
+						else if (obj == v.selectSeatPanel.selectSeatTab.resetButton) {// 좌석초기화 버튼
 							if (i % 10 == 0) {
 								v.selectSeatPanel.seatButton[i].setBackground(new Color(112, 48, 160));
 							} else {
@@ -302,7 +302,7 @@ public class MainController {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
+//					public class StartUIPanel extends JPanel {
 					Object obj = e.getSource();
 					if (obj == v.startUIPanel.managerButton) {
 						System.out.println("매니저");
@@ -322,13 +322,7 @@ public class MainController {
 					}
 
 //					public LoginUIPanel loginUIpanel=new LoginUIPanel();
-//				      public JButton backButton = new JButton("돌아가기");//돌아가기 버튼
-//				      
-//				      public JLabel loginLabel[] = new JLabel[2];//로그인 레이블
-//				      public String loginLabelStr[] = {"아이디", "비밀번호"};
-//				      public JTextField loginTextField[] = new JTextField[2];//로그인 정보 입력받는 textField
-//				      public JButton loginButton[] = new JButton[2];//로그인 버튼
-//				      public String loginButtonStr[] = {"로그인", "회원가입"};
+
 
 					if (obj == v.loginUIpanel.loginButton[0]) {// 로그인 버튼
 						v.userId = v.loginUIpanel.loginTextField[0].getText();
