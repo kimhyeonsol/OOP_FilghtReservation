@@ -31,6 +31,8 @@ public class ManagerUIFrame extends JFrame{
    ManagerReservationUI reservationPanel = new ManagerReservationUI();
    ManagerFlightUI flightPanel = new ManagerFlightUI();
    
+   String font = "함초롬돋움";
+   
    Container c;
    CardLayout card;
          
@@ -186,7 +188,7 @@ public class ManagerUIFrame extends JFrame{
         
           JLabel lb=new JLabel("회원정보 관리");
           lb.setHorizontalAlignment(JLabel.CENTER);
-          lb.setFont(new Font("한컴산뜻돋움", Font.BOLD, 40));
+          lb.setFont(new Font(font, Font.BOLD, 40));
           lb.setBounds(350,0,300,100);
         
           backButton.setBounds(10,10,80,80);
@@ -231,7 +233,7 @@ public class ManagerUIFrame extends JFrame{
               p[0].setLayout(new BorderLayout());
               
               memSearchButton.setFocusPainted(false);
-              memSearchButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
+              memSearchButton.setFont(new Font(font, Font.BOLD, 15));
               memSearchButton.setForeground(new Color(255, 255, 255));
               memSearchButton.setBackground(new Color(128, 128, 128));
                 
@@ -249,7 +251,7 @@ public class ManagerUIFrame extends JFrame{
               for(int i=0; i<infoLabel.length; i++) {
                  infoLabel[i] = new JLabel(infoStr[i]);
                  infoLabel[i].setHorizontalAlignment(JLabel.CENTER);
-                 infoLabel[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 18));
+                 infoLabel[i].setFont(new Font(font, Font.BOLD, 18));
               }
               for(int i=0; i<memDeletetextField.length; i++) {
             	  memDeletetextField[i] = new JTextField();
@@ -266,7 +268,7 @@ public class ManagerUIFrame extends JFrame{
               memDeleteButton.setForeground(new Color(255, 255, 255));
               memDeleteButton.setBackground(new Color(128, 128, 128));
               memDeleteButton.setFocusPainted(false);
-              memDeleteButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
+              memDeleteButton.setFont(new Font(font, Font.BOLD, 17));
               memDeleteButton.setLocation(50, 400);
               memDeleteButton.setSize(340,50);
               memDeleteButton.addActionListener(this);
@@ -315,7 +317,7 @@ public class ManagerUIFrame extends JFrame{
           
           JLabel lb=new JLabel("예약정보 관리");
           lb.setHorizontalAlignment(JLabel.CENTER);
-          lb.setFont(new Font("한컴산뜻돋움", Font.BOLD, 40));
+          lb.setFont(new Font(font, Font.BOLD, 40));
           lb.setBounds(350,0,300,100);
           
           backButton.setBounds(10,10,80,80);
@@ -349,7 +351,7 @@ public class ManagerUIFrame extends JFrame{
                }
           
           reservationSearchButton.setFocusPainted(false);
-          reservationSearchButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
+          reservationSearchButton.setFont(new Font(font, Font.BOLD, 15));
           reservationSearchButton.setForeground(new Color(255, 255, 255));
           reservationSearchButton.setBackground(new Color(128, 128, 128));
           reservationSearchButton.addActionListener(this);
@@ -401,7 +403,7 @@ public class ManagerUIFrame extends JFrame{
             
             JLabel lb=new JLabel("항공정보 관리");
             lb.setHorizontalAlignment(JLabel.CENTER);
-            lb.setFont(new Font("한컴산뜻돋움", Font.BOLD, 40));
+            lb.setFont(new Font(font, Font.BOLD, 40));
             lb.setBounds(350,0,300,100);
             
             backButton.setBounds(10,10,80,80);
@@ -446,7 +448,7 @@ public class ManagerUIFrame extends JFrame{
                p[0].setLayout(new BorderLayout());
                
                flightSearchButton.setFocusPainted(false);
-               flightSearchButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
+               flightSearchButton.setFont(new Font(font, Font.BOLD, 15));
                flightSearchButton.setForeground(new Color(255, 255, 255));
                flightSearchButton.setBackground(new Color(128, 128, 128));
                
@@ -464,7 +466,7 @@ public class ManagerUIFrame extends JFrame{
                for(int i=0; i<infoLabel.length; i++) {
                   infoLabel[i] = new JLabel(infoStr[i]);
                   infoLabel[i].setHorizontalAlignment(JLabel.CENTER);
-                  infoLabel[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 18));
+                  infoLabel[i].setFont(new Font(font, Font.BOLD, 18));
                }
                for(int i=0; i<fliCreatetextField.length; i++) {
             	   fliCreatetextField[i] = new JTextField();
@@ -481,7 +483,7 @@ public class ManagerUIFrame extends JFrame{
                flightCreateButton.setFocusPainted(false);
                flightCreateButton.setForeground(new Color(255, 255, 255));
                flightCreateButton.setBackground(new Color(128, 128, 128));
-               flightCreateButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
+               flightCreateButton.setFont(new Font(font, Font.BOLD, 17));
                flightCreateButton.setLocation(50, 450);
                flightCreateButton.setSize(340,50);
                flightCreateButton.addActionListener(this);
@@ -527,7 +529,7 @@ public class ManagerUIFrame extends JFrame{
                p[0].setLayout(new BorderLayout());
                
                flightSearchButton.setFocusPainted(false);
-               flightSearchButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
+               flightSearchButton.setFont(new Font(font, Font.BOLD, 15));
                flightSearchButton.setForeground(new Color(255, 255, 255));
                flightSearchButton.setBackground(new Color(128, 128, 128));
                
@@ -545,7 +547,7 @@ public class ManagerUIFrame extends JFrame{
                for(int i=0; i<infoLabel.length; i++) {
                   infoLabel[i] = new JLabel(infoStr[i]);
                   infoLabel[i].setHorizontalAlignment(JLabel.CENTER);
-                  infoLabel[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 18));
+                  infoLabel[i].setFont(new Font(font, Font.BOLD, 18));
                }
                for(int i=0; i<fliUpdatetextField.length; i++) {
             	   fliUpdatetextField[i] = new JTextField();
@@ -562,7 +564,7 @@ public class ManagerUIFrame extends JFrame{
                flightUpdateButton.setFocusPainted(false);
                flightUpdateButton.setForeground(new Color(255, 255, 255));
                flightUpdateButton.setBackground(new Color(128, 128, 128));
-               flightUpdateButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
+               flightUpdateButton.setFont(new Font(font, Font.BOLD, 17));
                flightUpdateButton.setLocation(50, 450);
                flightUpdateButton.setSize(340,50);
                flightUpdateButton.addActionListener(this);
@@ -607,7 +609,7 @@ public class ManagerUIFrame extends JFrame{
                p[0].setLayout(new BorderLayout());
                
                flightSearchButton.setFocusPainted(false);
-               flightSearchButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
+               flightSearchButton.setFont(new Font(font, Font.BOLD, 15));
                flightSearchButton.setForeground(new Color(255, 255, 255));
                flightSearchButton.setBackground(new Color(128, 128, 128));
                  
@@ -623,7 +625,7 @@ public class ManagerUIFrame extends JFrame{
                p[1].setLayout(null);
                
                infoLabel.setHorizontalAlignment(JLabel.CENTER);
-               infoLabel.setFont(new Font("한컴산뜻돋움", Font.BOLD, 18));
+               infoLabel.setFont(new Font(font, Font.BOLD, 18));
      
                infoLabel.setLocation(45, 160);
                infoLabel.setSize(120,90);
@@ -635,7 +637,7 @@ public class ManagerUIFrame extends JFrame{
                flightDeleteButton.setFocusPainted(false);
                flightDeleteButton.setForeground(new Color(255, 255, 255));
                flightDeleteButton.setBackground(new Color(128, 128, 128));
-               flightDeleteButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
+               flightDeleteButton.setFont(new Font(font, Font.BOLD, 17));
                flightDeleteButton.setLocation(50, 390);
                flightDeleteButton.setSize(340,50);
                flightDeleteButton.addActionListener(this);

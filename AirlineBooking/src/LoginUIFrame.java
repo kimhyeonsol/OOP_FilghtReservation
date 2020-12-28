@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 
 public class LoginUIFrame extends JFrame{
    
+	
    Container c;
    CardLayout card;
    
@@ -31,7 +32,7 @@ public class LoginUIFrame extends JFrame{
    LoginUIPanel loginUIpanel=new LoginUIPanel();
    SignUpPanel signUpPanel=new SignUpPanel();
    
-   String userId="";//사용자 아이디 문자열
+   String userId="", font = "함초롬돋움";//사용자 아이디 문자열
    
    UserDAO dao;
    
@@ -139,7 +140,7 @@ public class LoginUIFrame extends JFrame{
          //로그인 레이블 부착
          for(int i=0; i<loginLabel.length; i++) {
             loginLabel[i] = new JLabel(loginLabelStr[i]);
-            loginLabel[i].setFont(new Font("함초롬돋움", Font.BOLD, 20));
+            loginLabel[i].setFont(new Font(font, Font.BOLD, 20));
             add(loginLabel[i]);
          }
          loginLabel[0].setBounds(66, 135, 82, 40);
@@ -165,15 +166,15 @@ public class LoginUIFrame extends JFrame{
          }
          loginButton[0].setBounds(65, 240, 345, 30);
          loginButton[1].setBounds(280, 284, 130, 27);
-         loginButton[0].setFont(new Font("함초롬돋움", Font.BOLD, 17));
-         loginButton[1].setFont(new Font("함초롬돋움", Font.BOLD, 15));
+         loginButton[0].setFont(new Font(font, Font.BOLD, 17));
+         loginButton[1].setFont(new Font(font, Font.BOLD, 15));
         
          //뒤로가기 버튼 부착
          backButton.setForeground(new Color(255, 255, 255));
          backButton.setBackground(new Color(37, 51, 42));
          backButton.setFocusPainted(false);
          backButton.addActionListener(this);
-         backButton.setFont(new Font("함초롬돋움", Font.BOLD, 15));
+         backButton.setFont(new Font(font, Font.BOLD, 15));
          backButton.setBounds(65, 284, 130, 27);
          add(backButton);
       }
@@ -243,14 +244,14 @@ public class LoginUIFrame extends JFrame{
             
             //타이틀 라벨 부착
             titleLabel.setForeground(Color.white);
-            titleLabel.setFont(new Font("함초롬돋움", Font.BOLD, 25));
+            titleLabel.setFont(new Font(font, Font.BOLD, 25));
             titleLabel.setBounds(26, 10, 100, 40);
             add(titleLabel);
             
             //회원정보 라벨 부착
             for(int i=0; i<infoLabel.length; i++) {
                 infoLabel[i] = new JLabel(infoStr[i]);
-                infoLabel[i].setFont(new Font("함초롬돋움", Font.BOLD, 16));
+                infoLabel[i].setFont(new Font(font, Font.BOLD, 16));
                 infoLabel[i].setBounds(80, 64+(40*i), 150, 23);
                 add(infoLabel[i]);
              }
@@ -266,7 +267,7 @@ public class LoginUIFrame extends JFrame{
              backButton.setBackground(new Color(37, 51, 42));
              backButton.setFocusPainted(false);
              backButton.setForeground(Color.white);
-             backButton.setFont(new Font("함초롬돋움", Font.BOLD, 15));
+             backButton.setFont(new Font(font, Font.BOLD, 15));
              backButton.setBounds(80, 308, 120, 25);
              backButton.addActionListener(this);
              add(backButton);
@@ -275,7 +276,7 @@ public class LoginUIFrame extends JFrame{
              signUpButton.setBackground(new Color(37, 51, 42));
              signUpButton.setFocusPainted(false);
              signUpButton.setForeground(Color.white);
-             signUpButton.setFont(new Font("함초롬돋움", Font.BOLD, 15));
+             signUpButton.setFont(new Font(font, Font.BOLD, 15));
              signUpButton.setBounds(290, 308, 120, 25);
              signUpButton.addActionListener(this);
              add(signUpButton);
