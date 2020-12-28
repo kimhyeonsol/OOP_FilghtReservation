@@ -139,7 +139,7 @@ public class LoginUIFrame extends JFrame{
          //로그인 레이블 부착
          for(int i=0; i<loginLabel.length; i++) {
             loginLabel[i] = new JLabel(loginLabelStr[i]);
-            loginLabel[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 20));
+            loginLabel[i].setFont(new Font("맑은고딕", Font.BOLD, 20));
             add(loginLabel[i]);
          }
          loginLabel[0].setBounds(66, 135, 82, 40);
@@ -165,15 +165,15 @@ public class LoginUIFrame extends JFrame{
          }
          loginButton[0].setBounds(65, 240, 345, 30);
          loginButton[1].setBounds(280, 284, 130, 27);
-         loginButton[0].setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
-         loginButton[1].setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
+         loginButton[0].setFont(new Font("맑은고딕", Font.BOLD, 17));
+         loginButton[1].setFont(new Font("맑은고딕", Font.BOLD, 15));
         
          //뒤로가기 버튼 부착
          backButton.setForeground(new Color(255, 255, 255));
          backButton.setBackground(new Color(37, 51, 42));
          backButton.setFocusPainted(false);
          backButton.addActionListener(this);
-         backButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
+         backButton.setFont(new Font("맑은고딕", Font.BOLD, 15));
          backButton.setBounds(65, 284, 130, 27);
          add(backButton);
       }
@@ -250,7 +250,7 @@ public class LoginUIFrame extends JFrame{
             //회원정보 라벨 부착
             for(int i=0; i<infoLabel.length; i++) {
                 infoLabel[i] = new JLabel(infoStr[i]);
-                infoLabel[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+                infoLabel[i].setFont(new Font("맑은고딕", Font.BOLD, 16));
                 infoLabel[i].setBounds(80, 64+(40*i), 150, 23);
                 add(infoLabel[i]);
              }
@@ -266,7 +266,7 @@ public class LoginUIFrame extends JFrame{
              backButton.setBackground(new Color(37, 51, 42));
              backButton.setFocusPainted(false);
              backButton.setForeground(Color.white);
-             backButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
+             backButton.setFont(new Font("맑은고딕", Font.BOLD, 17));
              backButton.setBounds(80, 308, 120, 23);
              backButton.addActionListener(this);
              add(backButton);
@@ -275,7 +275,7 @@ public class LoginUIFrame extends JFrame{
              signUpButton.setBackground(new Color(37, 51, 42));
              signUpButton.setFocusPainted(false);
              signUpButton.setForeground(Color.white);
-             signUpButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
+             signUpButton.setFont(new Font("맑은고딕", Font.BOLD, 17));
              signUpButton.setBounds(290, 308, 120, 23);
              signUpButton.addActionListener(this);
              add(signUpButton);

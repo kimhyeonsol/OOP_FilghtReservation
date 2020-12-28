@@ -45,6 +45,8 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
    int resNum=0;//탑승할 인원수
    
    JTextArea selectedSeatTextarea=new JTextArea();//선택된 좌석 출력되는 textArea
+   
+   
   
    ///////////////////////////////////////////생성자//////////////////////////////////////////////////////////////////
    UserUIFrame(String userId){//사용자 ID를 매개변수로 프레임 생성
@@ -183,7 +185,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
               
               JLabel lb=new JLabel("마이 페이지");
               lb.setHorizontalAlignment(JLabel.CENTER);
-              lb.setFont(new Font("한컴산뜻돋움", Font.BOLD, 40));
+              lb.setFont(new Font("맑은고딕", Font.BOLD, 40));
               lb.setBounds(350,0,300,100);
               add(lb);
               
@@ -248,7 +250,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                 
                 JLabel lb1=new JLabel("아이디/ 비밀번호 txt로 저장");
                 lb1.setHorizontalAlignment(JLabel.CENTER);
-                lb1.setFont(new Font("한컴산뜻돋움", Font.BOLD, 18));
+                lb1.setFont(new Font("맑은고딕", Font.BOLD, 18));
                 JLabel lb2=new JLabel("(미리보기)");
                 savePanel[0].add(lb1);
                 savePanel[0].add(lb2);
@@ -257,7 +259,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                 
                 savePanel[2].setLayout(new FlowLayout());
                 saveButton.setFocusPainted(false);
-                saveButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
+                saveButton.setFont(new Font("맑은고딕", Font.BOLD, 15));
                 saveButton.setForeground(new Color(255, 255, 255));
                 saveButton.setBackground(new Color(128, 128, 128));
                 saveButton.addActionListener(this);
@@ -275,13 +277,13 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                 JLabel lb3=new JLabel("내 정보");
                 lb3.setBounds(200,0,100,50);
                 lb3.setHorizontalAlignment(JLabel.CENTER);
-                lb3.setFont(new Font("한컴산뜻돋움", Font.BOLD, 18));
+                lb3.setFont(new Font("맑은고딕", Font.BOLD, 18));
                 p[1].add(lb3);
                 
                 for(int i=0; i<infoLabel.length; i++) {
                    infoLabel[i] = new JLabel(infoStr[i]);
                    infoLabel[i].setHorizontalAlignment(JLabel.CENTER);
-                   infoLabel[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+                   infoLabel[i].setFont(new Font("맑은고딕", Font.BOLD, 16));
                 }
                 for(int i=0; i<textField.length; i++) {
                    textField[i] = new JTextField();
@@ -306,7 +308,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                 updateButton.setFocusPainted(false);
                 updateButton.setForeground(new Color(255, 255, 255));
                 updateButton.setBackground(new Color(128, 128, 128));
-                updateButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 17));
+                updateButton.setFont(new Font("맑은고딕", Font.BOLD, 17));
                 updateButton.setLocation(50, 430);
                 updateButton.setSize(340,40);
                 updateButton.addActionListener(this);
@@ -315,7 +317,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                 cancelButton.setFocusPainted(false);
                 cancelButton.setForeground(Color.yellow);
                 cancelButton.setBackground(new Color(128, 128, 128));
-                cancelButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 12));
+                cancelButton.setFont(new Font("맑은고딕", Font.BOLD, 12));
                 cancelButton.setLocation(280, 475);
                 cancelButton.setSize(110,30);
                 cancelButton.addActionListener(this);
@@ -382,7 +384,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                  setBackground(new Color(209, 233, 255));
                  
                  pageName.setBounds(10,10,200,30);//페이지 이름 라벨
-                 pageName.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+                 pageName.setFont(new Font("맑은고딕", Font.BOLD, 16));
                  add(pageName);
                  
                  textArea.setEditable(false);
@@ -497,7 +499,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
          
          JLabel lb=new JLabel("항공기 예약");
          lb.setHorizontalAlignment(JLabel.CENTER);
-         lb.setFont(new Font("한컴산뜻돋움", Font.BOLD, 40));
+         lb.setFont(new Font("맑은고딕", Font.BOLD, 40));
          lb.setBounds(350,0,300,100);
               
          backButton.setBounds(10,10,80,80);
@@ -524,16 +526,15 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
          RegisterFlightPanel(){
             this.setBackground(new Color(209, 233, 255));
             this.setLayout(null);
-            
-            titleLb.setBounds(14,14,200,20);
-            titleLb.setFont(new Font("한컴산뜻돋움", Font.BOLD, 20));
+            titleLb.setBounds(14,14,220,20);
+            titleLb.setFont(new Font("맑은고딕", Font.BOLD, 20));
             add(titleLb);
                
                //////////////////////////////////검색조건부분////////////////////////////////////////
                
                //출발공항 레이블
                airport1Label.setHorizontalAlignment(JLabel.CENTER);
-               airport1Label.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+               airport1Label.setFont(new Font("맑은고딕", Font.BOLD, 16));
                airport1Label.setBounds(30,50,100,40);
                add(airport1Label);
              
@@ -542,13 +543,13 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                   departureAirportCombo.addItem(comboStr[i]);
                }
                departureAirportCombo.setBounds(160,50,200,35);
-               departureAirportCombo.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+               departureAirportCombo.setFont(new Font("맑은고딕", Font.BOLD, 16));
                departureAirportCombo.addActionListener(this);
                add(departureAirportCombo);
                
                //도착공항 레이블
                airport2Label.setHorizontalAlignment(JLabel.CENTER);
-               airport2Label.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+               airport2Label.setFont(new Font("맑은고딕", Font.BOLD, 16));
                airport2Label.setBounds(30,95,100,35);
                add(airport2Label);
                
@@ -557,14 +558,14 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                   destAirportCombo.addItem(comboStr[i]);
                }
                destAirportCombo.setBounds(160,95,200,35);
-               destAirportCombo.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+               destAirportCombo.setFont(new Font("맑은고딕", Font.BOLD, 16));
                destAirportCombo.addActionListener(this);
                add(destAirportCombo);
              
                //편도,왕복 라디오버튼
                for(int i=0; i<radio.length; i++) {
                   radio[i] = new JRadioButton(radioStr[i]);
-                  radio[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+                  radio[i].setFont(new Font("맑은고딕", Font.BOLD, 16));
                   radio[i].setBounds(120+(100*i),135,100,45);
                   radio[i].setBackground(new Color(209, 233, 255));
                   radio[i].addItemListener(this);
@@ -576,7 +577,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                for(int i=0; i<lb.length; i++) {
                   lb[i] = new JLabel(lbStr[i]);
                   lb[i].setHorizontalAlignment(JLabel.CENTER);
-                  lb[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+                  lb[i].setFont(new Font("맑은고딕", Font.BOLD, 16));
                   lb[i].setLocation(450, 55+(i*45));
                   lb[i].setSize(80,20);
                   add(lb[i]);
@@ -592,7 +593,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                
                //비행기 조회 버튼
                flightSearchButton.setHorizontalAlignment(JLabel.CENTER);
-               flightSearchButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+               flightSearchButton.setFont(new Font("맑은고딕", Font.BOLD, 16));
                flightSearchButton.setForeground(new Color(255, 255, 255));
                flightSearchButton.setBackground(new Color(128, 128, 128));
                flightSearchButton.setFocusPainted(false);
@@ -618,31 +619,31 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
             
             //가는 비행기 라벨부착
             chooseFightLabel1.setBounds(50,445,200,20);
-            chooseFightLabel1.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+            chooseFightLabel1.setFont(new Font("맑은고딕", Font.BOLD, 16));
             add(chooseFightLabel1);
              
                
             //선택한 항공기 ID값 받아오는 텍스트필드
             selectedFlightIDTextField1.setBounds(200,440,200,35);
-            selectedFlightIDTextField1.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+            selectedFlightIDTextField1.setFont(new Font("맑은고딕", Font.BOLD, 16));
             add(selectedFlightIDTextField1);
                
              
             //오는 비행기 라벨부착
             chooseFightLabel2.setBounds(500,445,200,20);
-            chooseFightLabel2.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+            chooseFightLabel2.setFont(new Font("맑은고딕", Font.BOLD, 16));
             add(chooseFightLabel2);
                 
                   
             //선택한 항공기 ID값 받아오는 텍스트필드
             selectedFlightIDTextField2.setBounds(650,440,200,35);
-            selectedFlightIDTextField2.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+            selectedFlightIDTextField2.setFont(new Font("맑은고딕", Font.BOLD, 16));
             add(selectedFlightIDTextField2);
                
                
             //좌석선택하기 버튼
                selectSeatButton.setHorizontalAlignment(JLabel.CENTER);
-               selectSeatButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 16));
+               selectSeatButton.setFont(new Font("맑은고딕", Font.BOLD, 16));
                selectSeatButton.setForeground(new Color(255, 255, 255));
                selectSeatButton.setBackground(new Color(128, 128, 128));
                selectSeatButton.setFocusPainted(false);
@@ -722,7 +723,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                
          JLabel lb=new JLabel("항공기 예약");
          lb.setHorizontalAlignment(JLabel.CENTER);
-         lb.setFont(new Font("한컴산뜻돋움", Font.BOLD, 40));
+         lb.setFont(new Font("맑은고딕", Font.BOLD, 40));
          lb.setBounds(350,0,300,100);
          
          backButton.setBounds(10,10,80,80);
@@ -763,7 +764,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
              //좌석라벨 부착
              for(int i=0; i<rowLabel.length; i++) {
                 rowLabel[i] = new JLabel(rowStr[i]);
-                rowLabel[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 25));
+                rowLabel[i].setFont(new Font("맑은고딕", Font.BOLD, 25));
                 if(i==2 || i==3) {
                    rowLabel[i].setBounds(55, 110+(i*75), 40, 40);
                 }
@@ -774,7 +775,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
              }
              for(int i=0; i<columnLabel.length; i++) {
                 columnLabel[i] = new JLabel(columnStr[i]);
-                columnLabel[i].setFont(new Font("한컴산뜻돋움", Font.BOLD, 25));
+                columnLabel[i].setFont(new Font("맑은고딕", Font.BOLD, 25));
                 if(i==9) {
                    columnLabel[i].setBounds(120+(i*74), 15, 40, 40);
                 }
@@ -788,7 +789,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
              resetButton.setFocusPainted(false);
              resetButton.setBackground(new Color(128, 128, 128));
              resetButton.setForeground(Color.white);
-             resetButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
+             resetButton.setFont(new Font("맑은고딕", Font.BOLD, 15));
              resetButton.setBounds(685,410,150,30);
              resetButton.addActionListener(this);
              add(resetButton);
@@ -811,7 +812,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                       str+="D";
                    }
                    seatButton[seatcnt] = new JButton(str+(j+1));
-                   seatButton[seatcnt].setFont(new Font("한컴산뜻돋움", Font.BOLD, 13));
+                   seatButton[seatcnt].setFont(new Font("맑은고딕", Font.BOLD, 13));
                    seatButton[seatcnt].setForeground(Color.white);
                    seatButton[seatcnt].setBounds(100+(j*75), 60+(i*75), 60, 60);
                    if(i>1) {
@@ -833,19 +834,19 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                 //라벨 부착
              JLabel selecLb=new JLabel("▼ 선택한 좌석  ▼");
              selecLb.setBounds(90, 420, 200, 40);
-             selecLb.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
+             selecLb.setFont(new Font("맑은고딕", Font.BOLD, 15));
              add(selecLb);
                 
              //자기 항공편 예약 현황 나타나는 textArea부착
              selectedSeatTextarea.setEditable(false);
              JScrollPane scroll=new JScrollPane(selectedSeatTextarea);
-             selectedSeatTextarea.setFont(new Font("한컴산뜻돋움", Font.BOLD, 15));
+             selectedSeatTextarea.setFont(new Font("맑은고딕", Font.BOLD, 15));
              scroll.setBounds(80, 460, 500, 40);
              add(scroll);
                 
              //예약하기 버튼
              reserveButton.setHorizontalAlignment(JLabel.CENTER);
-             reserveButton.setFont(new Font("한컴산뜻돋움", Font.BOLD, 20));
+             reserveButton.setFont(new Font("맑은고딕", Font.BOLD, 20));
              reserveButton.setForeground(new Color(255, 255, 255));
              reserveButton.setBackground(new Color(128, 128, 128));
              reserveButton.setFocusPainted(false);
