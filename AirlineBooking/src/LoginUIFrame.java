@@ -188,34 +188,13 @@ public class LoginUIFrame extends JFrame{
          
          if(e.getSource() == loginButton[0]) {//로그인 버튼
             userId=loginTextField[0].getText();
-            ArrayList<User> _user;
-            try {
-				_user=dao.getAll();
-				int i=0;
-	            for(i=0;i<_user.size();i++) {
-	            	if(userId.equals(_user.get(i).getID())) {
-	            		if(loginTextField[1].getText().equals(_user.get(i).getPw())) {
-		            		new UserUIFrame(userId);
-		                    loginUIFrameExit();
-		            		break;
-	            		}
-	            		else {
-	            			JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다.");
-	            			break;
-	            		}
-	            	}
-	            }
-	            if(i==_user.size()) {
-	            	JOptionPane.showMessageDialog(null, "존재하지 않는 회원정보입니다.");
-	            	return;
-	            }
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-            
+        	if(dao.getUser(userId)==null) {
+        		JOptionPane.showMessageDialog(null, "존재하지 않는 회원정보입니다.");
+                return;
+            }
+        	new UserUIFrame(userId);
+            loginUIFrameExit();
          }
-         
          else if(e.getSource() == loginButton[1]) {//회원가입 버튼
             card.next(c);
          }
@@ -245,7 +224,7 @@ public class LoginUIFrame extends JFrame{
             //타이틀 라벨 부착
             titleLabel.setForeground(Color.white);
             titleLabel.setFont(new Font(font, Font.BOLD, 25));
-            titleLabel.setBounds(26, 10, 100, 40);
+            titleLabel.setBounds(26, 10, 200, 40);
             add(titleLabel);
             
             //회원정보 라벨 부착

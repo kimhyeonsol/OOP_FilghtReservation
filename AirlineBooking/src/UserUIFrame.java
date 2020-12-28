@@ -269,8 +269,6 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                 p[0].add(savePanel[1], BorderLayout.CENTER);
                 p[0].add(savePanel[2], BorderLayout.SOUTH);
                 
-                
-                
                 /////////////////////////////////////내 정보 수정하는 패널 p[1]
                 p[1].setLayout(null);
                 
@@ -483,7 +481,8 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
        JLabel chooseFightLabel2=new JLabel("오는 항공권 ID: ");
        JTextField selectedFlightIDTextField2=new JTextField();
        
-       JButton selectSeatButton=new JButton("좌석선택하기");
+       JButton selectSeatButton1=new JButton("좌석선택하기");
+       JButton selectSeatButton2=new JButton("좌석선택하기");
        
        JTextArea departureAirportTextArea=new JTextArea();
        JTextArea destAirportTextArea=new JTextArea();
@@ -642,14 +641,23 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                
                
             //좌석선택하기 버튼
-               selectSeatButton.setHorizontalAlignment(JLabel.CENTER);
-               selectSeatButton.setFont(new Font("맑은고딕", Font.BOLD, 16));
-               selectSeatButton.setForeground(new Color(255, 255, 255));
-               selectSeatButton.setBackground(new Color(128, 128, 128));
-               selectSeatButton.setFocusPainted(false);
-               selectSeatButton.setBounds(350,480,200,35);
-               selectSeatButton.addActionListener(this);
-               add(selectSeatButton);
+               selectSeatButton1.setHorizontalAlignment(JLabel.CENTER);
+               selectSeatButton1.setFont(new Font("맑은고딕", Font.BOLD, 16));
+               selectSeatButton1.setForeground(new Color(255, 255, 255));
+               selectSeatButton1.setBackground(new Color(128, 128, 128));
+               selectSeatButton1.setFocusPainted(false);
+               selectSeatButton1.setBounds(200,480,200,35);
+               selectSeatButton1.addActionListener(this);
+               add(selectSeatButton1);
+             //좌석선택하기 버튼
+               selectSeatButton2.setHorizontalAlignment(JLabel.CENTER);
+               selectSeatButton2.setFont(new Font("맑은고딕", Font.BOLD, 16));
+               selectSeatButton2.setForeground(new Color(255, 255, 255));
+               selectSeatButton2.setBackground(new Color(128, 128, 128));
+               selectSeatButton2.setFocusPainted(false);
+               selectSeatButton2.setBounds(650,480,200,35);
+               selectSeatButton2.addActionListener(this);
+               add(selectSeatButton2);
                
          }
          @Override
@@ -660,15 +668,23 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                
             }
             
-            if(e.getSource()==selectSeatButton) {//자리선택하기 버튼
-               if(flightsearchTextField[2].getText().equals("")) {
+            if(e.getSource()==selectSeatButton1) {//가는자리선택하기 버튼
+               if(flightsearchTextField[2].getText().equals("")) {//인원수 textfield 비어있으면
                   JOptionPane.showMessageDialog(null, "탑승할 인원을 선택하세요!");
                   return;
                }
                resNum=Integer.valueOf(flightsearchTextField[2].getText()); 
-               selectedSeatTextarea.setText("");
                card.show(c, "selectSeat");
             }
+            
+            if(e.getSource()==selectSeatButton2) {//오는자리선택하기 버튼
+                if(flightsearchTextField[2].getText().equals("")) {//인원수 textfield 비어있으면
+                   JOptionPane.showMessageDialog(null, "탑승할 인원을 선택하세요!");
+                   return;
+                }
+                resNum=Integer.valueOf(flightsearchTextField[2].getText()); 
+                card.show(c, "selectSeat");
+             }
             
             if(e.getSource()==departureAirportCombo) {//출발 공항 콤보박스
                 int index=departureAirportCombo.getSelectedIndex();
@@ -862,7 +878,19 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
           public void actionPerformed(ActionEvent e) {
              
              if(e.getSource() == reserveButton) {//예약하기버튼
-             
+            	JOptionPane.showMessageDialog(null, "예약되셨습니다!");
+            	card.show(c,"reservation");
+            	cnt=0;
+                seatlist.clear();
+                selectedSeatTextarea.setText("");
+                for(int i=0;i<40;i++) {//일단 좌석 색깔 다 초기화 시킴, 예약된 좌석은 라벨 x로 바꾸고, 선택 안되게 설정해주어야함.
+                   if(i%10 == 0) {
+                       seatButton[i].setBackground(new Color(112, 48, 160));
+                    }
+                    else {
+                       seatButton[i].setBackground(new Color(46, 117, 182));
+                    }
+                }
                 return;//밑에 for문이니깐  예약하기 버튼이면 걍 return 시켜주기
              }
              
@@ -918,7 +946,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
          if(e.getSource() == backButton) {//뒤로가기 버튼
             card.show(c, "reservation");
             
-            cnt=0;
+           cnt=0;
            seatlist.clear();
            selectedSeatTextarea.setText("");
            

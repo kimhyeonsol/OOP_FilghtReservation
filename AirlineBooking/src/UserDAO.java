@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
+
 public class UserDAO {
 
 	String jdbcDriver = "com.mysql.cj.jdbc.Driver";
@@ -69,7 +71,7 @@ public class UserDAO {
 		return datas;
 
 	}
-
+	
 	public User getUser(String ID) {
 		sql = "select * from user where ID = ?";
 		User p = null;
