@@ -27,16 +27,13 @@ public class LoginUIFrame extends JFrame{
 	
    public Container c;
    public CardLayout card;
-   
-   BufferedImage backImage,btn1Image,btn2Image,Image;
-   
+   public BufferedImage backImage,btn1Image,btn2Image,Image;
    public StartUIPanel startUIPanel=new StartUIPanel();
    public LoginUIPanel loginUIpanel=new LoginUIPanel();
-   SignUpPanel signUpPanel=new SignUpPanel();
+   public SignUpPanel signUpPanel=new SignUpPanel();
+   public String userId="", font = "함초롬돋움";//사용자 아이디 문자열
    
-   String userId="", font = "함초롬돋움";//사용자 아이디 문자열
-   
-   UserDAO dao;
+   public UserDAO dao;
    
    public LoginUIFrame(){
       setTitle("LoginUIFrame");
@@ -129,12 +126,11 @@ public class LoginUIFrame extends JFrame{
       
       public JButton backButton = new JButton("돌아가기");//돌아가기 버튼
       
-      JLabel loginLabel[] = new JLabel[2];//로그인 레이블
-      String loginLabelStr[] = {"아이디", "비밀번호"};
-      JTextField loginTextField[] = new JTextField[2];//로그인 정보 입력받는 textField
-      
-      JButton loginButton[] = new JButton[2];//로그인 버튼
-      String loginButtonStr[] = {"로그인", "회원가입"};
+      public JLabel loginLabel[] = new JLabel[2];//로그인 레이블
+      public String loginLabelStr[] = {"아이디", "비밀번호"};
+      public JTextField loginTextField[] = new JTextField[2];//로그인 정보 입력받는 textField
+      public JButton loginButton[] = new JButton[2];//로그인 버튼
+      public String loginButtonStr[] = {"로그인", "회원가입"};
       
       public LoginUIPanel() {
          setLayout(null);
@@ -209,14 +205,12 @@ public class LoginUIFrame extends JFrame{
    //////////////////////////////////////////////회원가입 카드////////////////////////////////////////////
    class SignUpPanel extends JPanel implements ActionListener{
       
-         JLabel titleLabel = new JLabel("회원가입");//회원가입 라벨
-         
-         JLabel infoLabel[] = new JLabel[6];//회원 정보 라벨 배열
-         String infoStr[] = {"이름","아이디", "비밀번호", "이메일", "생년월일(ex.980814)", "전화번호"};
-         JTextField textField[] = new JTextField[6];//회원 정보 라벨 텍스트필드
-         
-         JButton signUpButton = new JButton("회원가입");//회원가입 버튼
-         JButton backButton = new JButton("돌아가기");//뒤로가기 버튼
+         public JLabel titleLabel = new JLabel("회원가입");//회원가입 라벨
+         public JLabel infoLabel[] = new JLabel[6];//회원 정보 라벨 배열
+         public String infoStr[] = {"이름","아이디", "비밀번호", "이메일", "생년월일(ex.980814)", "전화번호"};
+         public JTextField textField[] = new JTextField[6];//회원 정보 라벨 텍스트필드
+         public JButton signUpButton = new JButton("회원가입");//회원가입 버튼
+         public JButton backButton = new JButton("돌아가기");//뒤로가기 버튼
          
          public SignUpPanel() {
             
