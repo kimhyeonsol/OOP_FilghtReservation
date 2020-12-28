@@ -432,7 +432,6 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
                         //////////dB에서 해당 항공기 예약정보를 삭제하고
                         //////////항공편 자리선택 화면으로 가서 다시 예약
                     	card.show(c, "selectSeat");
-                        JOptionPane.showMessageDialog(null, "자리변경되었습니다.");
                      }
                   }
                   else if(e.getSource()==cancleResBtn) {//예약취소하기 버튼
