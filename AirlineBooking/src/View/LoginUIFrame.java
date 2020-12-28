@@ -31,14 +31,14 @@ public class LoginUIFrame extends JFrame{
    BufferedImage backImage,btn1Image,btn2Image,Image;
    
    StartUIPanel startUIPanel=new StartUIPanel();
-   LoginUIPanel loginUIpanel=new LoginUIPanel();
+   public LoginUIPanel loginUIpanel=new LoginUIPanel();
    SignUpPanel signUpPanel=new SignUpPanel();
    
    String userId="", font = "함초롬돋움";//사용자 아이디 문자열
    
    UserDAO dao;
    
-   LoginUIFrame(){
+   public LoginUIFrame(){
       setTitle("LoginUIFrame");
       setBounds(450, 200, 500, 380);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -125,9 +125,9 @@ public class LoginUIFrame extends JFrame{
          }
    }
    //////////////////////////////////////////////로그인 카드////////////////////////////////////////////
-   class LoginUIPanel extends JPanel implements ActionListener{
+   public class LoginUIPanel extends JPanel implements ActionListener{
       
-      JButton backButton = new JButton("돌아가기");//돌아가기 버튼
+      public JButton backButton = new JButton("돌아가기");//돌아가기 버튼
       
       JLabel loginLabel[] = new JLabel[2];//로그인 레이블
       String loginLabelStr[] = {"아이디", "비밀번호"};
@@ -294,4 +294,9 @@ public class LoginUIFrame extends JFrame{
             }
          }
    }
+   
+   public void addButtonActionListener(ActionListener listener) {
+	   loginUIpanel.backButton.addActionListener(listener);
+   }
+   
 }

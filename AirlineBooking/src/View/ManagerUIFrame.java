@@ -669,4 +669,8 @@ public class ManagerUIFrame extends JFrame{
            }
       }
    }
+   public void addButtonActionListener(ActionListener listener) {
+//	   userMenuPanel.backButton.addActionListener(listener);
+   }
+   
 }

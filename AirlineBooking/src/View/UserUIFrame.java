@@ -48,9 +48,9 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
    JTextArea selectedSeatTextarea=new JTextArea();//선택된 좌석 출력되는 textArea
    
    
-  
+   public UserMenuPanel userMenuPanel;
    ///////////////////////////////////////////생성자//////////////////////////////////////////////////////////////////
-   UserUIFrame(String userId){//사용자 ID를 매개변수로 프레임 생성
+   public UserUIFrame(String userId){//사용자 ID를 매개변수로 프레임 생성
       
       _userId=userId;
       setTitle(userId+" 페이지");
@@ -63,7 +63,7 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
       
       this.setLayout(card);
       
-      UserMenuPanel userMenuPanel=new UserMenuPanel();//사용자 메뉴 카드
+      userMenuPanel=new UserMenuPanel();//사용자 메뉴 카드
       MyInfoPanel myInfoPanel=new MyInfoPanel();//내 프로필 카드
       FlightResPanel flightResPanel=new FlightResPanel();//비행기 조회 카드
       SelectSeatPanel selectSeatPanel = new SelectSeatPanel();//좌석 선택 카드
@@ -97,8 +97,8 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
 
    
    ////////////////////////////////////////사용자 메뉴 카드////////////////////////////////////////////////////////////
-   class UserMenuPanel extends JPanel implements ActionListener{
-      GoBackButton backButton = new GoBackButton();
+   public class UserMenuPanel extends JPanel implements ActionListener{
+      public GoBackButton backButton = new GoBackButton();
       MyInfoButton myInfoButton = new MyInfoButton();
       FlightResButton flightResButton = new FlightResButton();
       
@@ -963,6 +963,8 @@ public class UserUIFrame extends JFrame{// user 프레임(카드레이 아웃)
       }
    }
 
-
+   public void addButtonActionListener(ActionListener listener) {
+	   userMenuPanel.backButton.addActionListener(listener);
+   }
 
 }
