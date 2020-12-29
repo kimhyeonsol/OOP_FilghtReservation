@@ -22,8 +22,13 @@ public class UserDAO {
 	String sql;
 
 	
-	public UserDAO() throws SQLException {
-		connectDB();
+	public UserDAO() {
+		try {
+			connectDB();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void connectDB() throws SQLException {

@@ -9,7 +9,7 @@ import java.util.Vector;
 
 public class ReservationDAO {
 
-	String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+	String jdbcDriver = "com.mysql.jdbc.Driver";
 	String jdbcUrl = "jdbc:mysql://localhost:3306/airplanereservation?&serverTimezone=Asia/Seoul&useSSL=false";
 	Connection conn;
 
@@ -22,6 +22,15 @@ public class ReservationDAO {
 	UserDAO daoUser;
 	AirLineDAO daoAL;
 	
+	//관리자에서 사용할때는 user와 al 정보 필요 x.
+	public ReservationDAO()  {
+		try {
+			connectDB();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	} 
 	public ReservationDAO(UserDAO daoUser, AirLineDAO daoAL ) throws SQLException {
 		connectDB();
 		this.daoUser = daoUser;
@@ -32,7 +41,7 @@ public class ReservationDAO {
 	public void connectDB() throws SQLException {
 		try {
 			Class.forName(jdbcDriver);
-			conn = DriverManager.getConnection(jdbcUrl, "root", "111111");
+			conn = DriverManager.getConnection(jdbcUrl, "root", "0000");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
