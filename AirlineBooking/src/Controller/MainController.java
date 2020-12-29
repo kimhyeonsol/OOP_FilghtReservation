@@ -8,6 +8,8 @@ import java.awt.event.ItemListener;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javax.swing.ButtonGroup;
@@ -21,6 +23,11 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import Model.AirLineDAO;
+import Model.AirLineDTO;
+import Model.ReservationDAO;
+import Model.User;
+import Model.UserDAO;
 import View.LoginUIFrame;
 import View.UserUIFrame;
 import View.LoginUIFrame.LoginUIPanel;
@@ -39,8 +46,15 @@ public class MainController {
 	View.ManagerUIFrame MF;
 	View.LoginUIFrame LF;
 
-	public MainController() {
+	AirLineDAO daoAL;
+	UserDAO daoUser;
+	ReservationDAO daoReser;
+
+	public MainController() throws SQLException {
 		MCT = this;
+		daoAL = new AirLineDAO();
+		daoUser = new UserDAO();
+		daoReser = new ReservationDAO();
 	}
 
 	class UserUIController {
@@ -55,6 +69,9 @@ public class MainController {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					Object obj = e.getSource();
+					String data[] = new String[6];
+
+//					FlightResPanel pnFR = v.flightResPanel;
 
 //					public UserMenuPanel userMenuPanel;
 					if (obj == v.userMenuPanel.myInfoButton) {
@@ -68,12 +85,12 @@ public class MainController {
 					}
 
 //					public MyInfoPanel myInfoPanel;
-					if (obj == v.myInfoPanel.backButton) {// 뒤로가기버튼
+					else if (obj == v.myInfoPanel.backButton) {// 뒤로가기버튼
 						v.card.show(v.c, "userMenu");
 					}
 
 //					public class MyInfoUpdatePanel extends JPanel {
-					if (obj == v.myInfoPanel.myInfoUpdatePanel.saveButton) {// 내정보 문서로 저장하기 버튼
+					else if (obj == v.myInfoPanel.myInfoUpdatePanel.saveButton) {// 내정보 문서로 저장하기 버튼
 						int ret = v.myInfoPanel.myInfoUpdatePanel.chooser.showSaveDialog(null);
 						if (ret != JFileChooser.APPROVE_OPTION) {
 							JOptionPane.showMessageDialog(null, "경로를 선택하지 않았습니다");
@@ -99,22 +116,38 @@ public class MainController {
 						for (int i = 0; i < 6; i++) {
 							memo += (v.myInfoPanel.myInfoUpdatePanel.infoStr[i] + ": "
 									+ v.myInfoPanel.myInfoUpdatePanel.textField[i].getText() + "\r\n");
+							data[i] = v.myInfoPanel.myInfoUpdatePanel.textField[i].getText();
 						}
+						// #### DAO ####
+						User user = new User();
+						user.setUser(data);
+						daoUser.updateUser(user);
+						// #### DAO ####
+						System.out.println(memo);
 						v.myInfoPanel.myInfoUpdatePanel.textArea.setText(memo);
 					} else if (obj == v.myInfoPanel.myInfoUpdatePanel.cancelButton) {// 프로그램 탈퇴하기 버튼
 						String memo = new String("*항공예약시스템에 저장된 내 정보*\r\n\r\n");
 						for (int i = 0; i < 6; i++) {
 							memo += (v.myInfoPanel.myInfoUpdatePanel.infoStr[i] + ": "
 									+ v.myInfoPanel.myInfoUpdatePanel.textField[i].getText() + "\r\n");
+							data[i] = v.myInfoPanel.myInfoUpdatePanel.textField[i].getText();
 						}
 						v.myInfoPanel.myInfoUpdatePanel.textArea.setText(memo);
+						// #### DAO #### -> 삭제 전: dialog 필요성,
+						User user = new User();
+						user.setUser(data);
+						daoUser.deleteUser(user.getID());
+						// #### DAO ####
 					}
 
 //					public class MyReservationUpdatePanel extends JPanel {// 내 항공편 예약 현황
-					if (obj == v.myInfoPanel.myReservationUpdatePanel.changeSeatBtn) {// 자리변경하기 버튼
+					else if (obj == v.myInfoPanel.myReservationUpdatePanel.changeSeatBtn) {// 자리변경하기 버튼
 						String resnum = JOptionPane.showInputDialog("자리변경 할 항공편의 예약번호를 입력하세요");
 						if (resnum != null) {
 							////////// dB에서 해당 항공기 예약정보를 삭제하고
+							// #### DAO ####
+							daoReser.deleteReservation(Integer.parseInt(resnum));
+							// #### DAO ####
 							////////// 항공편 자리선택 화면으로 가서 다시 예약
 							v.card.show(v.c, "selectSeat");
 						}
@@ -122,18 +155,49 @@ public class MainController {
 						String resnum = JOptionPane.showInputDialog("예약취소 할 항공편의 예약번호를 입력하세요");
 						if (resnum != null) {
 							////////// dB에서 해당 항공기 예약정보를 삭제
+							// #### DAO ####
+							daoReser.deleteReservation(Integer.parseInt(resnum));
+							// #### DAO ####
 							JOptionPane.showMessageDialog(null, "예약취소 되었습니다.");
 						}
 					}
 
 //					public FlightResPanel flightResPanel;
-					if (obj == v.flightResPanel.backButton) {// 뒤로가기 버튼
+					else if (obj == v.flightResPanel.backButton) {// 뒤로가기 버튼
 						v.card.show(v.c, "userMenu");
 					}
 
 //					public class RegisterFlightPanel extends JPanel implements ItemListener {
 					if (obj == v.flightResPanel.flightSearchButton) {// 비행기 검색하기 버튼
-
+						// #### DAO ####
+						if (v.flightResPanel.radio[0].isSelected()) {
+							String departDate = v.flightResPanel.flightsearchTextField[0].getText();
+							try {
+								ArrayList<AirLineDTO> output = daoAL.getAllALInfo();
+								// results by current day/time
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+								// 결과가 없음..? 비행기 안뜸.. or 너무 미래
+								// 과거 시간 선택 검증
+							}
+							// output -> 항공기 textArea(scroll)1  반영 및 refresh
+						}
+						if(v.flightResPanel.radio[1].isSelected()) {
+							String destDate = v.flightResPanel.flightsearchTextField[0].getText();
+							try {
+								ArrayList<AirLineDTO> output = daoAL.getAllALInfo();
+								// results by current day/time
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+								// 결과가 없음..? 비행기 안뜸.. or 너무 미래
+								// 과거 시간 선택 검증
+							}
+							// output -> 항공기 textArea(scroll)1  반영 및 refresh
+						}
+						
+						// #### DAO ####
 					}
 
 					if (obj == v.flightResPanel.selectSeatButton1) {// 가는자리선택하기 버튼
@@ -156,8 +220,7 @@ public class MainController {
 
 					if (obj == v.flightResPanel.departureAirportCombo) {// 출발 공항 콤보박스
 						int index = v.flightResPanel.departureAirportCombo.getSelectedIndex();
-					}
-					if (obj == v.flightResPanel.destAirportCombo) {// 도착 공항 콤보박스
+					} else if (obj == v.flightResPanel.destAirportCombo) {// 도착 공항 콤보박스
 						int index = v.flightResPanel.destAirportCombo.getSelectedIndex();
 					}
 
@@ -187,7 +250,7 @@ public class MainController {
 					}
 
 //					public SelectSeatPanel selectSeatPanel;
-					if (obj == v.selectSeatPanel.backButton) {// 뒤로가기 버튼
+					else if (obj == v.selectSeatPanel.backButton) {// 뒤로가기 버튼
 						v.card.show(v.c, "reservation");
 
 						v.selectSeatPanel.cnt = 0;
@@ -203,7 +266,7 @@ public class MainController {
 						}
 					}
 //					public class SelectSeatTab extends JPanel {
-					if (obj == v.selectSeatPanel.reserveButton) {// 예약하기버튼
+					else if (obj == v.selectSeatPanel.reserveButton) {// 예약하기버튼
 						JOptionPane.showMessageDialog(null, "예약되셨습니다!");
 						v.card.show(v.c, "reservation");
 						v.selectSeatPanel.cnt = 0;
@@ -323,7 +386,6 @@ public class MainController {
 
 //					public LoginUIPanel loginUIpanel=new LoginUIPanel();
 
-
 					if (obj == v.loginUIpanel.loginButton[0]) {// 로그인 버튼
 						v.userId = v.loginUIpanel.loginTextField[0].getText();
 						if (v.dao.getUser(v.userId) == null) {
@@ -361,7 +423,7 @@ public class MainController {
 		this.MC = new ManagerUIController(ui);
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 
 		LoginUIFrame ui = new LoginUIFrame();
 		MainController Controller = new MainController();
