@@ -178,7 +178,7 @@ public class ManagerUIFrame extends JFrame{
    
    public class MemberManagerUI extends JPanel implements ActionListener{
         public GoBackButton backButton = new GoBackButton();
-        JTextField memDeletetextField = new JTextField(); //회원 삭제 텍스트필드
+        public JTextField memDeletetextField = new JTextField(); //회원 삭제 텍스트필드
         public JButton memDeleteButton = new JButton("삭제하기"); //삭제하기 버튼
         public JButton memSearchButton = new JButton("조회하기"); //조회하기 버튼
         public JTextArea textArea_m = new JTextArea(29,43); //회원 조회 textArea
@@ -711,17 +711,29 @@ public class ManagerUIFrame extends JFrame{
 	   ta.setCaretPosition(0);
    }
    
-   public void MemberDeleteDialog() {
-	   JOptionPane.showMessageDialog(null, "회원 삭제 완료!");
+   public void memberDeleteDialog(int result) {
+	   if(result>0)
+		   JOptionPane.showMessageDialog(null, "회원 삭제 완료!");
+	   else
+		   JOptionPane.showMessageDialog(null, "회원 삭제 실패!");
    }
-   public void FlightCreateDialog() {
-	   JOptionPane.showMessageDialog(null, "항공 등록 완료!");
+   public void flightCreateDialog(int result) {
+	   if(result>0)
+		   JOptionPane.showMessageDialog(null, "항공 등록 완료!");
+	   else
+		   JOptionPane.showMessageDialog(null, "항공 등록 실패!");
    }
-   public void FlightUpdateDialog() {
-	   JOptionPane.showMessageDialog(null, "항공 변경 완료!");
+   public void flightUpdateDialog(int result) {
+	   if(result>0)
+		   JOptionPane.showMessageDialog(null, "항공 변경 완료!");
+	   else
+		   JOptionPane.showMessageDialog(null, "항공 변경 실패!");
    }
-   public void FlightDeleteDialog() {
-	   JOptionPane.showMessageDialog(null, "항공 삭제 완료!");
+   public void flightDeleteDialog(int result) {
+	   if(result>0)
+		   JOptionPane.showMessageDialog(null, "항공 삭제 완료!");
+	   else
+		   JOptionPane.showMessageDialog(null, "항공 삭제 실패!");
    }
    
    
