@@ -49,11 +49,11 @@ public class User {
 	}
 	public void setUser(String[] data) {
 		setName(data[0]);
-		setID(data[0]);
-		setPw(data[0]);
-		setEmail(data[0]);
-		setBirth(data[0]);
-		setPhone(data[0]);
+		setID(data[1]);
+		setPw(data[2]);
+		setEmail(data[3]);
+		setBirth(data[4]);
+		setPhone(data[5]);
 	}
 	
 }
