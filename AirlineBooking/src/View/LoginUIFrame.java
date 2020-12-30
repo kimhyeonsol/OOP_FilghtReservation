@@ -217,7 +217,7 @@ public class LoginUIFrame extends JFrame {
 
 	////////////////////////////////////////////// 회원가입
 	////////////////////////////////////////////// 카드////////////////////////////////////////////
-	class SignUpPanel extends JPanel implements ActionListener {
+	public class SignUpPanel extends JPanel implements ActionListener {
 
 		public JLabel titleLabel = new JLabel("회원가입");// 회원가입 라벨
 		public JLabel infoLabel[] = new JLabel[6];// 회원 정보 라벨 배열

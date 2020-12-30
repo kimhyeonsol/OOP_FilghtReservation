@@ -47,6 +47,7 @@ public class MainController {
 
 	class UserUIController {
 		private final UserUIFrame v;
+		private String _userID;
 
 		public UserUIController(UserUIFrame ui) {
 
@@ -58,12 +59,28 @@ public class MainController {
 				public void actionPerformed(ActionEvent e) {
 					Object obj = e.getSource();
 					String data[] = new String[6];
-
+					User currentUser = uDAO.getUser(v._userId);
 //					FlightResPanel pnFR = v.flightResPanel;
 
 //					public UserMenuPanel userMenuPanel;
 					if (obj == v.userMenuPanel.myInfoButton) {
 						v.card.show(v.c, "myInfo");
+						currentUser = uDAO.getUser(v._userId);
+						v.myInfoPanel.myInfoUpdatePanel.textField[0].setText(currentUser.getName());
+						v.myInfoPanel.myInfoUpdatePanel.textField[1].setText(currentUser.getID());
+						v.myInfoPanel.myInfoUpdatePanel.textField[2].setText(currentUser.getPw());
+						v.myInfoPanel.myInfoUpdatePanel.textField[3].setText(currentUser.getEmail());
+						v.myInfoPanel.myInfoUpdatePanel.textField[4].setText(currentUser.getBirth());
+						v.myInfoPanel.myInfoUpdatePanel.textField[5].setText(currentUser.getPhone());
+						
+						String memo = new String("*항공예약시스템에 저장된 내 정보*\r\n\r\n");
+						for (int i = 0; i < 6; i++) {
+							memo += (v.myInfoPanel.myInfoUpdatePanel.infoStr[i] + ": "
+									+ v.myInfoPanel.myInfoUpdatePanel.textField[i].getText() + "\r\n");
+							data[i] = v.myInfoPanel.myInfoUpdatePanel.textField[i].getText();
+						}
+						v.myInfoPanel.myInfoUpdatePanel.textArea.setText(memo);
+						
 					} else if (obj == v.userMenuPanel.flightResButton) {
 						v.card.show(v.c, "reservation");
 					} else if (obj == v.userMenuPanel.backButton) {
@@ -111,6 +128,7 @@ public class MainController {
 						user.setUser(data);
 						uDAO.updateUser(user);
 						// #### DAO ####
+						
 						System.out.println(memo);
 						v.myInfoPanel.myInfoUpdatePanel.textArea.setText(memo);
 					} else if (obj == v.myInfoPanel.myInfoUpdatePanel.cancelButton) {// 프로그램 탈퇴하기 버튼
@@ -126,11 +144,15 @@ public class MainController {
 						user.setUser(data);
 						uDAO.deleteUser(user.getID());
 						// #### DAO ####
+						MCT.LF = new LoginUIFrame();
+						MCT.setLoginC(MCT.LF);
+						v.userMenuExit();
 					}
 
 //					public class MyReservationUpdatePanel extends JPanel {// 내 항공편 예약 현황
 					else if (obj == v.myInfoPanel.myReservationUpdatePanel.changeSeatBtn) {// 자리변경하기 버튼
 						String resnum = JOptionPane.showInputDialog("자리변경 할 항공편의 예약번호를 입력하세요");
+						v.resNum = 1;
 						if (resnum != null) {
 							////////// dB에서 해당 항공기 예약정보를 삭제하고
 							// #### DAO ####
@@ -257,7 +279,7 @@ public class MainController {
 					else if (obj == v.selectSeatPanel.reserveButton) {// 예약하기버튼
 						JOptionPane.showMessageDialog(null, "예약되셨습니다!");
 						v.card.show(v.c, "reservation");
-						v.selectSeatPanel.cnt = 0;
+						v.selectSeatPanel.cnt = 1;
 						v.selectSeatPanel.seatlist.clear();
 						v.selectedSeatTextarea.setText("");
 						for (int i = 0; i < 40; i++) {// 일단 좌석 색깔 다 초기화 시킴, 예약된 좌석은 라벨 x로 바꾸고, 선택 안되게 설정해주어야함.
@@ -577,10 +599,12 @@ public class MainController {
 						if (v.dao.getUser(v.userId) == null) {
 							JOptionPane.showMessageDialog(null, "존재하지 않는 회원정보입니다.");
 							return;
+						} else {
+							UF = new UserUIFrame(v.userId);
+							MCT.setUserC(UF);
+							v.loginUIFrameExit();
+							
 						}
-						UF = new UserUIFrame(v.userId);
-						MCT.setUserC(UF);
-						v.loginUIFrameExit();
 
 					} else if (obj == v.loginUIpanel.loginButton[1]) {// 회원가입 버튼
 						v.card.next(v.c);
@@ -590,6 +614,28 @@ public class MainController {
 						v.card.show(v.c, "1");
 					}
 
+//					public void actionPerformed(ActionEvent e) {
+//					class SignUpPanel extends JPanel implements ActionListener {
+
+					if (obj == v.signUpPanel.signUpButton) {// 회원가입 버튼
+						User user = new User();
+						String userData[] = new String[6];
+						
+						for(int i=0;i<6;i++) {
+							userData[i] = v.signUpPanel.textField[i].getText();
+						}
+						user.setUser(userData);
+						
+						if (!uDAO.newUser(user)) {
+							JOptionPane.showMessageDialog(null, "사용불가능한 ID입니다.");
+							return;
+						}
+						JOptionPane.showMessageDialog(null, "회원가입되었습니다!!");
+						v.card.previous(v.c);
+					} else if (obj == v.signUpPanel.backButton) {// 돌아가기 버튼
+						v.card.show(v.c, "2");
+					}
+					
 				}
 
 			});
