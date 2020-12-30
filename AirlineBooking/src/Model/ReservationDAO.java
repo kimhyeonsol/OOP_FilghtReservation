@@ -147,12 +147,11 @@ public class ReservationDAO {
 	}
 
 	public boolean newReservation(Reservation r) {
-		sql = "insert into reservation(ID, user, info, seatNum) " + "values(?,?,?,?)";
+		sql = "insert into reservation(user, info, seatNum) " + "values(?,?,?)";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
 			int i = 1;
-			pstmt.setInt(i++, r.getID());
 			pstmt.setString(i++, r.getUser());
 			pstmt.setInt(i++, r.getInfo());
 			pstmt.setInt(i++, r.getSeatNum());

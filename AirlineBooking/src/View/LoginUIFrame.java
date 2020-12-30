@@ -217,7 +217,7 @@ public class LoginUIFrame extends JFrame {
 
 	////////////////////////////////////////////// 회원가입
 	////////////////////////////////////////////// 카드////////////////////////////////////////////
-	public class SignUpPanel extends JPanel implements ActionListener {
+	public class SignUpPanel extends JPanel {
 
 		public JLabel titleLabel = new JLabel("회원가입");// 회원가입 라벨
 		public JLabel infoLabel[] = new JLabel[6];// 회원 정보 라벨 배열
@@ -278,27 +278,27 @@ public class LoginUIFrame extends JFrame {
 			super.paintComponent(g);
 		}
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == signUpButton) {// 회원가입 버튼
-				User user = new User();
-				user.setID(textField[1].getText());
-				user.setName(textField[0].getText());
-				user.setPw(textField[2].getText());
-				user.setEmail(textField[3].getText());
-				user.setBirth(textField[4].getText());
-				user.setPhone(textField[5].getText());
-
-				if (!dao.newUser(user)) {
-					JOptionPane.showMessageDialog(null, "사용불가능한 ID입니다.");
-					return;
-				}
-				JOptionPane.showMessageDialog(null, "회원가입되었습니다!!");
-				card.previous(c);
-			} else if (e.getSource() == backButton) {// 돌아가기 버튼
-				card.show(c, "2");
-			}
-		}
+//		@Override
+//		public void actionPerformed(ActionEvent e) {
+//			if (e.getSource() == signUpButton) {// 회원가입 버튼
+//				User user = new User();
+//				user.setID(textField[1].getText());
+//				user.setName(textField[0].getText());
+//				user.setPw(textField[2].getText());
+//				user.setEmail(textField[3].getText());
+//				user.setBirth(textField[4].getText());
+//				user.setPhone(textField[5].getText());
+//
+//				if (!dao.newUser(user)) {
+//					JOptionPane.showMessageDialog(null, "사용불가능한 ID입니다.");
+//					return;
+//				}
+//				JOptionPane.showMessageDialog(null, "회원가입되었습니다!!");
+//				card.previous(c);
+//			} else if (e.getSource() == backButton) {// 돌아가기 버튼
+//				card.show(c, "2");
+//			}
+//		}
 	}
 
 	public void addButtonActionListener(ActionListener listener) {

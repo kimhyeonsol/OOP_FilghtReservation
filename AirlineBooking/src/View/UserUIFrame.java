@@ -46,6 +46,8 @@ public class UserUIFrame extends JFrame {// user 프레임(카드레이 아웃)
 	public BufferedImage Image1, Image2, Image3, pageImg;
 
 	public String _userId = "";// 이 페이지의 사용자 ID
+	public int _selectedDepAirLine;
+	public int _selectedDesAirLine;
 	public int resNum = 0;// 탑승할 인원수
 
 	public JTextArea selectedSeatTextarea = new JTextArea();// 선택된 좌석 출력되는 textArea
