@@ -1,4 +1,5 @@
 package Model;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,7 +10,7 @@ import java.util.Vector;
 
 public class ReservationDAO {
 
-	String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+	String jdbcDriver = "com.mysql.jdbc.Driver";
 	String jdbcUrl = "jdbc:mysql://localhost:3306/airplanereservation?&serverTimezone=Asia/Seoul&useSSL=false";
 	Connection conn;
 
@@ -19,20 +20,19 @@ public class ReservationDAO {
 	Vector<String> items = null;
 	String sql;
 
-	UserDAO daoUser;
-	AirLineDAO daoAL;
-	
-	public ReservationDAO(UserDAO daoUser, AirLineDAO daoAL ) throws SQLException {
-		connectDB();
-		this.daoUser = daoUser;
-		this.daoAL = daoAL;
+	public ReservationDAO() {
+		try {
+			connectDB();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	
-	
+
 	public void connectDB() throws SQLException {
 		try {
 			Class.forName(jdbcDriver);
-			conn = DriverManager.getConnection(jdbcUrl, "root", "root");
+			conn = DriverManager.getConnection(jdbcUrl, "root", "0000");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -58,13 +58,13 @@ public class ReservationDAO {
 
 		pstmt = conn.prepareStatement(sql);
 		rs = pstmt.executeQuery();
-		
+
 		while (rs.next()) {
 			Reservation r = new Reservation();
 			r.setID(rs.getInt("ID"));
-			
-			r.setUser(daoUser.getUser(rs.getString("user")));
-			r.setInfo(daoAL.getALInfo(rs.getInt("info")));
+
+			r.setUser(rs.getString("user"));
+			r.setInfo(rs.getInt("info"));
 			r.setSeatNum(rs.getInt("seatNum"));
 			datas.add(r);
 //			items.add(String.valueOf(rs.getInt("ID")));
@@ -86,16 +86,16 @@ public class ReservationDAO {
 
 			r = new Reservation();
 			r.setID(rs.getInt("ID"));
-			r.setUser(daoUser.getUser(rs.getString("user")));
-			r.setInfo(daoAL.getALInfo(rs.getInt("info")));
+			r.setUser(rs.getString("user"));
+			r.setInfo(rs.getInt("info"));
 			r.setSeatNum(rs.getInt("seatNum"));
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return r;
 	}
-	
+
 	public ArrayList<Reservation> getReservationListByUser(String UserID) throws SQLException {
 		sql = "select * from reservation where user = ?";
 
@@ -107,22 +107,22 @@ public class ReservationDAO {
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, UserID);
 		rs = pstmt.executeQuery();
-		
+
 		while (rs.next()) {
 			Reservation r = new Reservation();
 			r.setID(rs.getInt("ID"));
-			
-			r.setUser(daoUser.getUser(rs.getString("user")));
-			r.setInfo(daoAL.getALInfo(rs.getInt("info")));
+
+			r.setUser(rs.getString("user"));
+			r.setInfo(rs.getInt("info"));
 			r.setSeatNum(rs.getInt("seatNum"));
 			datas.add(r);
 //			items.add(String.valueOf(rs.getInt("ID")));
 		}
 
 		return datas;
-	
+
 	}
-	
+
 	public ArrayList<Reservation> getReservationListByALInfo(int ALInfoID) throws SQLException {
 		sql = "select * from reservation where info = ?";
 
@@ -131,13 +131,13 @@ public class ReservationDAO {
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, ALInfoID);
 		rs = pstmt.executeQuery();
-		
+
 		while (rs.next()) {
 			Reservation r = new Reservation();
 			r.setID(rs.getInt("ID"));
-			
-			r.setUser(daoUser.getUser(rs.getString("user")));
-			r.setInfo(daoAL.getALInfo(rs.getInt("info")));
+
+			r.setUser(rs.getString("user"));
+			r.setInfo(rs.getInt("info"));
 			r.setSeatNum(rs.getInt("seatNum"));
 			datas.add(r);
 //			items.add(String.valueOf(rs.getInt("ID")));
@@ -145,17 +145,16 @@ public class ReservationDAO {
 
 		return datas;
 	}
-	
 
 	public boolean newReservation(Reservation r) {
 		sql = "insert into reservation(ID, user, info, seatNum) " + "values(?,?,?,?)";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			int i=1;
+			int i = 1;
 			pstmt.setInt(i++, r.getID());
-			pstmt.setString(i++, r.getUserID());
-			pstmt.setInt(i++, r.getInfoID());
+			pstmt.setString(i++, r.getUser());
+			pstmt.setInt(i++, r.getInfo());
 			pstmt.setInt(i++, r.getSeatNum());
 			pstmt.executeUpdate();
 			return true;
@@ -170,9 +169,9 @@ public class ReservationDAO {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			int i=1;
-			pstmt.setString(i++, p.getUserID());
-			pstmt.setInt(i++, p.getInfoID());
+			int i = 1;
+			pstmt.setString(i++, p.getUser());
+			pstmt.setInt(i++, p.getInfo());
 			pstmt.setInt(i++, p.getSeatNum());
 			pstmt.setInt(i++, p.getID());
 			pstmt.executeUpdate();
