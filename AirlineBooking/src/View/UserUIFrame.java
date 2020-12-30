@@ -1007,10 +1007,20 @@ public class UserUIFrame extends JFrame {// user 프레임(카드레이 아웃)
 	}
 	
 	public void myInfoUpdateDialog() {
-		JOptionPane.showMessageDialog(null, "경로를 선택하지 않았습니다");
+		JOptionPane.showMessageDialog(null, "저장이 취소되었습니다!");
 	}
-	public void myReservationUpdatePanelDialog() {
-		JOptionPane.showMessageDialog(null, "경로를 선택하지 않았습니다");
+	public String myReservationChangeSeatDialog() {
+		String resnum = JOptionPane.showInputDialog(null, "자리변경 할 항공편의 예약번호를 입력하세요");
+		return resnum;
 	}
-
+	public String myReservationCancleResDialog() {
+		String resnum = JOptionPane.showInputDialog(null, "예약취소 할 항공편의 예약번호를 입력하세요");
+		return resnum;
+	}
+	public void flightResPersonnelDialog() {
+		JOptionPane.showMessageDialog(null, "탑승할 인원을 선택하세요!");
+	}
+	public void selectSeatReservationDialog() {
+		JOptionPane.showMessageDialog(null, "예약되었습니다");
+	}
 }

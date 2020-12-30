@@ -81,7 +81,7 @@ public class MainController {
 					else if (obj == v.myInfoPanel.myInfoUpdatePanel.saveButton) {// 내정보 문서로 저장하기 버튼
 						int ret = v.myInfoPanel.myInfoUpdatePanel.chooser.showSaveDialog(null);
 						if (ret != JFileChooser.APPROVE_OPTION) {
-							v.MyInfoUpdateDialog();
+							v.myInfoUpdateDialog();
 							return;
 						}
 						v.myInfoPanel.myInfoUpdatePanel.pathName = v.myInfoPanel.myInfoUpdatePanel.chooser
@@ -130,7 +130,7 @@ public class MainController {
 
 //					public class MyReservationUpdatePanel extends JPanel {// 내 항공편 예약 현황
 					else if (obj == v.myInfoPanel.myReservationUpdatePanel.changeSeatBtn) {// 자리변경하기 버튼
-						String resnum = JOptionPane.showInputDialog("자리변경 할 항공편의 예약번호를 입력하세요");
+						String resnum = v.myReservationChangeSeatDialog();
 						if (resnum != null) {
 							////////// dB에서 해당 항공기 예약정보를 삭제하고
 							// #### DAO ####
@@ -140,7 +140,7 @@ public class MainController {
 							v.card.show(v.c, "selectSeat");
 						}
 					} else if (obj == v.myInfoPanel.myReservationUpdatePanel.cancleResBtn) {// 예약취소하기 버튼
-						String resnum = JOptionPane.showInputDialog("예약취소 할 항공편의 예약번호를 입력하세요");
+						String resnum = v.myReservationCancleResDialog();
 						if (resnum != null) {
 							////////// dB에서 해당 항공기 예약정보를 삭제
 							// #### DAO ####
@@ -190,7 +190,7 @@ public class MainController {
 
 					if (obj == v.flightResPanel.selectSeatButton1) {// 가는자리선택하기 버튼
 						if (v.flightResPanel.flightsearchTextField[2].getText().equals("")) {// 인원수 textfield 비어있으면
-							JOptionPane.showMessageDialog(null, "탑승할 인원을 선택하세요!");
+							v.flightResPersonnelDialog();
 							return;
 						}
 						v.resNum = Integer.valueOf(v.flightResPanel.flightsearchTextField[2].getText());
@@ -199,7 +199,7 @@ public class MainController {
 
 					if (obj == v.flightResPanel.selectSeatButton2) {// 오는자리선택하기 버튼
 						if (v.flightResPanel.flightsearchTextField[2].getText().equals("")) {// 인원수 textfield 비어있으면
-							JOptionPane.showMessageDialog(null, "탑승할 인원을 선택하세요!");
+							v.flightResPersonnelDialog();
 							return;
 						}
 						v.resNum = Integer.valueOf(v.flightResPanel.flightsearchTextField[2].getText());
@@ -209,31 +209,6 @@ public class MainController {
 					if (obj == v.flightResPanel.departureAirportCombo) {// 출발 공항 콤보박스
 						int index = v.flightResPanel.departureAirportCombo.getSelectedIndex();
 					} else if (obj == v.flightResPanel.destAirportCombo) {// 도착 공항 콤보박스
-						int index = v.flightResPanel.destAirportCombo.getSelectedIndex();
-					}
-
-					if (obj == v.flightResPanel.selectSeatButton1) {// 가는자리선택하기 버튼
-						if (v.flightResPanel.flightsearchTextField[2].getText().equals("")) {// 인원수 textfield 비어있으면
-							JOptionPane.showMessageDialog(null, "탑승할 인원을 선택하세요!");
-							return;
-						}
-						v.resNum = Integer.valueOf(v.flightResPanel.flightsearchTextField[2].getText());
-						v.card.show(v.c, "selectSeat");
-					}
-
-					if (obj == v.flightResPanel.selectSeatButton2) {// 오는자리선택하기 버튼
-						if (v.flightResPanel.flightsearchTextField[2].getText().equals("")) {// 인원수 textfield 비어있으면
-							JOptionPane.showMessageDialog(null, "탑승할 인원을 선택하세요!");
-							return;
-						}
-						v.resNum = Integer.valueOf(v.flightResPanel.flightsearchTextField[2].getText());
-						v.card.show(v.c, "selectSeat");
-					}
-
-					if (obj == v.flightResPanel.departureAirportCombo) {// 출발 공항 콤보박스
-						int index = v.flightResPanel.departureAirportCombo.getSelectedIndex();
-					}
-					if (obj == v.flightResPanel.destAirportCombo) {// 도착 공항 콤보박스
 						int index = v.flightResPanel.destAirportCombo.getSelectedIndex();
 					}
 
@@ -255,7 +230,7 @@ public class MainController {
 					}
 //					public class SelectSeatTab extends JPanel {
 					else if (obj == v.selectSeatPanel.reserveButton) {// 예약하기버튼
-						JOptionPane.showMessageDialog(null, "예약되셨습니다!");
+						v.selectSeatReservationDialog();
 						v.card.show(v.c, "reservation");
 						v.selectSeatPanel.cnt = 0;
 						v.selectSeatPanel.seatlist.clear();
