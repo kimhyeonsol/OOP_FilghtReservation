@@ -1,4 +1,5 @@
 package Model;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -21,7 +22,6 @@ public class UserDAO {
 	Vector<String> items = null;
 	String sql;
 
-	
 	public UserDAO() {
 		try {
 			connectDB();
@@ -30,7 +30,7 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void connectDB() throws SQLException {
 		try {
 			Class.forName(jdbcDriver);
@@ -77,7 +77,7 @@ public class UserDAO {
 		return datas;
 
 	}
-	
+
 	public User getUser(String ID) {
 		sql = "select * from user where ID = ?";
 		User u = null;
@@ -88,7 +88,7 @@ public class UserDAO {
 
 			rs.next();
 			u = new User();
-			
+
 			u.setID(rs.getString("ID"));
 			u.setName(rs.getString("name"));
 			u.setPw(rs.getString("pw"));
@@ -106,8 +106,8 @@ public class UserDAO {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
-			int i=1;
+
+			int i = 1;
 			pstmt.setString(i++, u.getID());
 			pstmt.setString(i++, u.getName());
 			pstmt.setString(i++, u.getPw());
@@ -127,8 +127,8 @@ public class UserDAO {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
-			int i=1;
+
+			int i = 1;
 			pstmt.setString(i++, u.getName());
 			pstmt.setString(i++, u.getPw());
 			pstmt.setString(i++, u.getEmail());
@@ -143,18 +143,26 @@ public class UserDAO {
 		}
 	}
 
-	public boolean deleteUser(String ID) {
+	public int deleteUser(String ID) {
 		sql = "delete from user where ID = ?";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, ID);
-			pstmt.executeUpdate();
-			return true;
+			int r = pstmt.executeUpdate();
+
+			if (r > 0)
+				System.out.println(ID + " delete success");
+			else
+				System.out.println(ID + " delete failure");
+			
+			return r;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
+
 		}
+		return 0;
 	}
 
 	public Vector<String> getItems() {

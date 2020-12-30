@@ -17,6 +17,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -177,7 +178,7 @@ public class ManagerUIFrame extends JFrame{
    
    public class MemberManagerUI extends JPanel implements ActionListener{
         public GoBackButton backButton = new GoBackButton();
-        JTextField memDeletetextField[] = new JTextField[2]; //회원 삭제 텍스트필드
+        public JTextField memDeletetextField = new JTextField(); //회원 삭제 텍스트필드
         public JButton memDeleteButton = new JButton("삭제하기"); //삭제하기 버튼
         public JButton memSearchButton = new JButton("조회하기"); //조회하기 버튼
         public JTextArea textArea_m = new JTextArea(29,43); //회원 조회 textArea
@@ -220,8 +221,7 @@ public class ManagerUIFrame extends JFrame{
           JPanel p[] = new JPanel[2];
           JPanel searchPanel[] = new JPanel[2];
 //          JTextArea textArea = new JTextArea(29,43); //회원 조회 textArea
-          JLabel infoLabel[] = new JLabel[2]; //회원 삭제 라벨
-          String infoStr[] = {"아이디", "비밀번호"};
+          JLabel infoLabel = new JLabel("아이디"); //회원 삭제 라벨
 //          JTextField memDeletetextField[] = new JTextField[2]; //회원 삭제 텍스트필드
 //          JButton memDeleteButton = new JButton("삭제하기"); //삭제하기 버튼
 //          JButton memSearchButton = new JButton("조회하기"); //조회하기 버튼
@@ -253,28 +253,22 @@ public class ManagerUIFrame extends JFrame{
               p[0].add(searchPanel[1], BorderLayout.CENTER);
               
               p[1].setLayout(null);
-              for(int i=0; i<infoLabel.length; i++) {
-                 infoLabel[i] = new JLabel(infoStr[i]);
-                 infoLabel[i].setHorizontalAlignment(JLabel.CENTER);
-                 infoLabel[i].setFont(new Font("맑은고딕", Font.BOLD, 18));
-              }
-              for(int i=0; i<memDeletetextField.length; i++) {
-            	  memDeletetextField[i] = new JTextField();
-              }
-              for(int i=0; i<2; i++) {
-                 infoLabel[i].setLocation(50, 160+(i*80));
-                 infoLabel[i].setSize(80,80);
-                 p[1].add(infoLabel[i]);
-                 memDeletetextField[i].setLocation(190, 175+(i*80));
-                 memDeletetextField[i].setSize(200,60);
-                 p[1].add(memDeletetextField[i]);
-              }
+              infoLabel.setHorizontalAlignment(JLabel.CENTER);
+              infoLabel.setFont(new Font("맑은고딕", Font.BOLD, 18));
+              
+              infoLabel.setLocation(50, 170);
+              infoLabel.setSize(80,80);
+              p[1].add(infoLabel);
+              memDeletetextField.setLocation(190, 185);
+              memDeletetextField.setSize(200,60);
+              p[1].add(memDeletetextField);
+             
               
               memDeleteButton.setForeground(new Color(255, 255, 255));
               memDeleteButton.setBackground(new Color(128, 128, 128));
               memDeleteButton.setFocusPainted(false);
               memDeleteButton.setFont(new Font("맑은고딕", Font.BOLD, 17));
-              memDeleteButton.setLocation(50, 400);
+              memDeleteButton.setLocation(50, 380);
               memDeleteButton.setSize(340,50);
               memDeleteButton.addActionListener(this);
               p[1].add(memDeleteButton);
@@ -716,5 +710,31 @@ public class ManagerUIFrame extends JFrame{
 	   ta.setText(sb.toString());
 	   ta.setCaretPosition(0);
    }
+   
+   public void memberDeleteDialog(int result) {
+	   if(result>0)
+		   JOptionPane.showMessageDialog(null, "회원 삭제 완료!");
+	   else
+		   JOptionPane.showMessageDialog(null, "회원 삭제 실패!");
+   }
+   public void flightCreateDialog(int result) {
+	   if(result>0)
+		   JOptionPane.showMessageDialog(null, "항공 등록 완료!");
+	   else
+		   JOptionPane.showMessageDialog(null, "항공 등록 실패!");
+   }
+   public void flightUpdateDialog(int result) {
+	   if(result>0)
+		   JOptionPane.showMessageDialog(null, "항공 변경 완료!");
+	   else
+		   JOptionPane.showMessageDialog(null, "항공 변경 실패!");
+   }
+   public void flightDeleteDialog(int result) {
+	   if(result>0)
+		   JOptionPane.showMessageDialog(null, "항공 삭제 완료!");
+	   else
+		   JOptionPane.showMessageDialog(null, "항공 삭제 실패!");
+   }
+   
    
 }
