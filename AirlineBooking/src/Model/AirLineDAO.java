@@ -10,7 +10,8 @@ import java.util.Vector;
 
 public class AirLineDAO {
 
-	String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+//	String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+	String jdbcDriver = "com.mysql.jdbc.Driver";
 	String jdbcUrl = "jdbc:mysql://localhost:3306/airplanereservation?&serverTimezone=Asia/Seoul&useSSL=false";
 	Connection conn;
 
@@ -28,7 +29,7 @@ public class AirLineDAO {
 		try {
 			Class.forName(jdbcDriver);
 
-			conn = DriverManager.getConnection(jdbcUrl, "root", "111111");
+			conn = DriverManager.getConnection(jdbcUrl, "root", "0000");
 			if (conn == null)
 				System.out.println("conn is null");
 		} catch (Exception e) {
@@ -101,7 +102,37 @@ public class AirLineDAO {
 
 		return null;
 	}
+	
+	public ArrayList<AirLine> getALInfoByChoice(String depAirportNm, String arrAirportNm, String date) throws SQLException {
+		// connectDB();
+		sql = "select * from airlineinfo where arrAirportNm = ? and depAirportNm = ? and depPlandTime like ?";
+		
+		ArrayList<AirLine> datas = new ArrayList<AirLine>();
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, arrAirportNm);
+		pstmt.setString(2, depAirportNm);
+		pstmt.setString(3, date+"%");
+		System.out.println(pstmt);
+		rs = pstmt.executeQuery();
 
+		while (rs.next()) {
+			AirLine p = new AirLine();
+			p.setID(rs.getInt("ID"));
+			p.setAirLineNm(rs.getString("airLineNm"));
+			p.setArrAirportNm(rs.getString("arrAirportNm"));
+			p.setArrPlandTime(rs.getString("arrPlandTime"));
+			p.setDepAirportNm(rs.getString("depAirportNm"));
+			p.setDepPlandTime(rs.getString("depPlandTime"));
+			p.setEconomyCharge(rs.getInt("economyCharge"));
+			p.setPrestigeCharge(rs.getInt("prestigeCharge"));
+			datas.add(p);
+			System.out.println(p.getID());
+			// throws SQLException
+		}
+
+		return datas;
+	}
+	
 	public Vector<String> getItems() {
 		Vector<String> arr = new Vector<String>();
 		try {
