@@ -1005,5 +1005,12 @@ public class UserUIFrame extends JFrame {// user 프레임(카드레이 아웃)
 		flightResPanel.destAirportCombo.addActionListener(listener);
 
 	}
+	
+	public void myInfoUpdateDialog() {
+		JOptionPane.showMessageDialog(null, "경로를 선택하지 않았습니다");
+	}
+	public void myReservationUpdatePanelDialog() {
+		JOptionPane.showMessageDialog(null, "경로를 선택하지 않았습니다");
+	}
 
 }

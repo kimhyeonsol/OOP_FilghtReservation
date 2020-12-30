@@ -81,7 +81,7 @@ public class MainController {
 					else if (obj == v.myInfoPanel.myInfoUpdatePanel.saveButton) {// 내정보 문서로 저장하기 버튼
 						int ret = v.myInfoPanel.myInfoUpdatePanel.chooser.showSaveDialog(null);
 						if (ret != JFileChooser.APPROVE_OPTION) {
-							JOptionPane.showMessageDialog(null, "경로를 선택하지 않았습니다");
+							v.MyInfoUpdateDialog();
 							return;
 						}
 						v.myInfoPanel.myInfoUpdatePanel.pathName = v.myInfoPanel.myInfoUpdatePanel.chooser

@@ -711,18 +711,16 @@ public class ManagerUIFrame extends JFrame{
 	   ta.setCaretPosition(0);
    }
    
-   public void MemberDeleteDialog() {
+   public void memberDeleteDialog() {
 	   JOptionPane.showMessageDialog(null, "회원 삭제 완료!");
    }
-   public void FlightCreateDialog() {
+   public void flightCreateDialog() {
 	   JOptionPane.showMessageDialog(null, "항공 등록 완료!");
    }
-   public void FlightUpdateDialog() {
+   public void flightUpdateDialog() {
 	   JOptionPane.showMessageDialog(null, "항공 변경 완료!");
    }
-   public void FlightDeleteDialog() {
+   public void flightDeleteDialog() {
 	   JOptionPane.showMessageDialog(null, "항공 삭제 완료!");
    }
-   
-   
 }
