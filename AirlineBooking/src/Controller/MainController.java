@@ -48,20 +48,57 @@ public class MainController {
 	class UserUIController {
 		private final UserUIFrame v;
 		private String _userID;
-
+		private int _selectedAirLine;
+		
+		public void updateSelectedSeat(int selectedAirLine) throws SQLException {
+			_selectedAirLine = selectedAirLine;
+			ArrayList<Reservation> resList = rDAO.getReservationListByALInfo(selectedAirLine);
+			System.out.println(selectedAirLine);
+			v.selectSeatPanel.seatlist.clear();
+			
+			for (Reservation res : resList) {
+				v.selectSeatPanel.seatButton[res.getSeatNum()].setBackground((new Color(255, 192, 0)));
+				v.selectSeatPanel.seatButton[res.getSeatNum()].setFocusPainted(true);
+//				v.selectSeatPanel.seatButton[res.getSeatNum()].setEnabled(false);
+//				if(res.getUser().equals(_userID)) {
+//					int i = res.getSeatNum();
+//					String str = "";
+//					if (i < 10) {
+//						str += "A";
+//					} else if (i < 20) {
+//						str += "B";
+//					} else if (i < 30) {
+//						str += "C";
+//					} else if (i < 40) {
+//						str += "D";
+//					}
+//					v.selectSeatPanel.seatlist.add(i);
+//					v.selectedSeatTextarea
+//					.setText(v.selectedSeatTextarea.getText() + "  " + str + (i % 10 + 1));
+//				}
+				
+			}
+		}
+		
+		
 		public UserUIController(UserUIFrame ui) {
 
 			this.v = ui;
 			String data[] = new String[6];
-
+			//
+			
+			
+			
 			v.addButtonActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					Object obj = e.getSource();
-
+					// url -> restFul 
+					//
 //					FlightResPanel pnFR = v.flightResPanel;
 					User currentUser = uDAO.getUser(v._userId);
+					_userID = currentUser.getID();
 
 //					public UserMenuPanel userMenuPanel;
 					if (obj == v.userMenuPanel.myInfoButton) {
@@ -175,21 +212,40 @@ public class MainController {
 						String resnum = JOptionPane.showInputDialog("자리변경 할 항공편의 예약번호를 입력하세요");
 						v.resNum = 1;
 						if (resnum != null) {
-//							rDAO.getReservation(Integer.parseInt(resnum));
-//							if() ??????
-							////////// dB에서 해당 항공기 예약정보를 삭제하고
-							// #### DAO ####
-//							rDAO.deleteReservation(Integer.parseInt(resnum));
-							// #### DAO ####
-							////////// 항공편 자리선택 화면으로 가서 다시 예약
-							v.card.show(v.c, "selectSeat");
+							int num = Integer.parseInt(resnum);
+							int selectReser_info;
+							try {
+								
+								Reservation search = rDAO.getReservation(num);
+								if(!search.getUser().equals(currentUser.getID())) {
+									return;
+								}
+								selectReser_info = search.getInfo();
+								rDAO.deleteReservation(search.getID());
+//								v._selectedDepAirLine = selectReser_info;
+								updateSelectedSeat(selectReser_info);
+//								v.selectSeatPanel.seatlist.clear();
+								v.card.show(v.c, "selectSeat");
+								System.out.println(num);
+							} catch (SQLException e2) {
+								// TODO Auto-generated catch block
+								e2.printStackTrace();
+							}
+
 						}
 					} else if (obj == v.myInfoPanel.myReservationUpdatePanel.cancleResBtn) {// 예약취소하기 버튼
 						String resnum = JOptionPane.showInputDialog("예약취소 할 항공편의 예약번호를 입력하세요");
 						if (resnum != null) {
 							////////// dB에서 해당 항공기 예약정보를 삭제
-							Reservation output = rDAO.getReservation(Integer.parseInt(resnum));
-							if (output == null) {
+							Reservation output = null;
+							try {
+								output = rDAO.getReservation(Integer.parseInt(resnum));
+							} catch (NumberFormatException e2) {
+								// TODO Auto-generated catch block
+								e2.printStackTrace();
+							} catch (SQLException e2) {
+								// TODO Auto-generated catch block
+								e2.printStackTrace();
 								return;
 							}
 							// #### DAO ####
@@ -199,22 +255,23 @@ public class MainController {
 							ArrayList<Reservation> res = null;
 							try {
 								res = rDAO.getReservationListByUser(currentUser.getID());
+
+								String reservationListStr = "";
+								for (Reservation r : res) {
+									AirLine outAL = aDAO.getALInfo(r.getInfo());
+									User outU = uDAO.getUser(r.getUser());
+
+									reservationListStr += r.getID() + " " + outAL.getAirLineNm() + " " + outU.getName()
+											+ " " + r.getSeatNum() + "\n";
+								}
+
+								v.myInfoPanel.myReservationUpdatePanel.textArea.setText(reservationListStr);
+
+								JOptionPane.showMessageDialog(null, "예약취소 되었습니다.");
 							} catch (SQLException e1) {
 								e1.printStackTrace();
 							}
 
-							String reservationListStr = "";
-							for (Reservation r : res) {
-								AirLine outAL = aDAO.getALInfo(r.getInfo());
-								User outU = uDAO.getUser(r.getUser());
-
-								reservationListStr += r.getID() + " " + outAL.getAirLineNm() + " " + outU.getName()
-										+ " " + r.getSeatNum() + "\n";
-							}
-
-							v.myInfoPanel.myReservationUpdatePanel.textArea.setText(reservationListStr);
-
-							JOptionPane.showMessageDialog(null, "예약취소 되었습니다.");
 						}
 					}
 
@@ -295,16 +352,11 @@ public class MainController {
 							if (selectedAirLine == null) {
 								return;
 							}
-							v._selectedDepAirLine = selectedAirLine.getID();
-
-							ArrayList<Reservation> resList = rDAO.getReservationListByALInfo(selectedAirLine.getID());
-							System.out.println(selectedAirLine.getID());
-							for (Reservation res : resList) {
-								v.selectSeatPanel.seatButton[res.getSeatNum()].setBackground((new Color(255, 192, 0)));
-								v.selectSeatPanel.seatButton[res.getSeatNum()].setFocusPainted(true);
-
-							}
-
+							
+							// updateSeat
+							
+							updateSelectedSeat(selectedAirLine.getID());
+							
 							v.resNum = Integer.valueOf(v.flightResPanel.flightsearchTextField[2].getText());
 							v.card.show(v.c, "selectSeat");
 
@@ -328,16 +380,8 @@ public class MainController {
 							if (selectedAirLine == null) {
 								return;
 							}
-							v._selectedDepAirLine = selectedAirLine.getID();
-
-							ArrayList<Reservation> resList = rDAO.getReservationListByALInfo(selectedAirLine.getID());
-							System.out.println(selectedAirLine.getID());
-							for (Reservation res : resList) {
-								v.selectSeatPanel.seatButton[res.getSeatNum()].setBackground((new Color(255, 192, 0)));
-								v.selectSeatPanel.seatButton[res.getSeatNum()].setFocusPainted(true);
-
-							}
-
+							
+							updateSelectedSeat(selectedAirLine.getID());
 							v.resNum = Integer.valueOf(v.flightResPanel.flightsearchTextField[2].getText());
 							v.card.show(v.c, "selectSeat");
 
@@ -374,13 +418,16 @@ public class MainController {
 					}
 //					public class SelectSeatTab extends JPanel {
 					else if (obj == v.selectSeatPanel.reserveButton) {// 예약하기버튼
-
+						if(v.selectSeatPanel.seatlist.size() != v.resNum) {
+							JOptionPane.showMessageDialog(null, v.resNum+"명을 선택해주세요!");
+							return;
+						}
 						JOptionPane.showMessageDialog(null, "예약되셨습니다!");
 						for (int i = 0; i < v.selectSeatPanel.seatlist.size(); i++) {
 							int seatNum = v.selectSeatPanel.seatlist.get(i);
 
 							Reservation r = new Reservation();
-							r.setInfo(v._selectedDepAirLine);
+							r.setInfo(_selectedAirLine);
 							r.setSeatNum(seatNum);
 							r.setUser(currentUser.getID());
 							System.out.println(r.getInfo());
@@ -389,10 +436,10 @@ public class MainController {
 							rDAO.newReservation(r);
 
 						}
-
+						v.selectSeatPanel.seatlist.clear();
 						v.card.show(v.c, "reservation");
 						// 항공기 예약 입력 초기화??
-						v.selectSeatPanel.cnt = 1;
+						v.selectSeatPanel.cnt = 0;
 						v.selectSeatPanel.seatlist.clear();
 						v.selectedSeatTextarea.setText("");
 						for (int i = 0; i < 40; i++) {// 일단 좌석 색깔 다 초기화 시킴, 예약된 좌석은 라벨 x로 바꾸고, 선택 안되게 설정해주어야함.
@@ -403,16 +450,34 @@ public class MainController {
 							}
 						}
 						return;// 밑에 for문이니깐 예약하기 버튼이면 걍 return 시켜주기
+					} else if (obj == v.selectSeatPanel.selectSeatTab.resetButton) {// 좌석초기화 버튼
+						for (int i = 0; i < v.selectSeatPanel.seatButton.length; i++) {
+							
+							if (i % 10 == 0) {
+								v.selectSeatPanel.seatButton[i].setBackground(new Color(112, 48, 160));
+							} else {
+								v.selectSeatPanel.seatButton[i].setBackground(new Color(46, 117, 182));
+							}
+							
+						}
+						v.selectSeatPanel.cnt = 0;
+						v.selectSeatPanel.seatlist.clear();
+						v.selectedSeatTextarea.setText("");
+						try {
+							updateSelectedSeat(_selectedAirLine);
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 
 					for (int i = 0; i < v.selectSeatPanel.seatButton.length; i++) {
 
 						if (obj == v.selectSeatPanel.seatButton[i]) {
-							for (int j = 0; j < v.selectSeatPanel.seatlist.size(); j++) {
-								if (i == v.selectSeatPanel.seatlist.get(j)) {
-									return;
-								}
+							if(v.selectSeatPanel.seatButton[i].getBackground().equals(new Color(255, 192, 0))) {
+								return;
 							}
+							
 							v.selectSeatPanel.seatlist.add(i);
 							System.out.println(i);
 							System.out.println(v.selectSeatPanel.cnt);
@@ -436,18 +501,9 @@ public class MainController {
 							}
 							v.selectedSeatTextarea
 									.setText(v.selectedSeatTextarea.getText() + "  " + str + (i % 10 + 1));
+							break;
 						}
 
-						else if (obj == v.selectSeatPanel.selectSeatTab.resetButton) {// 좌석초기화 버튼
-							if (i % 10 == 0) {
-								v.selectSeatPanel.seatButton[i].setBackground(new Color(112, 48, 160));
-							} else {
-								v.selectSeatPanel.seatButton[i].setBackground(new Color(46, 117, 182));
-							}
-							v.selectSeatPanel.cnt = 0;
-							v.selectSeatPanel.seatlist.clear();
-							v.selectedSeatTextarea.setText("");
-						}
 					}
 
 				}
