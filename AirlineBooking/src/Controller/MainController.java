@@ -53,13 +53,11 @@ public class MainController {
 
 			this.v = ui;
 			String data[] = new String[6];
-
 			v.addButtonActionListener(new ActionListener() {
-
+				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					Object obj = e.getSource();
-
 //					FlightResPanel pnFR = v.flightResPanel;
 					User currentUser = uDAO.getUser(v._userId);
 
@@ -211,6 +209,7 @@ public class MainController {
 								reservationListStr += r.getID() + " " + outAL.getAirLineNm() + " " + outU.getName()
 										+ " " + r.getSeatNum() + "\n";
 							}
+							
 
 							v.myInfoPanel.myReservationUpdatePanel.textArea.setText(reservationListStr);
 
@@ -226,14 +225,19 @@ public class MainController {
 //					public class RegisterFlightPanel extends JPanel implements ItemListener {
 					if (obj == v.flightResPanel.flightSearchButton) {// 비행기 검색하기 버튼
 						// #### DAO ####
-
+						String departAirport = v.flightResPanel.departureAirportCombo.getSelectedItem().toString();//출발 공항
+						String destAirport = v.flightResPanel.destAirportCombo.getSelectedItem().toString();// 도착 공항
+						String departDate = v.flightResPanel.flightsearchTextField[0].getText();// 가는 날
+						String destDate = v.flightResPanel.flightsearchTextField[1].getText();// 오는 날
+						int pNum = Integer.parseInt(v.flightResPanel.flightsearchTextField[2].getText());// 가는 인원
+						//왕복
 						if (v.flightResPanel.radio[1].isSelected()) {
-							String destDate = v.flightResPanel.flightsearchTextField[1].getText();
+							
 							ArrayList<AirLine> output = null;
 							ArrayList<AirLine> output2 = null; // 돌아오는
 							try {
-								output = aDAO.getAllALInfo();
-								output2 = aDAO.getAllALInfo();
+								output = aDAO.getALInfoByChoice(departAirport, destAirport, departDate);
+								output2 = aDAO.getALInfoByChoice(destAirport, departAirport, destDate);
 								// results by current day/time
 							} catch (SQLException e1) {
 								// TODO Auto-generated catch block
@@ -241,26 +245,38 @@ public class MainController {
 								// 결과가 없음..? 비행기 안뜸.. or 너무 미래
 								// 과거 시간 선택 검증
 							}
-							String depAirLineStr = "";
+							String depAirLineStr = "항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t이코니미운임\t비즈니스운임\n";
 							for (AirLine r : output) {
-								depAirLineStr += r.getID() + " " + r.getAirLineNm() + " " + r.getArrAirportNm() + " "
-										+ r.getDepAirportNm() + " " + r.getArrPlandTime() + " " + r.getDepPlandTime()
-										+ " " + r.getEconomyCharge() + " " + r.getPrestigeCharge() + "\n";
+								depAirLineStr += r.getID() + "\t" + r.getAirLineNm() + "\t" + r.getDepAirportNm() + "\t"
+										+ r.getArrAirportNm() + "\t" + r.getDepPlandTime().substring(8,10) +":"+r.getDepPlandTime().substring(10,12) + "\t" 
+										+ r.getArrPlandTime().substring(8,10) +":"+r.getArrPlandTime().substring(10,12)
+										+ "\t" + r.getEconomyCharge() + "\t" + r.getPrestigeCharge() + "\n";
 							}
-							String desAirLineStr = "";
+							String desAirLineStr = "항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t이코니미운임\t비즈니스운임\n";
 							for (AirLine r : output2) {
-								desAirLineStr += r.getID() + " " + r.getAirLineNm() + " " + r.getArrAirportNm() + " "
-										+ r.getDepAirportNm() + " " + r.getArrPlandTime() + " " + r.getDepPlandTime()
-										+ " " + r.getEconomyCharge() + " " + r.getPrestigeCharge() + "\n";
+								desAirLineStr += r.getID() + "\t" + r.getAirLineNm() + "\t" + r.getDepAirportNm() + "\t"
+										+ r.getArrAirportNm() + "\t" + r.getDepPlandTime().substring(8,10) +":"+r.getDepPlandTime().substring(10,12) + "\t" 
+										+ r.getArrPlandTime().substring(8,10) +":"+r.getArrPlandTime().substring(10,12)
+										+ "\t" + r.getEconomyCharge() + "\t" + r.getPrestigeCharge() + "\n";
 							}
-							v.flightResPanel.departureAirportTextArea.setText(depAirLineStr);
-							v.flightResPanel.destAirportTextArea.setText(desAirLineStr);
+							if(output.size()==0)
+								v.flightResPanel.departureAirportTextArea.setText("검색 결과가 없습니다.");
+							else
+								v.flightResPanel.departureAirportTextArea.setText(depAirLineStr);
+							
+							if(output2.size()==0)
+								v.flightResPanel.destAirportTextArea.setText("검색 결과가 없습니다.");
+							else
+								v.flightResPanel.destAirportTextArea.setText(desAirLineStr);
+							
+							
 							// output -> 항공기 textArea(scroll)1 반영 및 refresh
 						} else if (v.flightResPanel.radio[0].isSelected()) {
-							String departDate = v.flightResPanel.flightsearchTextField[0].getText();
+							// 편도
+							//String departDate = v.flightResPanel.flightsearchTextField[0].getText();
 							ArrayList<AirLine> output = null;
 							try {
-								output = aDAO.getAllALInfo();
+								output = aDAO.getALInfoByChoice(departAirport, destAirport, departDate);
 								// results by current day/time
 							} catch (SQLException e1) {
 								// TODO Auto-generated catch block
@@ -268,15 +284,23 @@ public class MainController {
 								// 결과가 없음..? 비행기 안뜸.. or 너무 미래
 								// 과거 시간 선택 검증
 							}
-
-							String depAirLineStr = "";
+							
+							String depAirLineStr = "항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t이코니미운임\t비즈니스운임\n";
 							for (AirLine r : output) {
-								depAirLineStr += r.getID() + " " + r.getAirLineNm() + " " + r.getArrAirportNm() + " "
-										+ r.getDepAirportNm() + " " + r.getArrPlandTime() + " " + r.getDepPlandTime()
-										+ " " + r.getEconomyCharge() + " " + r.getPrestigeCharge() + "\n";
+								depAirLineStr += r.getID() + "\t" + r.getAirLineNm() + "\t" + r.getDepAirportNm() + "\t"
+										+ r.getArrAirportNm() + "\t" + r.getDepPlandTime().substring(8,10) +":"+r.getDepPlandTime().substring(10,12) + "\t" 
+										+ r.getArrPlandTime().substring(8,10) +":"+r.getArrPlandTime().substring(10,12)
+										+ "\t" + r.getEconomyCharge() + "\t" + r.getPrestigeCharge() + "\n";
 							}
-							v.flightResPanel.departureAirportTextArea.setText(depAirLineStr);
+							
+							if(output.size()==0)
+								v.flightResPanel.departureAirportTextArea.setText("검색 결과가 없습니다.");
+							else
+								v.flightResPanel.departureAirportTextArea.setText(depAirLineStr);
+							
+//							v.flightResPanel.departureAirportTextArea.setText(depAirLineStr);
 							v.flightResPanel.destAirportTextArea.setText("");
+							
 							// output -> 항공기 textArea(scroll)1 반영 및 refresh
 						}
 
@@ -504,10 +528,10 @@ public class MainController {
 							for (AirLine p : list) {
 								sb.append(p.getID() + "\t");
 								sb.append(p.getAirLineNm() + "\t");
-								sb.append(p.getArrAirportNm() + "\t");
 								sb.append(p.getDepAirportNm() + "\t");
-								sb.append(p.getArrPlandTime() + "\t");
-								sb.append(p.getDepPlandTime() + "\t\t");
+								sb.append(p.getArrAirportNm() + "\t");
+								sb.append(p.getDepPlandTime() + "\t");
+								sb.append(p.getArrPlandTime() + "\t\t");
 								sb.append(p.getEconomyCharge() + "\t");
 								sb.append(p.getPrestigeCharge() + "\t\n");
 							}
@@ -531,10 +555,10 @@ public class MainController {
 							for (AirLine p : list) {
 								sb.append(p.getID() + "\t");
 								sb.append(p.getAirLineNm() + "\t");
-								sb.append(p.getArrAirportNm() + "\t");
 								sb.append(p.getDepAirportNm() + "\t");
-								sb.append(p.getArrPlandTime() + "\t");
-								sb.append(p.getDepPlandTime() + "\t\t");
+								sb.append(p.getArrAirportNm() + "\t");
+								sb.append(p.getDepPlandTime() + "\t");
+								sb.append(p.getArrPlandTime() + "\t\t");
 								sb.append(p.getEconomyCharge() + "\t");
 								sb.append(p.getPrestigeCharge() + "\t\n");
 							}
@@ -557,10 +581,10 @@ public class MainController {
 							for (AirLine p : list) {
 								sb.append(p.getID() + "\t");
 								sb.append(p.getAirLineNm() + "\t");
-								sb.append(p.getArrAirportNm() + "\t");
 								sb.append(p.getDepAirportNm() + "\t");
-								sb.append(p.getArrPlandTime() + "\t");
-								sb.append(p.getDepPlandTime() + "\t\t");
+								sb.append(p.getArrAirportNm() + "\t");
+								sb.append(p.getDepPlandTime() + "\t");
+								sb.append(p.getArrPlandTime() + "\t\t");
 								sb.append(p.getEconomyCharge() + "\t");
 								sb.append(p.getPrestigeCharge() + "\t\n");
 							}
