@@ -75,25 +75,21 @@ public class ReservationDAO {
 
 	}
 
-	public Reservation getReservation(int ID) {
+	public Reservation getReservation(int ID) throws SQLException {
 		sql = "select * from reservation where ID = ?";
 		Reservation r = null;
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, ID);
-			rs = pstmt.executeQuery();
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, ID);
+		rs = pstmt.executeQuery();
 
-			rs.next();
+		rs.next();
 
-			r = new Reservation();
-			r.setID(rs.getInt("ID"));
-			r.setUser(rs.getString("user"));
-			r.setInfo(rs.getInt("info"));
-			r.setSeatNum(rs.getInt("seatNum"));
+		r = new Reservation();
+		r.setID(rs.getInt("ID"));
+		r.setUser(rs.getString("user"));
+		r.setInfo(rs.getInt("info"));
+		r.setSeatNum(rs.getInt("seatNum"));
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		return r;
 	}
 
