@@ -471,8 +471,9 @@ public class MainController {
 						} catch (SQLException e1) {
 							e1.printStackTrace();
 						}
-
-						StringBuffer sb = new StringBuffer();
+						StringBuffer sb = new StringBuffer("");
+						//v.setTextArea(v.managerPanel.textArea_m, sb);
+						
 						if (list != null) {
 							sb.append("아이디\t이름\t비밀번호\t이메일\t\t생일\t전화번호\n");
 							for (User p : list) {

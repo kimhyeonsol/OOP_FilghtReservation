@@ -713,7 +713,7 @@ public class ManagerUIFrame extends JFrame{
    }
    
    public void setTextArea(JTextArea ta, StringBuffer sb) {
-	   ta.append(sb.toString());
+	   ta.setText(sb.toString());
 	   ta.setCaretPosition(0);
    }
    
