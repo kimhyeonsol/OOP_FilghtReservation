@@ -48,17 +48,17 @@ public class AirLineDAO {
 	}
 
 	// 전체 가져오기
-	public ArrayList<AirLineDTO> getAllALInfo() throws SQLException {
+	public ArrayList<AirLine> getAllALInfo() throws SQLException {
 		// connectDB();
 		sql = "select * from airlineinfo";
 
-		ArrayList<AirLineDTO> datas = new ArrayList<AirLineDTO>();
+		ArrayList<AirLine> datas = new ArrayList<AirLine>();
 		pstmt = conn.prepareStatement(sql);
 		rs = pstmt.executeQuery();
 		
 
 		while (rs.next()) {
-			AirLineDTO p = new AirLineDTO();
+			AirLine p = new AirLine();
 			p.setID(rs.getInt("ID"));
 			p.setAirLineNm(rs.getString("airLineNm"));
 			p.setArrAirportNm(rs.getString("arrAirportNm"));
@@ -76,8 +76,8 @@ public class AirLineDAO {
 
 	
 	// ID에 해당하는 정보 가져오기
-	public AirLineDTO getALInfo(int ID) {
-		AirLineDTO p = new AirLineDTO();
+	public AirLine getALInfo(int ID) {
+		AirLine p = new AirLine();
 		try {
 			sql = "select * from airlineinfo where ID = ? ";
 			pstmt = conn.prepareStatement(sql);
@@ -121,7 +121,7 @@ public class AirLineDAO {
 		return arr;
 	}
 
-	public void updateALInfo(AirLineDTO p) {
+	public void updateALInfo(AirLine p) {
 		sql = "UPDATE airlineinfo SET arrPlandTime = ?, depPlandTime = ?, economyCharge = ?, prestigeCharge = ? WHERE ID = ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -142,7 +142,7 @@ public class AirLineDAO {
 		}
 	}
 
-	public void addALInfo(AirLineDTO p) {
+	public void addALInfo(AirLine p) {
 
 		try {
 			sql = "insert into airlineinfo values(0, ?, ?, ?, ?, ?, ?, ?)";

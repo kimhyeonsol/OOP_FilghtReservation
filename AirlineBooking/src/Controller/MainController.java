@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.FileWriter;
 
 import Model.AirLineDAO;
-import Model.AirLineDTO;
+import Model.AirLine;
 import Model.ReservationDAO;
 import Model.User;
 import Model.UserDAO;
@@ -161,7 +161,7 @@ public class MainController {
 						if (v.flightResPanel.radio[0].isSelected()) {
 							String departDate = v.flightResPanel.flightsearchTextField[0].getText();
 							try {
-								ArrayList<AirLineDTO> output = aDAO.getAllALInfo();
+								ArrayList<AirLine> output = aDAO.getAllALInfo();
 								// results by current day/time
 							} catch (SQLException e1) {
 								// TODO Auto-generated catch block
@@ -174,7 +174,7 @@ public class MainController {
 						if(v.flightResPanel.radio[1].isSelected()) {
 							String destDate = v.flightResPanel.flightsearchTextField[0].getText();
 							try {
-								ArrayList<AirLineDTO> output = aDAO.getAllALInfo();
+								ArrayList<AirLine> output = aDAO.getAllALInfo();
 								// results by current day/time
 							} catch (SQLException e1) {
 								// TODO Auto-generated catch block
@@ -352,7 +352,7 @@ public class MainController {
 
 					if (obj == v.flightPanel.flightSearchButton_c) {
 						//// textarea에 전체 출력
-						ArrayList<AirLineDTO> list = new ArrayList<AirLineDTO>();
+						ArrayList<AirLine> list = new ArrayList<AirLine>();
 						try {
 							list = aDAO.getAllALInfo();
 						} catch (SQLException e1) {
@@ -362,7 +362,7 @@ public class MainController {
 						StringBuffer sb = new StringBuffer();
 						if (list != null) {
 							sb.append("항공코드\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
-							for (AirLineDTO p : list) {
+							for (AirLine p : list) {
 								sb.append(p.getID() + "\t");
 								sb.append(p.getAirLineNm() + "\t");
 								sb.append(p.getArrAirportNm() + "\t");
@@ -379,7 +379,7 @@ public class MainController {
 
 					if (obj == v.flightPanel.flightSearchButton_u) {
 						//// textarea에 전체 출력
-						ArrayList<AirLineDTO> list = new ArrayList<AirLineDTO>();
+						ArrayList<AirLine> list = new ArrayList<AirLine>();
 						try {
 							list = aDAO.getAllALInfo();
 						} catch (SQLException e1) {
@@ -389,7 +389,7 @@ public class MainController {
 						StringBuffer sb = new StringBuffer();
 						if (list != null) {
 							sb.append("항공코드\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
-							for (AirLineDTO p : list) {
+							for (AirLine p : list) {
 								sb.append(p.getID() + "\t");
 								sb.append(p.getAirLineNm() + "\t");
 								sb.append(p.getArrAirportNm() + "\t");
@@ -405,7 +405,7 @@ public class MainController {
 
 					if (obj == v.flightPanel.flightSearchButton_d) {
 						//// textarea에 전체 출력
-						ArrayList<AirLineDTO> list = new ArrayList<AirLineDTO>();
+						ArrayList<AirLine> list = new ArrayList<AirLine>();
 						try {
 							list = aDAO.getAllALInfo();
 						} catch (SQLException e1) {
@@ -415,7 +415,7 @@ public class MainController {
 						StringBuffer sb = new StringBuffer();
 						if (list != null) {
 							sb.append("항공코드\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
-							for (AirLineDTO p : list) {
+							for (AirLine p : list) {
 								sb.append(p.getID() + "\t");
 								sb.append(p.getAirLineNm() + "\t");
 								sb.append(p.getArrAirportNm() + "\t");
@@ -431,7 +431,7 @@ public class MainController {
 
 					if (obj == v.flightPanel.flightCreateButton) {
 
-						AirLineDTO info = new AirLineDTO();
+						AirLine info = new AirLine();
 						info.setAirLineNm(v.flightPanel.fliCreatetextField[0].getText());
 						info.setArrPlandTime(v.flightPanel.fliCreatetextField[1].getText());
 						info.setDepPlandTime(v.flightPanel.fliCreatetextField[2].getText());
@@ -446,7 +446,7 @@ public class MainController {
 
 					if (obj == v.flightPanel.flightUpdateButton) {
 
-						AirLineDTO info = new AirLineDTO();
+						AirLine info = new AirLine();
 						info.setID(Integer.parseInt(v.flightPanel.fliUpdatetextField[0].getText()));
 						info.setArrPlandTime(v.flightPanel.fliUpdatetextField[1].getText());
 						info.setDepPlandTime(v.flightPanel.fliUpdatetextField[2].getText());

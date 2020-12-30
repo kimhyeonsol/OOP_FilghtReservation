@@ -1,6 +1,6 @@
 package Model;
 
-public class AirLineDTO {
+public class AirLine {
 
 	int ID;
 	String airLineNm;
