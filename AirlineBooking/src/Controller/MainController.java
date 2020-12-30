@@ -439,7 +439,9 @@ public class MainController {
 						info.setPrestigeCharge(Integer.parseInt(v.flightPanel.fliCreatetextField[4].getText()));
 						info.setArrAirportNm(v.flightPanel.fliCreatetextField[5].getText());
 						info.setDepAirportNm(v.flightPanel.fliCreatetextField[6].getText());
-						aDAO.addALInfo(info);
+						int result = aDAO.addALInfo(info);
+						// result > 0 이면 항공기 추가 완료 다이얼로그 띄우기(지원)
+						
 						for (int i = 0; i < 7; i++)
 							v.flightPanel.fliCreatetextField[i].setText("");
 					}
@@ -453,13 +455,18 @@ public class MainController {
 						info.setEconomyCharge(Integer.parseInt(v.flightPanel.fliUpdatetextField[3].getText()));
 						info.setPrestigeCharge(Integer.parseInt(v.flightPanel.fliUpdatetextField[4].getText()));
 
-						aDAO.updateALInfo(info);
+						int result = aDAO.updateALInfo(info);
+						// result > 0 이면 항공기 변경 완료 다이얼로그 띄우기(지원)
+						
 						for (int i = 0; i < 5; i++)
 							v.flightPanel.fliUpdatetextField[i].setText("");
 					}
 
 					if (obj == v.flightPanel.flightDeleteButton) {
-						aDAO.delALInfo(Integer.parseInt(v.flightPanel.fliDeletetextField.getText()));
+						int result = aDAO.delALInfo(Integer.parseInt(v.flightPanel.fliDeletetextField.getText()));
+						// result > 0 이면 항공기 삭제 완료 다이얼로그 띄우기(지원)
+						
+						
 						v.flightPanel.fliDeletetextField.setText("");
 					}
 					
