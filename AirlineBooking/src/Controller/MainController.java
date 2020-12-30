@@ -6,43 +6,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.awt.event.ItemListener;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.LinkedList;
 
 import Model.AirLineDAO;
 import Model.AirLineDTO;
 import Model.ReservationDAO;
 import Model.User;
 import Model.UserDAO;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
-import Model.AirLineDAO;
-import Model.AirLineDTO;
-import Model.ReservationDAO;
-import Model.User;
-import Model.UserDAO;
 import View.LoginUIFrame;
 import View.ManagerUIFrame;
 import View.UserUIFrame;
-import View.LoginUIFrame.LoginUIPanel;
-import View.UserUIFrame.UserMenuPanel;
-import View.UserUIFrame.MyInfoPanel.MyInfoUpdatePanel;
-import View.UserUIFrame.MyInfoPanel.MyReservationUpdatePanel;
-import View.ManagerUIFrame;
 
 public class MainController {
 	MainController MCT;
@@ -52,25 +30,20 @@ public class MainController {
 
 	AirLineDAO aDAO = new AirLineDAO();
 	ReservationDAO rDAO = new ReservationDAO();
-	UserDAO uDAO = new UserDAO();
+	UserDAO uDAO;
+	
 	public MainController() {
 		MCT = this;
+		uDAO = new UserDAO();
 	}
 
 	View.UserUIFrame UF;
 	View.ManagerUIFrame MF;
 	View.LoginUIFrame LF;
-
-	AirLineDAO daoAL;
-	UserDAO daoUser;
-	ReservationDAO daoReser;
-
-	public MainController() throws SQLException {
-		MCT = this;
-		daoAL = new AirLineDAO();
-		daoUser = new UserDAO();
-		daoReser = new ReservationDAO();
-	}
+//
+//	AirLineDAO aDAO;
+//	UserDAO uDAO;
+//	ReservationDAO rDAO;
 
 	class UserUIController {
 		private final UserUIFrame v;
@@ -136,7 +109,7 @@ public class MainController {
 						// #### DAO ####
 						User user = new User();
 						user.setUser(data);
-						daoUser.updateUser(user);
+						uDAO.updateUser(user);
 						// #### DAO ####
 						System.out.println(memo);
 						v.myInfoPanel.myInfoUpdatePanel.textArea.setText(memo);
@@ -151,7 +124,7 @@ public class MainController {
 						// #### DAO #### -> 삭제 전: dialog 필요성,
 						User user = new User();
 						user.setUser(data);
-						daoUser.deleteUser(user.getID());
+						uDAO.deleteUser(user.getID());
 						// #### DAO ####
 					}
 
@@ -161,7 +134,7 @@ public class MainController {
 						if (resnum != null) {
 							////////// dB에서 해당 항공기 예약정보를 삭제하고
 							// #### DAO ####
-							daoReser.deleteReservation(Integer.parseInt(resnum));
+							rDAO.deleteReservation(Integer.parseInt(resnum));
 							// #### DAO ####
 							////////// 항공편 자리선택 화면으로 가서 다시 예약
 							v.card.show(v.c, "selectSeat");
@@ -171,7 +144,7 @@ public class MainController {
 						if (resnum != null) {
 							////////// dB에서 해당 항공기 예약정보를 삭제
 							// #### DAO ####
-							daoReser.deleteReservation(Integer.parseInt(resnum));
+							rDAO.deleteReservation(Integer.parseInt(resnum));
 							// #### DAO ####
 							JOptionPane.showMessageDialog(null, "예약취소 되었습니다.");
 						}
@@ -188,7 +161,7 @@ public class MainController {
 						if (v.flightResPanel.radio[0].isSelected()) {
 							String departDate = v.flightResPanel.flightsearchTextField[0].getText();
 							try {
-								ArrayList<AirLineDTO> output = daoAL.getAllALInfo();
+								ArrayList<AirLineDTO> output = aDAO.getAllALInfo();
 								// results by current day/time
 							} catch (SQLException e1) {
 								// TODO Auto-generated catch block
@@ -201,7 +174,7 @@ public class MainController {
 						if(v.flightResPanel.radio[1].isSelected()) {
 							String destDate = v.flightResPanel.flightsearchTextField[0].getText();
 							try {
-								ArrayList<AirLineDTO> output = daoAL.getAllALInfo();
+								ArrayList<AirLineDTO> output = aDAO.getAllALInfo();
 								// results by current day/time
 							} catch (SQLException e1) {
 								// TODO Auto-generated catch block
@@ -627,9 +600,10 @@ public class MainController {
 	}
 
 	public static void main(String[] args) {
-
+		
 		MainController Controller = new MainController();
-		Controller.setLoginC(ui);
+		Controller.LF = new LoginUIFrame();
+		Controller.setLoginC(Controller.LF);
 
 	}
 

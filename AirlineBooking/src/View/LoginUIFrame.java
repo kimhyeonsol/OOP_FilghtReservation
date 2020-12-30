@@ -271,12 +271,7 @@ public class LoginUIFrame extends JFrame {
 //             signUpButton.addActionListener(this);
 			componentList.add(signUpButton);
 			add(signUpButton);
-			try {
-				dao = new UserDAO();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			dao = new UserDAO();
 		}
 
 		protected void paintComponent(Graphics g) {
