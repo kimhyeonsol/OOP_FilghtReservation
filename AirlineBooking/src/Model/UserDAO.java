@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 public class UserDAO {
 
-	String jdbcDriver = "com.mysql.jdbc.Driver";
+	String jdbcDriver = "com.mysql.cj.jdbc.Driver";
 	String jdbcUrl = "jdbc:mysql://localhost:3306/airplanereservation?&serverTimezone=Asia/Seoul&useSSL=false";
 	Connection conn;
 
@@ -34,7 +34,7 @@ public class UserDAO {
 	public void connectDB() throws SQLException {
 		try {
 			Class.forName(jdbcDriver);
-			conn = DriverManager.getConnection(jdbcUrl, "root", "0000");
+			conn = DriverManager.getConnection(jdbcUrl, "root", "111111");
 			System.out.println("DB 연결");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -80,40 +80,40 @@ public class UserDAO {
 	
 	public User getUser(String ID) {
 		sql = "select * from user where ID = ?";
-		User p = null;
+		User u = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, ID);
 			rs = pstmt.executeQuery();
 
 			rs.next();
-			p = new User();
+			u = new User();
 			
-			p.setID(rs.getString("ID"));
-			p.setName(rs.getString("name"));
-			p.setPw(rs.getString("pw"));
-			p.setEmail(rs.getString("email"));
-			p.setBirth(rs.getString("birth"));
-			p.setPhone(rs.getString("phone"));
+			u.setID(rs.getString("ID"));
+			u.setName(rs.getString("name"));
+			u.setPw(rs.getString("pw"));
+			u.setEmail(rs.getString("email"));
+			u.setBirth(rs.getString("birth"));
+			u.setPhone(rs.getString("phone"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return p;
+		return u;
 	}
 
-	public boolean newUser(User p) {
+	public boolean newUser(User u) {
 		sql = "insert into user(ID, name, pw, email, birth, phone) values(?,?,?,?,?,?)";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
 			int i=1;
-			pstmt.setString(i++, p.getID());
-			pstmt.setString(i++, p.getName());
-			pstmt.setString(i++, p.getPw());
-			pstmt.setString(i++, p.getEmail());
-			pstmt.setString(i++, p.getBirth());
-			pstmt.setString(i++, p.getPhone());
+			pstmt.setString(i++, u.getID());
+			pstmt.setString(i++, u.getName());
+			pstmt.setString(i++, u.getPw());
+			pstmt.setString(i++, u.getEmail());
+			pstmt.setString(i++, u.getBirth());
+			pstmt.setString(i++, u.getPhone());
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
@@ -122,19 +122,19 @@ public class UserDAO {
 		}
 	}
 
-	public boolean updateUser(User p) {
+	public boolean updateUser(User u) {
 		sql = "update user set name = ?, pw = ?, email = ?, birth = ?, phone = ? where ID = ?";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
 			int i=1;
-			pstmt.setString(i++, p.getName());
-			pstmt.setString(i++, p.getPw());
-			pstmt.setString(i++, p.getEmail());
-			pstmt.setString(i++, p.getBirth());
-			pstmt.setString(i++, p.getPhone());
-			pstmt.setString(i++, p.getID());
+			pstmt.setString(i++, u.getName());
+			pstmt.setString(i++, u.getPw());
+			pstmt.setString(i++, u.getEmail());
+			pstmt.setString(i++, u.getBirth());
+			pstmt.setString(i++, u.getPhone());
+			pstmt.setString(i++, u.getID());
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {

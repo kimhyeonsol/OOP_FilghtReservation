@@ -2,8 +2,8 @@ package Model;
 
 public class Reservation {
 	private int ID;
-	private User user;
-	private AirLineDTO info;
+	private String user;
+	private int info;
 	private int seatNum;
 
 	
@@ -11,34 +11,24 @@ public class Reservation {
 	public int getID() {
 		return ID;
 	}
-	public User getUser() {
+	public String getUser() {
 		return user;
 	}
-	public AirLineDTO getInfo() {
+	public int getInfo() {
 		return info;
 	}
 	public int getSeatNum() {
 		return seatNum;
 	}
-	
-	public String getUserID() {
-		return user.getID();
-	}
-	
-	public int getInfoID() {
-		return info.getID();
-	}
-	
-	
 
 	// setter
 	public void setID(int ID) {
 		this.ID = ID;
 	}
-	public void setUser(User user) {
+	public void setUser(String user) {
 		this.user = user;
 	}
-	public void setInfo(AirLineDTO info) {
+	public void setInfo(int info) {
 		this.info = info;
 	}
 	public void setSeatNum(int seatNum) {

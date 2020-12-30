@@ -47,4 +47,13 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	public void setUser(String[] data) {
+		setName(data[0]);
+		setID(data[0]);
+		setPw(data[0]);
+		setEmail(data[0]);
+		setBirth(data[0]);
+		setPhone(data[0]);
+	}
+	
 }

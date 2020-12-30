@@ -24,8 +24,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class ManagerUIFrame extends JFrame{
-   BufferedImage backImage, menuImage1, menuImage2, menuImage3;
-   BufferedImage backButtonImg, pageImg;
+   public BufferedImage backImage, menuImage1, menuImage2, menuImage3;
+   public BufferedImage backButtonImg, pageImg;
    
    public ManagerMenuPanel managerMenuPanel = new ManagerMenuPanel();
    public MemberManagerUI managerPanel = new MemberManagerUI();
