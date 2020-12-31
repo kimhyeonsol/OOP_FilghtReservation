@@ -3,6 +3,7 @@ package View;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -22,15 +23,16 @@ import javax.swing.SwingConstants;
 public class AirPortParkingLotUIFrame extends JFrame {
 	public BufferedImage backImage;
 	public JComboBox airPortComboBox = new JComboBox();
-	String airPortStr[] = { "김포국제공항", "김해국제공항", "제주국제공항", "대구국제공항" };
+	String airPortStr[] = { "인천국제공항","김포국제공항", "김해국제공항", "제주국제공항", "대구국제공항" };
 	JLabel label = new JLabel("공항 주차장 혼잡도");
 	JLabel airPortLabel = new JLabel("공항 선택");
 	JTextArea airPortTextArea = new JTextArea();
-	JButton airPortButton = new JButton("검색하기");
+	public JButton airPortButton = new JButton("검색하기");
+	
 
-	AirPortParkingLotUIFrame() {
+	public AirPortParkingLotUIFrame() {
+		
 		AirPortPanel airPortPanel = new AirPortPanel();
-
 		add(airPortPanel);
 
 		setBounds(250, 50, 1000, 700);
@@ -41,7 +43,7 @@ public class AirPortParkingLotUIFrame extends JFrame {
 		new AirPortParkingLotUIFrame();
 	}
 
-	class AirPortPanel extends JPanel {
+	public class AirPortPanel extends JPanel {
 		AirPortPanel() {
 			try {
 				backImage = ImageIO.read(new File("비행기.jpg"));
@@ -81,7 +83,7 @@ public class AirPortParkingLotUIFrame extends JFrame {
 			add(airPortButton);
 
 ///////////////////오늘 날짜////////////
-			Calendar cal=Calendar.getInstance();
+			Calendar cal = Calendar.getInstance();
 			int year = cal.get(Calendar.YEAR);
 			int month = cal.get(Calendar.MONTH) + 1;
 			int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -103,4 +105,11 @@ public class AirPortParkingLotUIFrame extends JFrame {
 			g.drawImage(backImage, 0, 0, getWidth(), getHeight(), null);
 		}
 	}
+
+	public void addButtonActionListener(ActionListener listener) {
+		airPortComboBox.addActionListener(listener);
+		airPortButton.addActionListener(listener);
+
+	}
+
 }

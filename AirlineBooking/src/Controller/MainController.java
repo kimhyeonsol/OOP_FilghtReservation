@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringReader;
-import java.lang.ModuleLayer.Controller;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
@@ -30,15 +29,14 @@ import javax.swing.event.ChangeListener;
 import com.google.gson.Gson;
 //import com.mysql.cj.x.protobuf.MysqlxNotice.Warning.Level;
 
-import Controller.MainController.LoginUIController;
-import Controller.MainController.ManagerUIController;
-import Controller.MainController.UserUIController;
 import Model.AirLine;
 import Model.AirLineDAO;
+import Model.AirPortParkingLotDAO;
 import Model.Reservation;
 import Model.ReservationDAO;
 import Model.User;
 import Model.UserDAO;
+import View.AirPortParkingLotUIFrame;
 import View.LoginUIFrame;
 import View.ManagerUIFrame;
 import View.UserUIFrame;
@@ -49,10 +47,12 @@ public class MainController {
 	UserUIController UC;
 	ManagerUIController MC;
 	LoginUIController LC;
+	AirPortParkingLotUIController PC;
 
 	AirLineDAO aDAO = new AirLineDAO();
 	ReservationDAO rDAO = new ReservationDAO();
 	UserDAO uDAO;
+	AirPortParkingLotDAO pDAO=new AirPortParkingLotDAO();
 
 	int seatNum;
 
@@ -65,6 +65,7 @@ public class MainController {
 	UserUIFrame UF;
 	ManagerUIFrame MF;
 	LoginUIFrame LF;
+	AirPortParkingLotUIFrame PF;
 //
 //	AirLineDAO aDAO;
 //	UserDAO uDAO;
@@ -684,6 +685,9 @@ public class MainController {
 						v.selectedSeatTextarea.setText("");
 
 						updateSelectedSeat(_selectedAirLine);
+					}
+					else if (obj == v.myInfoPanel.searchAirPortParkingLot) {// 주차장 조회 버튼
+						PF = new AirPortParkingLotUIFrame();
 					}
 
 					for (int i = 0; i < v.selectSeatPanel.seatButton.length; i++) {
@@ -1402,8 +1406,32 @@ public class MainController {
 
 		}
 
+		
 	}
 
+	class AirPortParkingLotUIController{
+		private final AirPortParkingLotUIFrame v;
+		AirPortParkingLotUIController(AirPortParkingLotUIFrame ui){
+			this.v=ui;
+			v.addButtonActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					//새로운 창이 뜰때마다 parsing해오는 방식으로 해주세요
+					if(e.getSource()==v.airPortComboBox) {
+						
+						
+					}
+					if(e.getSource()==v.airPortButton) {
+						System.out.println("클릭");
+					}
+					
+				}
+			
+			});
+		}
+	}
 	public boolean isStringDouble(String s) {
 		try {
 			// System.out.print(s+"는 : ");
