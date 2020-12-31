@@ -1013,6 +1013,7 @@ public class UserUIFrame extends JFrame {// user 프레임(카드레이 아웃)
 			comp.addActionListener(listener);
 		}
 		// RegisterFlightPanel
+		flightResPanel.searchAirPortParkingLot.addActionListener(listener);
 		flightResPanel.departureAirportCombo.addActionListener(listener);
 		flightResPanel.destAirportCombo.addActionListener(listener);
 

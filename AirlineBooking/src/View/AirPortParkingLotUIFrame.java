@@ -21,7 +21,7 @@ import javax.swing.JTextArea;
 public class AirPortParkingLotUIFrame extends JFrame {
 	public AirPortPanel airPortPanel = new AirPortPanel();
 	
-	AirPortParkingLotUIFrame() {
+	public AirPortParkingLotUIFrame() {
 		AirPortPanel airPortPanel = new AirPortPanel();
 		
 		add(airPortPanel);
@@ -66,6 +66,7 @@ public class AirPortParkingLotUIFrame extends JFrame {
 			airPortComboBox.setBounds(320, 130, 200, 35);
 			airPortComboBox.setFont(new Font("맑은고딕", Font.BOLD, 16));
 			
+			airPortButton.setFocusPainted(false);
 			airPortButton.setFont(new Font("맑은고딕", Font.BOLD, 16));
 			airPortButton.setForeground(new Color(255, 255, 255));
 			airPortButton.setBackground(new Color(128, 128, 128));

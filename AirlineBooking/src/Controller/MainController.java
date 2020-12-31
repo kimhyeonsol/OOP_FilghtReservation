@@ -293,6 +293,10 @@ public class MainController {
 					else if (obj == v.flightResPanel.backButton) {// 뒤로가기 버튼
 						v.card.show(v.c, "userMenu");
 					}
+					
+					if(obj == v.flightResPanel.searchAirPortParkingLot) {
+						AirPortParkingLotUIFrame apUI = new AirPortParkingLotUIFrame();
+					}
 
 //					public class RegisterFlightPanel extends JPanel implements ItemListener {
 					if (obj == v.flightResPanel.flightSearchButton) {// 비행기 검색하기 버튼
