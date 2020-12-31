@@ -28,7 +28,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import com.google.gson.Gson;
-import com.mysql.cj.x.protobuf.MysqlxNotice.Warning.Level;
+//import com.mysql.cj.x.protobuf.MysqlxNotice.Warning.Level;
 
 import Controller.MainController.LoginUIController;
 import Controller.MainController.ManagerUIController;
@@ -1071,7 +1071,13 @@ public class MainController {
 							JOptionPane.showMessageDialog(null, "입력칸을 모두 채워주세요!");
 							return;
 						}
-
+						
+						if (!isStringDouble(v.flightPanel.fliUpdatetextField[0].getText())) {
+							// 운임은 숫자로만 입력해주세요! dialog 띄우기
+							JOptionPane.showMessageDialog(null, "항공편 코드는 숫자로만 입력해주세요.");
+							return;
+						}
+						
 						if (!isStringDouble(v.flightPanel.fliUpdatetextField[3].getText())
 								|| !isStringDouble(v.flightPanel.fliUpdatetextField[4].getText())) {
 							// 운임은 숫자로만 입력해주세요! dialog 띄우기
@@ -1122,6 +1128,13 @@ public class MainController {
 							JOptionPane.showMessageDialog(null, "입력칸을  채워주세요!");
 							return;
 						}
+						
+						if (!isStringDouble(v.flightPanel.fliDeletetextField.getText())) {
+							// 운임은 숫자로만 입력해주세요! dialog 띄우기
+							JOptionPane.showMessageDialog(null, "항공편 코드는 숫자로만 입력해주세요.");
+							return;
+						}
+						
 						int result = aDAO.delALInfo(Integer.parseInt(v.flightPanel.fliDeletetextField.getText()));
 						// result > 0 이면 항공기 삭제 완료 다이얼로그 띄우기
 						v.flightDeleteDialog(result);
