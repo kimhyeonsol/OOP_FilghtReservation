@@ -102,6 +102,14 @@ public class MainController {
 			System.out.println(selectedAirLine);
 			v.selectSeatPanel.seatlist.clear();
 			
+			for (int i = 0; i < 40; i++) {
+				if (i % 10 == 0) {
+					v.selectSeatPanel.seatButton[i].setBackground(new Color(112, 48, 160));
+				} else {
+					v.selectSeatPanel.seatButton[i].setBackground(new Color(46, 117, 182));
+				}
+			}
+			
 
 			for (Reservation res : resList) {
 				v.selectSeatPanel.seatButton[res.getSeatNum()].setBackground((new Color(255, 192, 0)));
@@ -170,7 +178,9 @@ public class MainController {
 			String data[] = new String[6];
 			isChangeSeat = false;
 			connectServer();
-
+			connectServer();
+			connectServer();
+			
 			v.addExitWindowListener(new WindowAdapter() {
 
 				@Override
