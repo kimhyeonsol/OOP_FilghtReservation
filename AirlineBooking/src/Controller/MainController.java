@@ -295,7 +295,10 @@ public class MainController {
 					}
 					
 					if(obj == v.flightResPanel.searchAirPortParkingLot) {
-						AirPortParkingLotUIFrame apUI = new AirPortParkingLotUIFrame();
+						//AirPortParkingLotUIFrame apUI = new AirPortParkingLotUIFrame();
+						System.out.println("선택");
+						AF = new AirPortParkingLotUIFrame();
+						MCT.setAirPortC(AF);
 					}
 
 //					public class RegisterFlightPanel extends JPanel implements ItemListener {
@@ -1288,13 +1291,14 @@ public class MainController {
 		
 		public AirPortParkingLotUIController(AirPortParkingLotUIFrame ui) {
 			this.v = ui;
+			System.out.println("생성자");
+			
 			v.addButtonActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					Object obj = e.getSource();
-					
-					if(obj == v.airPortPanel.airPortButton) {
 
+					if(obj == v.airPortPanel.airPortButton) {
 						ArrayList<AirPortParkingLot> list = new ArrayList<AirPortParkingLot>();
 						StringBuffer sb = new StringBuffer("");
 						list = apDAO.getAPInfo(v.airPortPanel.airPortComboBox.getSelectedItem().toString());
@@ -1342,6 +1346,7 @@ public class MainController {
 		MC = new ManagerUIController(ui);
 	}
 	public void setAirPortC(AirPortParkingLotUIFrame ui) {
+		System.out.println("옴");
 		AC = new AirPortParkingLotUIController(ui);
 	}
 
