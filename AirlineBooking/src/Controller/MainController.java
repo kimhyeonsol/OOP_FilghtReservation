@@ -471,6 +471,7 @@ public class MainController {
 
 						}
 						v.selectSeatPanel.seatlist.clear();
+						updateReservationList();
 						if(isChangeSeat) {
 							v.card.show(v.c, "myInfo");
 						}
@@ -504,7 +505,7 @@ public class MainController {
 						v.selectSeatPanel.seatlist.clear();
 						v.selectedSeatTextarea.setText("");
 						
-						updateReservationList();
+						
 						try {
 							updateSelectedSeat(_selectedAirLine);
 						} catch (SQLException e1) {

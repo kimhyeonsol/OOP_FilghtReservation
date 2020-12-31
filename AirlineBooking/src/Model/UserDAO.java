@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
 
 public class UserDAO {
 
-//	String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-	String jdbcDriver = "com.mysql.jdbc.Driver";
+	String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+//	String jdbcDriver = "com.mysql.jdbc.Driver";
 	String jdbcUrl = "jdbc:mysql://localhost:3306/airplanereservation?&serverTimezone=Asia/Seoul&useSSL=false";
 	Connection conn;
 
@@ -35,7 +35,7 @@ public class UserDAO {
 	public void connectDB() throws SQLException {
 		try {
 			Class.forName(jdbcDriver);
-			conn = DriverManager.getConnection(jdbcUrl, "root", "0000");
+			conn = DriverManager.getConnection(jdbcUrl, "root", "111111");
 			System.out.println("DB 연결");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
