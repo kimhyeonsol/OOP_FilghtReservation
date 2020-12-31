@@ -133,6 +133,7 @@ public class Parser {
                 urlBuilder.append("&" + URLEncoder.encode("depPlandTime","UTF-8") + "=" + URLEncoder.encode(depTime[i], "UTF-8")); /*출발일*/
                 urlBuilder.append("&" + URLEncoder.encode("_type","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); 
                 stringList.add(urlBuilder);
+               
         	}
         	 
         }
@@ -159,7 +160,7 @@ public class Parser {
             }
             rd.close();
             conn.disconnect();
-            
+            System.out.println(sb.toString());
             try {
             	
                 JSONParser jsonParser = new JSONParser();
