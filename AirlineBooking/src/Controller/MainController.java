@@ -652,7 +652,8 @@ public class MainController {
 							v.flightPanel.fliUpdatetextField[i].setText("");
 						}
 						v.flightPanel.fliDeletetextField.setText("");
-					} else if (v.flightPanel.mainJtabUI.getSelectedIndex() == 1) {
+					} 
+					else if (v.flightPanel.mainJtabUI.getSelectedIndex() == 1) {
 						v.flightPanel.textArea_c.setText("");
 						v.flightPanel.textArea_u.setText("");
 						v.flightPanel.textArea_d.setText("");
@@ -663,7 +664,8 @@ public class MainController {
 							v.flightPanel.fliUpdatetextField[i].setText("");
 						}
 						v.flightPanel.fliDeletetextField.setText("");
-					} else if (v.flightPanel.mainJtabUI.getSelectedIndex() == 2) {
+					} 
+					else if (v.flightPanel.mainJtabUI.getSelectedIndex() == 2) {
 						v.flightPanel.textArea_c.setText("");
 						v.flightPanel.textArea_u.setText("");
 						v.flightPanel.textArea_d.setText("");
@@ -965,6 +967,7 @@ public class MainController {
 						// 멤버 삭제
 						int result = uDAO.deleteUser(v.managerPanel.memDeletetextField.getText());
 						v.memberDeleteDialog(result);
+						v.managerPanel.memDeletetextField.setText("");
 
 						// 바뀐정보 업데이트하기
 						ArrayList<User> list = new ArrayList<User>();
@@ -1135,9 +1138,16 @@ public class MainController {
 
 						if (!uDAO.newUser(user)) {
 							JOptionPane.showMessageDialog(null, "사용불가능한 ID입니다.");
+							for (int i = 0; i < 6; i++) {
+								v.signUpPanel.textField[i].setText("");
+							}
 							return;
 						}
 						JOptionPane.showMessageDialog(null, "회원가입되었습니다!!");
+						
+						for (int i = 0; i < 6; i++) {
+							v.signUpPanel.textField[i].setText("");
+						}
 						v.card.previous(v.c);
 					} else if (obj == v.signUpPanel.backButton) {// 돌아가기 버튼
 						v.card.show(v.c, "2");
