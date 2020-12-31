@@ -10,8 +10,8 @@ import java.util.Vector;
 
 public class ReservationDAO {
 
-	//String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-	String jdbcDriver = "com.mysql.jdbc.Driver";
+	String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+	//String jdbcDriver = "com.mysql.jdbc.Driver";
 	String jdbcUrl = "jdbc:mysql://localhost:3306/airplanereservation?&serverTimezone=Asia/Seoul&useSSL=false";
 	Connection conn;
 
@@ -68,7 +68,6 @@ public class ReservationDAO {
 			r.setInfo(rs.getInt("info"));
 			r.setSeatNum(rs.getInt("seatNum"));
 			datas.add(r);
-//         items.add(String.valueOf(rs.getInt("ID")));
 		}
 
 		return datas;

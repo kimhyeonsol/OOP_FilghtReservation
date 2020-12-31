@@ -79,7 +79,7 @@ public class MainController {
 		Thread thread;
 		Gson gson = new Gson();
 		Socket socket;
-		String ip = "220.72.104.85";
+		String ip = "127.0.0.1";
 		boolean status;
 //		Logger logger;
 		Message m;
