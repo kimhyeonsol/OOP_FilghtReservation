@@ -83,7 +83,7 @@ public class Server {
 		}
 		// reservation 동기화 (select-좌석의 예약 여부 확인 후 좌석이 비어있는 경우 -> create-예약 생성)
 		// (select-예약 확인 -> create-예약 생성) -> blocked: (select-예약 확인 -> create-예약 생성)
-		boolean resultCreateReservation(Reservation r) {
+		synchronized boolean resultCreateReservation(Reservation r) {
 			boolean result;
 			result = rDAO.checkReservationByInfoWithSeat(r.getInfo(), r.getSeatNum());
 			if(!result) {
@@ -160,33 +160,33 @@ public class Server {
 					reservationMsgSend(gson.toJson(Gsonmsg), m.getId());
 				}
 				else if(m.getType().equals("reservation")) {
-					strArray=m.getMsg();
-					
-					Reservation r = new Reservation();
-					r.setInfo(Integer.valueOf(strArray.get(0)));
-					r.setSeatNum(Integer.valueOf(strArray.get(1)));
-					r.setUser(strArray.get(2));
-					
-					LinkedList<String> strArrayrecieve=new LinkedList<String>();
-					
-					
-					boolean output = resultCreateReservation(r);
-					
-					if(output){
-						logger.info("false보냄");
-						strArrayrecieve.add("false");
-						Message Gsonmsg=new Message("","",strArrayrecieve,"reservationMessage");
-						reservationMsgSend(gson.toJson(Gsonmsg), m.getId());
-					}
-					else {
-						logger.info("true보냄");
-						strArrayrecieve.add("true");
-						strArrayrecieve.add(strArray.get(1));
-						
-						Message Gsonmsg=new Message("","",strArrayrecieve,"reservationMessage");
-						reservationMsgSend(gson.toJson(Gsonmsg), m.getId());
-					}
-//					reservation();
+//					strArray=m.getMsg();
+//					
+//					Reservation r = new Reservation();
+//					r.setInfo(Integer.valueOf(strArray.get(0)));
+//					r.setSeatNum(Integer.valueOf(strArray.get(1)));
+//					r.setUser(strArray.get(2));
+//					
+//					LinkedList<String> strArrayrecieve=new LinkedList<String>();
+//					
+//					
+//					boolean output = resultCreateReservation(r);
+//					
+//					if(output){
+//						logger.info("false보냄");
+//						strArrayrecieve.add("false");
+//						Message Gsonmsg=new Message("","",strArrayrecieve,"reservationMessage");
+//						reservationMsgSend(gson.toJson(Gsonmsg), m.getId());
+//					}
+//					else {
+//						logger.info("true보냄");
+//						strArrayrecieve.add("true");
+//						strArrayrecieve.add(strArray.get(1));
+//						
+//						Message Gsonmsg=new Message("","",strArrayrecieve,"reservationMessage");
+//						reservationMsgSend(gson.toJson(Gsonmsg), m.getId());
+//					}
+					reservation();
 					
 				}
 				else if(m.getType().equals("logout")) {
@@ -213,7 +213,9 @@ public class Server {
 			for (FlightReservationThread ct : reservesThreadsList) {
 				System.out.println(ct.userid+": "+reciever);
 				if(ct.userid.equals(reciever)) {
+					
 					ct.outMsg.println(msg);
+					break;
 				}
 			}
 		}
