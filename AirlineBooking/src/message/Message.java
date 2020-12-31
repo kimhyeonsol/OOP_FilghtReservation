@@ -2,6 +2,8 @@ package message;
 
 import java.util.LinkedList;
 
+import Model.Reservation;
+
 public class Message {
 	private String id;
 	private String passwd;
@@ -20,6 +22,7 @@ public class Message {
 		this.type=type;
 	}
 	
+	
 	public String getId() {
 		return id;
 	}
@@ -34,6 +37,7 @@ public class Message {
 	public String getType() {
 		return type;
 	}
+	
 //	public String getRecieverId() {
 //		return recieverId;
 //	}

@@ -100,6 +100,28 @@ public class Server {
 				if (m.getType().equals("login")) {
 					userid = m.getId();
 				}
+				// 예약 취소 메시지일 떄
+				else if (m.getType().equals("cancel")) {
+					userid = m.getId();
+					Reservation output=null;
+					try {
+						output=rDAO.getReservation(Integer.valueOf(m.getMsg().get(0)));
+					} catch (NumberFormatException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						return;
+						
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						return;
+					}
+					rDAO.deleteReservation(Integer.valueOf(m.getMsg().get(0)));
+					LinkedList<String> strArrayrecieve=new LinkedList<String>();
+					strArrayrecieve.add("valid");
+					Message Gsonmsg=new Message("","",strArrayrecieve,"validMsg");
+					reservationMsgSend(gson.toJson(Gsonmsg), m.getId());
+				}
 				else if(m.getType().equals("reservation")) {
 					strArray=m.getMsg();
 					
@@ -125,6 +147,10 @@ public class Server {
 					}
 					
 				}
+				else if(m.getType().equals("logout")) {
+					reservesThreadsList.remove(this);
+					status=false;
+				}
 				// 그 밖의 경우, 즉 일반 메시지일 때
 				else {
 					msgSendAll(msg);
@@ -145,7 +171,7 @@ public class Server {
 			for (FlightReservationThread ct : reservesThreadsList) {
 				System.out.println(ct.userid+": "+reciever);
 				if(ct.userid.equals(reciever)) {
-				ct.outMsg.println(msg);
+					ct.outMsg.println(msg);
 				}
 			}
 		}
