@@ -3,7 +3,6 @@ package Controller;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-<<<<<<< HEAD
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
@@ -19,6 +18,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -82,7 +82,7 @@ public class MainController {
 		Socket socket;
 		String ip = "127.0.0.1";
 		boolean status;
-		Logger logger;
+//		Logger logger;
 		Message m;
 		LinkedList<String> array=new LinkedList<String>();
 
@@ -158,7 +158,7 @@ public class MainController {
 		}
 
 		public UserUIController(UserUIFrame ui) {
-			logger = Logger.getLogger(this.getClass().getName());
+//			logger = Logger.getLogger(this.getClass().getName());
 			this.v = ui;
 			String data[] = new String[6];
 			isChangeSeat = false;
@@ -756,10 +756,10 @@ public class MainController {
 
 				// JSON 메시지를 Message 객체로 매핑
 				m = gson.fromJson(msg, Message.class);
-
+				System.out.println("데이터 수신");
 				if (m.getType().equals("reservationMessage")) {
-					
-					if (m.getMsg().get(2) == "false") {
+					System.out.println("데이터:"+m.getMsg().get(0));
+					if (m.getMsg().get(0).equals("false")) {
 						JOptionPane.showMessageDialog(null, "이미 예약된 좌석: " + seatNum);
 					} else {
 						JOptionPane.showMessageDialog(null, "예약되셨습니다!");
@@ -773,7 +773,7 @@ public class MainController {
 				}
 			}
 
-			logger.info("[MultiChatUI]" + thread.getName() + "메시지 수신 스레드 종료됨!!");
+//			logger.info("[MultiChatUI]" + thread.getName() + "메시지 수신 스레드 종료됨!!");
 
 		}
 

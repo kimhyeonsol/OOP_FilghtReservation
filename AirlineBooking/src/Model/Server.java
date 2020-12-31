@@ -111,12 +111,15 @@ public class Server {
 					LinkedList<String> strArrayrecieve=new LinkedList<String>();
 					
 					if(rDAO.checkReservationByInfoWithSeat(r.getInfo(), r.getSeatNum())){
+						logger.info("false보냄");
 						strArrayrecieve.add("false");
 						Message Gsonmsg=new Message("","",strArrayrecieve,"reservationMessage");
 						reservationMsgSend(gson.toJson(Gsonmsg), m.getId());
 					}
 					else {
+						logger.info("true보냄");
 						strArrayrecieve.add("true");
+						rDAO.newReservation(r);
 						Message Gsonmsg=new Message("","",strArrayrecieve,"reservationMessage");
 						reservationMsgSend(gson.toJson(Gsonmsg), m.getId());
 					}
@@ -140,7 +143,8 @@ public class Server {
 		}
 		public void reservationMsgSend(String msg, String reciever) {
 			for (FlightReservationThread ct : reservesThreadsList) {
-				if(ct.userid==reciever) {
+				System.out.println(ct.userid+": "+reciever);
+				if(ct.userid.equals(reciever)) {
 				ct.outMsg.println(msg);
 				}
 			}
@@ -149,7 +153,7 @@ public class Server {
 
 	public static void main(String[] args) throws SQLException {
 		Server server = new Server();
-		new Parser();//파싱
+//		new Parser();//파싱
 		server.start();//서버 스타트
 	}
 }
