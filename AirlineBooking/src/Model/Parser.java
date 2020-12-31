@@ -1,3 +1,4 @@
+package Model;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -99,9 +100,7 @@ public class Parser {
 		}
 	}
 
-    public static void main(String[] args) throws SQLException  {
-        new Parser();
-    }
+  
     
     public ArrayList<Info> parsing() throws IOException{
 
@@ -138,8 +137,6 @@ public class Parser {
         }
         
 
-        
-        
         for(int i=0; i<stringList.size(); i++) {
         	URL url = new URL(stringList.get(i).toString());
         	HttpURLConnection conn = (HttpURLConnection) url.openConnection();
