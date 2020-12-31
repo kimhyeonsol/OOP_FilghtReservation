@@ -145,7 +145,7 @@ public class Server {
 			for (FlightReservationThread ct : reservesThreadsList) {
 				System.out.println(ct.userid+": "+reciever);
 				if(ct.userid.equals(reciever)) {
-				ct.outMsg.println(msg);
+					ct.outMsg.println(msg);
 				}
 			}
 		}
