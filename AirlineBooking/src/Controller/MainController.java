@@ -765,17 +765,49 @@ public class MainController {
 							e1.printStackTrace();
 						}
 
-						StringBuffer sb = new StringBuffer();
-						if (list != null) {
-							sb.append("예약코드\t회원ID\t항공ID\t좌석번호\n");
-							for (Reservation p : list) {
-								sb.append(p.getID() + "\t");
-								sb.append(p.getUser() + "\t");
-								sb.append(p.getInfo() + "\t");
-								sb.append(p.getSeatNum() + "\t\n");
+//						StringBuffer sb = new StringBuffer();
+						String reservationListStr = "예약 ID\t항공사 이름\t예약자 이름\t좌석\t출발 시간\t도착 시간\t출발 공항\t도착 공항\t비용\n";
+//						if (list != null) {
+//							sb.append("예약코드\t회원ID\t항공ID\t좌석번호\n");
+//							for (Reservation p : list) {
+//								sb.append(p.getID() + "\t");
+//								sb.append(p.getUser() + "\t");
+//								sb.append(p.getInfo() + "\t");
+//								sb.append(p.getSeatNum() + "\t\n");
+//							}
+//						}
+//						v.setTextArea(v.reservationPanel.textArea_r, sb);
+						
+
+						for (Reservation r : list) {
+							AirLine outAL = aDAO.getALInfo(r.getInfo());
+							User outU = uDAO.getUser(r.getUser());
+
+							int i = r.getSeatNum();
+							String str = "";
+							if (i < 10) {
+								str += "A";
+							} else if (i < 20) {
+								str += "B";
+							} else if (i < 30) {
+								str += "C";
+							} else if (i < 40) {
+								str += "D";
 							}
+
+							str += i % 10 + 1;
+							int pee = i % 10 == 0 ? outAL.getPrestigeCharge() : outAL.getEconomyCharge();
+							reservationListStr += r.getID() + "\t" + outAL.getAirLineNm() + "\t" + outU.getName() + "\t"
+									+ str + "\t" + outAL.getDepPlandTime() + "\t" + outAL.getArrPlandTime() + "\t"
+									+ outAL.getDepAirportNm() + "\t" + outAL.getArrAirportNm() + "\t" + pee + "\n";
+						
 						}
-						v.setTextArea(v.reservationPanel.textArea_r, sb);
+						
+						v.reservationPanel.textArea_r.setText(reservationListStr);
+						
+						
+						
+						//
 					}
 				}
 
