@@ -908,7 +908,7 @@ public class MainController {
 					if (obj == v.flightPanel.flightUpdateButton) {
 
 						AirLine info = new AirLine();
-						if(v.flightPanel.fliCreatetextField[0].getText().equals("")||
+						if(v.flightPanel.fliUpdatetextField[0].getText().equals("")||
 								v.flightPanel.fliUpdatetextField[1].getText().equals("")||
 								v.flightPanel.fliUpdatetextField[2].getText().equals("")||
 								v.flightPanel.fliUpdatetextField[3].getText().equals("")||
