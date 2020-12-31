@@ -10,8 +10,8 @@ import java.util.Vector;
 
 public class AirLineDAO {
 
-	String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-	//String jdbcDriver = "com.mysql.jdbc.Driver";
+	//String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+	String jdbcDriver = "com.mysql.jdbc.Driver";
 	String jdbcUrl = "jdbc:mysql://localhost:3306/airplanereservation?&serverTimezone=Asia/Seoul&useSSL=false";
 	Connection conn;
 
@@ -29,7 +29,7 @@ public class AirLineDAO {
 		try {
 			Class.forName(jdbcDriver);
 
-			conn = DriverManager.getConnection(jdbcUrl, "root", "root");
+			conn = DriverManager.getConnection(jdbcUrl, "root", "0000");
 			if (conn == null)
 				System.out.println("conn is null");
 		} catch (Exception e) {
@@ -126,7 +126,6 @@ public class AirLineDAO {
 			p.setEconomyCharge(rs.getInt("economyCharge"));
 			p.setPrestigeCharge(rs.getInt("prestigeCharge"));
 			datas.add(p);
-			System.out.println(p.getID());
 			// throws SQLException
 		}
 

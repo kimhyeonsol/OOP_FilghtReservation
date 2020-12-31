@@ -417,10 +417,17 @@ public class MainController {
 					if (obj == v.flightResPanel.selectSeatButton1) {// 가는자리선택하기 버튼
 						String[] arr = {};
 						int flag = 0;
+						
 						if (v.flightResPanel.flightsearchTextField[2].getText().equals("")) {// 인원수 textfield 비어있으면
 							JOptionPane.showMessageDialog(null, "탑승할 인원을 선택하세요!");
 							return;
 						}
+						if (!isStringDouble(v.flightResPanel.selectedFlightIDTextField1.getText())) {
+							// 운임은 숫자로만 입력해주세요! dialog 띄우기
+							JOptionPane.showMessageDialog(null, "항공권ID는 숫자로만 입력해주세요.");
+							return;
+						}
+						
 						try {
 							AirLine selectedAirLine = new AirLine();
 							StringReader result = new StringReader(v.flightResPanel.departureAirportTextArea.getText());
@@ -474,6 +481,11 @@ public class MainController {
 							JOptionPane.showMessageDialog(null, "탑승할 인원을 선택하세요!");
 							return;
 						}
+						if (!isStringDouble(v.flightResPanel.selectedFlightIDTextField2.getText())) {
+							// 운임은 숫자로만 입력해주세요! dialog 띄우기
+							JOptionPane.showMessageDialog(null, "항공권ID는 숫자로만 입력해주세요.");
+							return;
+						}
 
 						try {
 							AirLine selectedAirLine = new AirLine();
@@ -484,6 +496,7 @@ public class MainController {
 								arr = line.split("\t");
 							}
 							for (int i = 0; i < arr.length; i++) {
+								System.out.println(arr[i]);
 								if (arr[i].equals(
 										Integer.parseInt(v.flightResPanel.selectedFlightIDTextField2.getText()))) {
 									selectedAirLine = aDAO.getALInfo(
