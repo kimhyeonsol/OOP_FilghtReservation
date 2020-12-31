@@ -15,6 +15,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -392,6 +393,7 @@ public class ManagerUIFrame extends JFrame{
 	   
 	  //controller에서 필요한 것들
       GoBackButton backButton = new GoBackButton();
+      public JTabbedPane mainJtabUI;
       public JButton flightSearchButton_c = new JButton("조회하기"); //조회하기 버튼
       public JTextArea textArea_c = new JTextArea(29,43); //모든 항공 조회 textArea
       public JButton flightSearchButton_u = new JButton("조회하기"); //조회하기 버튼
@@ -400,7 +402,11 @@ public class ManagerUIFrame extends JFrame{
       public JTextArea textArea_d = new JTextArea(29,43); //모든 항공 조회 textArea
       
       public JButton flightCreateButton = new JButton("등록하기"); //등록하기 버튼
-      public JTextField fliCreatetextField[] = new JTextField[7]; //항공 등록 텍스트필드
+      public JTextField fliCreatetextField[] = new JTextField[5]; //항공 등록 텍스트필드
+      public JComboBox departureAirportCreateCombo = new JComboBox(); // 항공 등록에서 출발 공항 콤보박스
+      public JComboBox destAirportCreateCombo = new JComboBox(); // 항공 등록에서 도착 공항 콤보박스
+      public String comboStr[] = {"인천", "김포", "제주", "대구", "김해"};
+
       public JButton flightUpdateButton = new JButton("변경하기"); //변경하기 버튼
       public JTextField fliUpdatetextField[] = new JTextField[5]; //항공 변경 텍스트필드
       public JButton flightDeleteButton = new JButton("삭제하기"); //삭제하기 버튼
@@ -424,7 +430,7 @@ public class ManagerUIFrame extends JFrame{
             backButton.setBounds(10,10,80,80);
             backButton.addActionListener(this);
             
-            JTabbedPane mainJtabUI = new JTabbedPane(JTabbedPane.TOP);
+            mainJtabUI = new JTabbedPane(JTabbedPane.TOP);
             mainJtabUI.setBounds(50,100,900,550);
             mainJtabUI.addTab("항공 등록", new FlightCreate());
             mainJtabUI.addTab("항공 변경", new FlightUpdate());
@@ -454,64 +460,85 @@ public class ManagerUIFrame extends JFrame{
             
             
             FlightCreate(){
-            	
-               for(int i=0; i<p.length; i++) {
-                  p[i] = new JPanel();
-                  p[i].setBackground(new Color(209, 233, 255));
-                  searchPanel[i] = new JPanel();
-                  searchPanel[i].setBackground(new Color(209, 233, 255));
-               }
-               
-               p[0].setLayout(new BorderLayout());
-               
-               flightSearchButton_c.setFocusPainted(false);
-               flightSearchButton_c.setFont(new Font("맑은고딕", Font.BOLD, 15));
-               flightSearchButton_c.setForeground(new Color(255, 255, 255));
-               flightSearchButton_c.setBackground(new Color(128, 128, 128));
-               
-               searchPanel[0].setLayout(new FlowLayout());
-               //flightSearchButton_c.addActionListener(this);
-               searchPanel[0].add(flightSearchButton_c);
-               textArea_c.setEditable(false);
-               searchPanel[1].add(new JScrollPane(textArea_c));
-               
-               p[0].add(searchPanel[0], BorderLayout.NORTH);
-               p[0].add(searchPanel[1], BorderLayout.CENTER);
-               
-               
-               p[1].setLayout(null);
-               for(int i=0; i<infoLabel.length; i++) {
-                  infoLabel[i] = new JLabel(infoStr[i]);
-                  infoLabel[i].setHorizontalAlignment(JLabel.CENTER);
-                  infoLabel[i].setFont(new Font("맑은고딕", Font.BOLD, 18));
-               }
-               for(int i=0; i<fliCreatetextField.length; i++) {
-            	   fliCreatetextField[i] = new JTextField();
-               }
-               for(int i=0; i<7; i++) {
-                  infoLabel[i].setLocation(45, 45+(i*55));
-                  infoLabel[i].setSize(120,60);
-                  p[1].add(infoLabel[i]);
-                  fliCreatetextField[i].setLocation(165, 57+(i*55));
-                  fliCreatetextField[i].setSize(200,40);
-                  p[1].add(fliCreatetextField[i]);
-               }
-               
-               flightCreateButton.setFocusPainted(false);
-               flightCreateButton.setForeground(new Color(255, 255, 255));
-               flightCreateButton.setBackground(new Color(128, 128, 128));
-               flightCreateButton.setFont(new Font("맑은고딕", Font.BOLD, 17));
-               flightCreateButton.setLocation(50, 450);
-               flightCreateButton.setSize(340,50);
-//               flightCreateButton.addActionListener(this);
-               
-               p[1].add(flightCreateButton);
-               
-               mainPanel.setLayout(new GridLayout(1,2));
-               mainPanel.add(p[0]);
-               mainPanel.add(p[1]);
-               add(mainPanel);
-            }
+                
+                for(int i=0; i<p.length; i++) {   //왼쪽, 오른쪽 패널 생성
+                   p[i] = new JPanel();
+                   p[i].setBackground(new Color(209, 233, 255));
+                   searchPanel[i] = new JPanel();
+                   searchPanel[i].setBackground(new Color(209, 233, 255));
+                }
+                
+                p[0].setLayout(new BorderLayout());
+                
+                flightSearchButton_c.setFocusPainted(false);
+                flightSearchButton_c.setFont(new Font("맑은고딕", Font.BOLD, 15));
+                flightSearchButton_c.setForeground(new Color(255, 255, 255));
+                flightSearchButton_c.setBackground(new Color(128, 128, 128));
+                
+                searchPanel[0].setLayout(new FlowLayout());
+                //flightSearchButton_c.addActionListener(this);
+                searchPanel[0].add(flightSearchButton_c);
+                textArea_c.setEditable(false);
+                searchPanel[1].add(new JScrollPane(textArea_c));
+                
+                p[0].add(searchPanel[0], BorderLayout.NORTH);
+                p[0].add(searchPanel[1], BorderLayout.CENTER);
+                
+                
+                p[1].setLayout(null);
+                for(int i=0; i<infoLabel.length; i++) {   //라벨 생성
+                   infoLabel[i] = new JLabel(infoStr[i]);
+                   infoLabel[i].setHorizontalAlignment(JLabel.CENTER);
+                   infoLabel[i].setFont(new Font("맑은고딕", Font.BOLD, 18));
+                }
+                
+                for(int i=0; i<fliCreatetextField.length; i++) {   //텍스트필드 생성
+                   fliCreatetextField[i] = new JTextField();
+                }
+                
+                for(int i=0; i<fliCreatetextField.length; i++) {   //항공 등록 라벨, 텍스트필드 부착
+                   infoLabel[i].setLocation(45, 45+(i*55));
+                   infoLabel[i].setSize(120,60);
+                   p[1].add(infoLabel[i]);
+                   fliCreatetextField[i].setLocation(165, 57+(i*55));
+                   fliCreatetextField[i].setSize(200,40);
+                   p[1].add(fliCreatetextField[i]);
+                }
+                
+                for(int i=0; i<comboStr.length; i++) {   //콤보박스 아이템 생성
+                   departureAirportCreateCombo.addItem(comboStr[i]);
+                   destAirportCreateCombo.addItem(comboStr[i]);
+                }
+                departureAirportCreateCombo.setBounds(165, 332, 200, 40);
+                departureAirportCreateCombo.setFont(new Font("맑은고딕", Font.BOLD, 16));
+                p[1].add(departureAirportCreateCombo);   //출발공항 콤보박스
+                
+                destAirportCreateCombo.setBounds(165, 387, 200, 40);
+                destAirportCreateCombo.setFont(new Font("맑은고딕", Font.BOLD, 16));
+                p[1].add(destAirportCreateCombo);   //도착공항 콤보박스
+                
+                for(int i=5; i<infoLabel.length; i++) {   //항공 등록 라벨 부착
+                   infoLabel[i].setLocation(45, 45+(i*55));
+                    infoLabel[i].setSize(120,60);
+                   p[1].add(infoLabel[i]);
+                }
+                
+                flightCreateButton.setFocusPainted(false);
+                flightCreateButton.setForeground(new Color(255, 255, 255));
+                flightCreateButton.setBackground(new Color(128, 128, 128));
+                flightCreateButton.setFont(new Font("맑은고딕", Font.BOLD, 17));
+                flightCreateButton.setLocation(50, 450);
+                flightCreateButton.setSize(340,50);
+//                flightCreateButton.addActionListener(this);
+                
+                p[1].add(flightCreateButton);
+                
+                mainPanel.setLayout(new GridLayout(1,2));
+                mainPanel.add(p[0]);
+                mainPanel.add(p[1]);
+                add(mainPanel);
+             }
+
             @Override
             public void actionPerformed(ActionEvent e) {
                // TODO Auto-generated method stub
