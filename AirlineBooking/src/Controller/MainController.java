@@ -770,12 +770,12 @@ public class MainController {
 							return;
 						}
 						info.setAirLineNm(v.flightPanel.fliCreatetextField[0].getText());
-						info.setArrPlandTime(v.flightPanel.fliCreatetextField[1].getText());
-						info.setDepPlandTime(v.flightPanel.fliCreatetextField[2].getText());
+						info.setDepPlandTime(v.flightPanel.fliCreatetextField[1].getText());
+						info.setArrPlandTime(v.flightPanel.fliCreatetextField[2].getText());
 						info.setEconomyCharge(Integer.parseInt(v.flightPanel.fliCreatetextField[3].getText()));
 						info.setPrestigeCharge(Integer.parseInt(v.flightPanel.fliCreatetextField[4].getText()));
-						info.setArrAirportNm(v.flightPanel.fliCreatetextField[5].getText());
-						info.setDepAirportNm(v.flightPanel.fliCreatetextField[6].getText());
+						info.setDepAirportNm(v.flightPanel.fliCreatetextField[5].getText());
+						info.setArrAirportNm(v.flightPanel.fliCreatetextField[6].getText());
 						int result = aDAO.addALInfo(info);
 
 						// result > 0 이면 항공기 추가 완료 다이얼로그 띄우기
@@ -820,8 +820,8 @@ public class MainController {
 							return;
 						}
 						info.setID(Integer.parseInt(v.flightPanel.fliUpdatetextField[0].getText()));
-						info.setArrPlandTime(v.flightPanel.fliUpdatetextField[1].getText());
-						info.setDepPlandTime(v.flightPanel.fliUpdatetextField[2].getText());
+						info.setDepPlandTime(v.flightPanel.fliUpdatetextField[1].getText());
+						info.setArrPlandTime(v.flightPanel.fliUpdatetextField[2].getText());
 						info.setEconomyCharge(Integer.parseInt(v.flightPanel.fliUpdatetextField[3].getText()));
 						info.setPrestigeCharge(Integer.parseInt(v.flightPanel.fliUpdatetextField[4].getText()));
 
