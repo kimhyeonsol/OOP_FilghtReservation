@@ -295,15 +295,31 @@ public class MainController {
 						String departDate = v.flightResPanel.flightsearchTextField[0].getText();// 가는 날
 						String destDate = v.flightResPanel.flightsearchTextField[1].getText();// 오는 날
 
-						if (departDate.equals("") || destDate.equals("")
-								|| v.flightResPanel.flightsearchTextField[2].getText().equals("")) {
-							JOptionPane.showMessageDialog(null, "입력칸을 모두 채워주세요!");
+						if(!v.flightResPanel.radio[1].isSelected()&&!v.flightResPanel.radio[0].isSelected()) {
+							JOptionPane.showMessageDialog(null, "편도 왕복 선택해주세요!");
 							return;
 						}
-
-						int pNum = Integer.parseInt(v.flightResPanel.flightsearchTextField[2].getText());// 가는 인원
+						int pNum; //왕복 편도 if 문에서 값 저장함
+						
+						
+						
 						// 왕복
 						if (v.flightResPanel.radio[1].isSelected()) {
+
+							if(departDate.equals("")||destDate.equals("")||v.flightResPanel.flightsearchTextField[2].getText().equals(""))
+							{
+								JOptionPane.showMessageDialog(null, "입력칸을 모두 채워주세요!");
+								return;
+							}
+							if (!isStringDouble(v.flightResPanel.flightsearchTextField[2].getText())) {
+								//운임은 숫자로만 입력해주세요! dialog 띄우기
+								JOptionPane.showMessageDialog(null, "인원은 숫자로만 입력해주세요.");
+								return;
+							}
+							
+							
+							pNum = Integer.parseInt(v.flightResPanel.flightsearchTextField[2].getText());// 가는 인원
+
 
 							ArrayList<AirLine> output = null;
 							ArrayList<AirLine> output2 = null; // 돌아오는
@@ -348,7 +364,21 @@ public class MainController {
 							// output -> 항공기 textArea(scroll)1 반영 및 refresh
 						} else if (v.flightResPanel.radio[0].isSelected()) {
 							// 편도
-							// String departDate = v.flightResPanel.flightsearchTextField[0].getText();
+							// 입력칸 검사
+							if(departDate.equals("")||v.flightResPanel.flightsearchTextField[2].getText().equals(""))
+							{
+								JOptionPane.showMessageDialog(null, "입력칸을 모두 채워주세요!");
+								return;
+							}
+							if (!isStringDouble(v.flightResPanel.flightsearchTextField[2].getText())) {
+								//운임은 숫자로만 입력해주세요! dialog 띄우기
+								JOptionPane.showMessageDialog(null, "인원은 숫자로만 입력해주세요.");
+								return;
+							}
+							
+							
+							pNum = Integer.parseInt(v.flightResPanel.flightsearchTextField[2].getText());// 가는 인원
+							
 							ArrayList<AirLine> output = null;
 							try {
 								output = aDAO.getALInfoByChoice(departAirport, destAirport, departDate);
@@ -815,6 +845,17 @@ public class MainController {
 
 					if (obj == v.flightPanel.flightCreateButton) {
 						AirLine info = new AirLine();
+						//텍스트필드 다 입력되었는지 검사
+						if(v.flightPanel.fliCreatetextField[0].getText().equals("")||
+								v.flightPanel.fliCreatetextField[1].getText().equals("")||
+								v.flightPanel.fliCreatetextField[2].getText().equals("")||
+								v.flightPanel.fliCreatetextField[3].getText().equals("")||
+								v.flightPanel.fliCreatetextField[4].getText().equals("")||
+								v.flightPanel.fliCreatetextField[5].getText().equals("")||
+								v.flightPanel.fliCreatetextField[6].getText().equals("")){
+							JOptionPane.showMessageDialog(null, "입력칸을 모두 채워주세요!");
+							return;
+						}
 						if (!isStringDouble(v.flightPanel.fliCreatetextField[3].getText())
 								|| !isStringDouble(v.flightPanel.fliCreatetextField[4].getText())) {
 							// 운임은 숫자로만 입력해주세요! dialog 띄우기
@@ -869,6 +910,15 @@ public class MainController {
 					if (obj == v.flightPanel.flightUpdateButton) {
 
 						AirLine info = new AirLine();
+						if(v.flightPanel.fliCreatetextField[0].getText().equals("")||
+								v.flightPanel.fliUpdatetextField[1].getText().equals("")||
+								v.flightPanel.fliUpdatetextField[2].getText().equals("")||
+								v.flightPanel.fliUpdatetextField[3].getText().equals("")||
+								v.flightPanel.fliUpdatetextField[4].getText().equals("")){
+							JOptionPane.showMessageDialog(null, "입력칸을 모두 채워주세요!");
+							return;
+						}
+						
 						if (!isStringDouble(v.flightPanel.fliUpdatetextField[3].getText())
 								|| !isStringDouble(v.flightPanel.fliUpdatetextField[4].getText())) {
 							// 운임은 숫자로만 입력해주세요! dialog 띄우기
@@ -915,6 +965,10 @@ public class MainController {
 					}
 
 					if (obj == v.flightPanel.flightDeleteButton) {
+						if(v.flightPanel.fliDeletetextField.getText().equals("")){
+							JOptionPane.showMessageDialog(null, "입력칸을  채워주세요!");
+							return;
+						}
 						int result = aDAO.delALInfo(Integer.parseInt(v.flightPanel.fliDeletetextField.getText()));
 						// result > 0 이면 항공기 삭제 완료 다이얼로그 띄우기
 						v.flightDeleteDialog(result);
@@ -1170,7 +1224,17 @@ public class MainController {
 
 		}
 	}
-
+	
+	public boolean isStringDouble(String s) {
+		try {
+			// System.out.print(s+"는 : ");
+			Double.parseDouble(s);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		}
+	}
+	
 	public void setLoginC(LoginUIFrame ui) {
 		LC = new LoginUIController(ui);
 	}

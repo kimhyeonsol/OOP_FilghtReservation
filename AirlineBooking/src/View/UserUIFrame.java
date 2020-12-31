@@ -736,6 +736,7 @@ public class UserUIFrame extends JFrame {// user 프레임(카드레이 아웃)
 				// TODO Auto-generated method stub
 
 				if (radio[0].isSelected()) {// 편도가 선택된 경우
+					flightsearchTextField[1].setText("");// 오는 날 textfield 비우기
 					flightsearchTextField[1].setEditable(false);
 					selectedFlightIDTextField2.setEditable(false);
 				}
