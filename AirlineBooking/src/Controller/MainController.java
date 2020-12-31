@@ -638,9 +638,10 @@ public class MainController {
 		public ManagerUIController(ManagerUIFrame ui) {
 
 			this.v = ui;
-
-			v.flightPanel.mainJtabUI.addChangeListener((ChangeListener) new ChangeListener() {
-				public void stateChanged(ChangeEvent e) {
+			
+			//탭팬 액션리스너
+			v.addChangeListener((ChangeListener) new ChangeListener() {
+				public void stateChanged(ChangeEvent e) {	//컴포넌트들 기본값으로 초기화
 					if (v.flightPanel.mainJtabUI.getSelectedIndex() == 0) {
 						v.flightPanel.textArea_c.setText("");
 						v.flightPanel.textArea_u.setText("");
@@ -757,7 +758,7 @@ public class MainController {
 							}
 						}
 						v.setTextArea(v.flightPanel.textArea_c, sb);
-
+						
 					}
 
 					if (obj == v.flightPanel.flightSearchButton_u) {
@@ -834,6 +835,10 @@ public class MainController {
 
 						for (int i = 0; i < 5; i++)
 							v.flightPanel.fliCreatetextField[i].setText("");
+						
+						//콤보박스 기본값으로 돌아가기
+						v.flightPanel.departureAirportCreateCombo.setSelectedIndex(0);
+						v.flightPanel.destAirportCreateCombo.setSelectedIndex(0);
 
 						// textArea update
 						ArrayList<AirLine> list = new ArrayList<AirLine>();
@@ -858,7 +863,7 @@ public class MainController {
 							}
 						}
 						v.setTextArea(v.flightPanel.textArea_c, sb);
-
+						
 					}
 
 					if (obj == v.flightPanel.flightUpdateButton) {
