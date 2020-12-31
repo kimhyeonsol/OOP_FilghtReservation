@@ -652,6 +652,8 @@ public class MainController {
 							v.flightPanel.fliUpdatetextField[i].setText("");
 						}
 						v.flightPanel.fliDeletetextField.setText("");
+						v.flightPanel.departureAirportCreateCombo.setSelectedIndex(0);
+						v.flightPanel.destAirportCreateCombo.setSelectedIndex(0);
 					} 
 					else if (v.flightPanel.mainJtabUI.getSelectedIndex() == 1) {
 						v.flightPanel.textArea_c.setText("");
@@ -664,6 +666,8 @@ public class MainController {
 							v.flightPanel.fliUpdatetextField[i].setText("");
 						}
 						v.flightPanel.fliDeletetextField.setText("");
+						v.flightPanel.departureAirportCreateCombo.setSelectedIndex(0);
+						v.flightPanel.destAirportCreateCombo.setSelectedIndex(0);
 					} 
 					else if (v.flightPanel.mainJtabUI.getSelectedIndex() == 2) {
 						v.flightPanel.textArea_c.setText("");
@@ -676,6 +680,8 @@ public class MainController {
 							v.flightPanel.fliUpdatetextField[i].setText("");
 						}
 						v.flightPanel.fliDeletetextField.setText("");
+						v.flightPanel.departureAirportCreateCombo.setSelectedIndex(0);
+						v.flightPanel.destAirportCreateCombo.setSelectedIndex(0);
 					}
 				}
 			});
