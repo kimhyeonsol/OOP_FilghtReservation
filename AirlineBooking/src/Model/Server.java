@@ -141,6 +141,7 @@ public class Server {
 					else {
 						logger.info("true보냄");
 						strArrayrecieve.add("true");
+						strArrayrecieve.add(strArray.get(1));
 						rDAO.newReservation(r);
 						Message Gsonmsg=new Message("","",strArrayrecieve,"reservationMessage");
 						reservationMsgSend(gson.toJson(Gsonmsg), m.getId());

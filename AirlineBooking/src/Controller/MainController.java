@@ -761,7 +761,7 @@ public class MainController {
 					if (m.getMsg().get(0).equals("false")) {
 						JOptionPane.showMessageDialog(null, "이미 예약된 좌석: " + seatNum);
 					} else {
-						JOptionPane.showMessageDialog(null, "예약되셨습니다!");
+						JOptionPane.showMessageDialog(null, m.getMsg().get(1)+"예약되셨습니다!");
 
 						updateSelectedSeat(_selectedAirLine);
 						updateReservationList();
