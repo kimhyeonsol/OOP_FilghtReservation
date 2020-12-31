@@ -752,16 +752,36 @@ public class MainController {
 						v.managerMenuExit(); // 관리자 메뉴 프레임 닫음
 					}
 					if (obj == v.managerMenuPanel.memButton) {
+						v.managerPanel.textArea_m.setText(""); //텍스트아리아 초기화
+						v.managerPanel.memDeletetextField.setText(""); // 텍스트필드 초기화
 						v.card.show(v.c, "manager"); // 회원 관리 패널로 넘어감
 					}
 					if (obj == v.managerMenuPanel.resButton) {
+						v.reservationPanel.textArea_r.setText(""); //텍스트아리아 초기화
 						v.card.show(v.c, "reservation"); // 예약 관리 패널로 넘어감
 					}
 					if (obj == v.managerMenuPanel.fliButton) {
+						v.flightPanel.textArea_c.setText("");
+						v.flightPanel.textArea_u.setText("");
+						v.flightPanel.textArea_d.setText(""); //텍스트아리아 초기화
+						
+						for (int i = 0; i < 5; i++) // 텍스트필드 초기화
+							v.flightPanel.fliCreatetextField[i].setText("");
+						for (int i = 0; i < 5; i++)
+							v.flightPanel.fliUpdatetextField[i].setText("");
+						v.flightPanel.fliDeletetextField.setText("");
+						
+						//콤보박스 기본값으로 돌아가기
+						v.flightPanel.departureAirportCreateCombo.setSelectedIndex(0);
+						v.flightPanel.destAirportCreateCombo.setSelectedIndex(0);
+						
+						v.flightPanel.mainJtabUI.setSelectedIndex(0); //탭팬 기본값이 항공 등록 탭
+						
 						v.card.show(v.c, "flight"); // 항공 관리 패널로 넘어감
 					}
 					if (obj == v.managerPanel.backButton) {
 						v.card.show(v.c, "managerMenu"); // 관리자메뉴로 넘어감
+						
 					}
 
 					if (obj == v.flightPanel.flightSearchButton_c) {
