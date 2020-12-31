@@ -89,11 +89,19 @@ public class MainController {
 		private BufferedReader inMsg = null;
 		private PrintWriter outMsg = null;
 
-		public void updateSelectedSeat(int selectedAirLine) throws SQLException {
+
+		public void updateSelectedSeat(int selectedAirLine){
 			_selectedAirLine = selectedAirLine;
-			ArrayList<Reservation> resList = rDAO.getReservationListByALInfo(selectedAirLine);
+			ArrayList<Reservation> resList = null;
+			try {
+				resList = rDAO.getReservationListByALInfo(selectedAirLine);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println(selectedAirLine);
 			v.selectSeatPanel.seatlist.clear();
+			
 
 			for (Reservation res : resList) {
 				v.selectSeatPanel.seatButton[res.getSeatNum()].setBackground((new Color(255, 192, 0)));
@@ -153,6 +161,7 @@ public class MainController {
 			}
 
 			v.myInfoPanel.myReservationUpdatePanel.textArea.setText(reservationListStr);
+			v.myInfoPanel.myReservationUpdatePanel.repaint();
 		}
 
 		public UserUIController(UserUIFrame ui) {
@@ -297,6 +306,7 @@ public class MainController {
 								rDAO.deleteReservation(search.getID());
 //								v._selectedDepAirLine = selectReser_info;
 								updateSelectedSeat(selectReser_info);
+								updateReservationList();
 //								v.selectSeatPanel.seatlist.clear();
 								isChangeSeat = true;
 								v.card.show(v.c, "selectSeat");
@@ -512,9 +522,6 @@ public class MainController {
 
 							
 
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -577,9 +584,6 @@ public class MainController {
 							v.card.show(v.c, "selectSeat");
 							
 
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -600,7 +604,6 @@ public class MainController {
 							v.card.show(v.c, "myInfo");
 						} else {
 							v.card.show(v.c, "reservation");
-
 						}
 						v.selectSeatPanel.cnt = 0;
 						v.selectSeatPanel.seatlist.clear();
@@ -620,18 +623,23 @@ public class MainController {
 							JOptionPane.showMessageDialog(null, v.resNum + "명을 선택해주세요!");
 							return;
 						}
+						if(isChangeSeat) {
+							
+						}else {
+							
+						}
 
-						for (int i = 0; i < v.selectSeatPanel.seatlist.size(); i++) {
+						for (int i = 0; i < v.resNum; i++) {
 							seatNum = v.selectSeatPanel.seatlist.get(i);
-
+							System.out.println("**"+v.resNum);
 							LinkedList<String> strArray = new LinkedList<String>();
 							strArray.add(Integer.toString(_selectedAirLine));
 							strArray.add(Integer.toString(seatNum));
 							strArray.add(currentUser.getID());
 							strArray.add(Boolean.toString(isChangeSeat));
 							outMsg.println(gson.toJson(new Message(v._userId, "", strArray, "reservation")));
-
 						}
+						
 						// 항공기 예약 입력 초기화??
 						v.selectSeatPanel.cnt = 0;
 						v.selectSeatPanel.seatlist.clear();
@@ -659,12 +667,7 @@ public class MainController {
 						v.selectSeatPanel.seatlist.clear();
 						v.selectedSeatTextarea.setText("");
 
-						try {
-							updateSelectedSeat(_selectedAirLine);
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+						updateSelectedSeat(_selectedAirLine);
 					}
 
 					for (int i = 0; i < v.selectSeatPanel.seatButton.length; i++) {
@@ -752,7 +755,7 @@ public class MainController {
 
 				// JSON 메시지를 Message 객체로 매핑
 				m = gson.fromJson(msg, Message.class);
-				System.out.println("데이터 수신");
+//				System.out.println("데이터 수신");
 				if (m.getType().equals("reservationMessage")) {
 					System.out.println("데이터:" + m.getMsg().get(0));
 					if (m.getMsg().get(0).equals("false")) {
@@ -760,6 +763,8 @@ public class MainController {
 					} else {
 						JOptionPane.showMessageDialog(null, "예약되셨습니다!");
 
+						updateSelectedSeat(_selectedAirLine);
+						updateReservationList();
 						if (isChangeSeat) {
 							v.card.show(v.c, "myInfo");
 						} else {
