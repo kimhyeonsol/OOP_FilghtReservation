@@ -850,9 +850,7 @@ public class MainController {
 								v.flightPanel.fliCreatetextField[1].getText().equals("")||
 								v.flightPanel.fliCreatetextField[2].getText().equals("")||
 								v.flightPanel.fliCreatetextField[3].getText().equals("")||
-								v.flightPanel.fliCreatetextField[4].getText().equals("")||
-								v.flightPanel.fliCreatetextField[5].getText().equals("")||
-								v.flightPanel.fliCreatetextField[6].getText().equals("")){
+								v.flightPanel.fliCreatetextField[4].getText().equals("")){
 							JOptionPane.showMessageDialog(null, "입력칸을 모두 채워주세요!");
 							return;
 						}
