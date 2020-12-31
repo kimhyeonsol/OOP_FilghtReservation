@@ -82,6 +82,16 @@ public class Server {
 			}
 		}
 		
+		synchronized boolean resultCreateReservation(Reservation r) {
+			boolean result;
+			result = rDAO.checkReservationByInfoWithSeat(r.getInfo(), r.getSeatNum());
+			if(!result) {
+				rDAO.newReservation(r);
+			}
+			return result;
+		}
+		
+		
 		public void run() {
 			// 상태정보가 true 이면 루프 돌면서 사용자에게서 수신된 메시지 처리
 			while (status) {
@@ -132,7 +142,10 @@ public class Server {
 					
 					LinkedList<String> strArrayrecieve=new LinkedList<String>();
 					
-					if(rDAO.checkReservationByInfoWithSeat(r.getInfo(), r.getSeatNum())){
+					
+					boolean output = resultCreateReservation(r);
+					
+					if(output){
 						logger.info("false보냄");
 						strArrayrecieve.add("false");
 						Message Gsonmsg=new Message("","",strArrayrecieve,"reservationMessage");
