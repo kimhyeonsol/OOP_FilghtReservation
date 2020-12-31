@@ -88,6 +88,7 @@ public class UserUIFrame extends JFrame {// user 프레임(카드레이 아웃)
 	}
 
 	public void userMenuExit() {
+		// unconect
 		this.dispose();
 	}
 

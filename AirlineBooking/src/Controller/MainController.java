@@ -3,6 +3,7 @@ package Controller;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+<<<<<<< HEAD
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
@@ -161,22 +162,19 @@ public class MainController {
 			this.v = ui;
 			String data[] = new String[6];
 			isChangeSeat = false;
-			
-			
+
 			v.addExitWindowListener(new WindowAdapter() {
 
-			    @Override
-			    public void windowClosing(WindowEvent e) {
-			        int confirm = JOptionPane.showOptionDialog(
-			             null, "Are You Sure to Close Application?", 
-			             "Exit Confirmation", JOptionPane.YES_NO_OPTION, 
-			             JOptionPane.QUESTION_MESSAGE, null, null, null);
-			        if (confirm == 0) {
-			           System.exit(0);
-			        }
-			    }
+				@Override
+				public void windowClosing(WindowEvent e) {
+					int confirm = JOptionPane.showOptionDialog(null, "Are You Sure to Close Application?",
+							"Exit Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null,
+							null);
+					if (confirm == 0) {
+						System.exit(0);
+					}
+				}
 			});
-			
 
 			v.addButtonActionListener(new ActionListener() {
 
@@ -187,7 +185,6 @@ public class MainController {
 					User currentUser = uDAO.getUser(v._userId);
 					_userID = currentUser.getID();
 
-					
 //					public UserMenuPanel userMenuPanel;
 					if (obj == v.userMenuPanel.myInfoButton) {
 						v.card.show(v.c, "myInfo");
@@ -1371,6 +1368,7 @@ public class MainController {
 			});
 
 		}
+
 	}
 
 	public boolean isStringDouble(String s) {

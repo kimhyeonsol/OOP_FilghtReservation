@@ -68,7 +68,7 @@ public class ReservationDAO {
 			r.setInfo(rs.getInt("info"));
 			r.setSeatNum(rs.getInt("seatNum"));
 			datas.add(r);
-//			items.add(String.valueOf(rs.getInt("ID")));
+//         items.add(String.valueOf(rs.getInt("ID")));
 		}
 
 		return datas;
@@ -136,7 +136,7 @@ public class ReservationDAO {
 			r.setInfo(rs.getInt("info"));
 			r.setSeatNum(rs.getInt("seatNum"));
 			datas.add(r);
-//			items.add(String.valueOf(rs.getInt("ID")));
+//         items.add(String.valueOf(rs.getInt("ID")));
 		}
 
 		return datas;
@@ -160,7 +160,7 @@ public class ReservationDAO {
 			r.setInfo(rs.getInt("info"));
 			r.setSeatNum(rs.getInt("seatNum"));
 			datas.add(r);
-//			items.add(String.valueOf(rs.getInt("ID")));
+//         items.add(String.valueOf(rs.getInt("ID")));
 		}
 
 		return datas;
