@@ -10,8 +10,8 @@ import java.util.Vector;
 
 public class ReservationDAO {
 
-	//String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-	String jdbcDriver = "com.mysql.jdbc.Driver";
+	String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+	//String jdbcDriver = "com.mysql.jdbc.Driver";
 	String jdbcUrl = "jdbc:mysql://localhost:3306/airplanereservation?&serverTimezone=Asia/Seoul&useSSL=false";
 	Connection conn;
 
@@ -33,7 +33,7 @@ public class ReservationDAO {
 	public void connectDB() throws SQLException {
 		try {
 			Class.forName(jdbcDriver);
-			conn = DriverManager.getConnection(jdbcUrl, "root", "0000");
+			conn = DriverManager.getConnection(jdbcUrl, "root", "root");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
