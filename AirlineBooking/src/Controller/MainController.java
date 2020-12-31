@@ -22,10 +22,13 @@ import javax.swing.event.ChangeListener;
 
 import Model.AirLine;
 import Model.AirLineDAO;
+import Model.AirPortParkingLot;
+import Model.AirPortParkingLotDAO;
 import Model.Reservation;
 import Model.ReservationDAO;
 import Model.User;
 import Model.UserDAO;
+import View.AirPortParkingLotUIFrame;
 import View.LoginUIFrame;
 import View.ManagerUIFrame;
 import View.UserUIFrame;
@@ -35,10 +38,12 @@ public class MainController {
 	UserUIController UC;
 	ManagerUIController MC;
 	LoginUIController LC;
+	AirPortParkingLotUIController AC;
 
 	AirLineDAO aDAO = new AirLineDAO();
 	ReservationDAO rDAO = new ReservationDAO();
 	UserDAO uDAO;
+	AirPortParkingLotDAO apDAO = new AirPortParkingLotDAO();
 
 	public MainController() {
 		MCT = this;
@@ -48,6 +53,7 @@ public class MainController {
 	View.UserUIFrame UF;
 	View.ManagerUIFrame MF;
 	View.LoginUIFrame LF;
+	View.AirPortParkingLotUIFrame AF;
 //
 //	AirLineDAO aDAO;
 //	UserDAO uDAO;
@@ -1272,6 +1278,43 @@ public class MainController {
 
 		}
 	}
+	
+	class AirPortParkingLotUIController {
+		private final AirPortParkingLotUIFrame v;
+		
+		public AirPortParkingLotUIController(AirPortParkingLotUIFrame ui) {
+			this.v = ui;
+			v.addButtonActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Object obj = e.getSource();
+					
+					if(obj == v.airPortPanel.airPortButton) {
+
+						ArrayList<AirPortParkingLot> list = new ArrayList<AirPortParkingLot>();
+						StringBuffer sb = new StringBuffer("");
+						list = apDAO.getAPInfo(v.airPortPanel.airPortComboBox.getSelectedItem().toString());
+
+						if (list != null) {
+							sb.append("공항 이름\t주차장 구역\t혼잡도\t혼잡률\t입고된 차량 수\t전체 주차면 수\t업데이트 날짜\t업데이트 시각\n");
+							for (AirPortParkingLot p : list) {
+								sb.append(p.getAirportKor() + "\t");
+								sb.append(p.getParkingAirportCodeName() + "\t");
+								sb.append(p.getParkingCongestion() + "\t");
+								sb.append(p.getParkingCongestionDegree() + "\t");
+								sb.append(p.getParkingOccupiedSpace() + "\t");
+								sb.append(p.getParkingTotalSpace() + "\t");
+								sb.append(p.getSysGetdate() + "\t");
+								sb.append(p.getSysGettime() + "\t\n");
+							}
+						}
+						v.airPortPanel.airPortTextArea.setText(sb.toString());
+					}
+				}
+					
+			});
+		}
+	}
 
 	public boolean isStringDouble(String s) {
 		try {
@@ -1293,6 +1336,9 @@ public class MainController {
 
 	public void setManagerC(ManagerUIFrame ui) {
 		MC = new ManagerUIController(ui);
+	}
+	public void setAirPortC(AirPortParkingLotUIFrame ui) {
+		AC = new AirPortParkingLotUIController(ui);
 	}
 
 	public static void main(String[] args) {

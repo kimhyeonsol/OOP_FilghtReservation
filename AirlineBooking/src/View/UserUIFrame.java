@@ -511,6 +511,7 @@ public class UserUIFrame extends JFrame {// user 프레임(카드레이 아웃)
 		public JLabel chooseFightLabel2 = new JLabel("오는 항공권 ID: ");
 		public JTextField selectedFlightIDTextField2 = new JTextField();
 
+		public JButton searchAirPortParkingLot = new JButton ("공항 주차장 혼잡도 검색하기");
 		public JButton selectSeatButton1 = new JButton("좌석선택하기");
 		public JButton selectSeatButton2 = new JButton("좌석선택하기");
 
@@ -538,7 +539,16 @@ public class UserUIFrame extends JFrame {// user 프레임(카드레이 아웃)
 			JTabbedPane mainJtabUI = new JTabbedPane(JTabbedPane.TOP);
 			mainJtabUI.setBounds(50, 100, 900, 550);
 			mainJtabUI.addTab("항공기 예약", new RegisterFlightPanel());
-
+			
+			//주차장 혼잡도 검색하기 버튼
+			searchAirPortParkingLot.setHorizontalAlignment(JLabel.CENTER);
+			searchAirPortParkingLot.setFont(new Font("맑은고딕", Font.BOLD, 16));
+			searchAirPortParkingLot.setForeground(Color.WHITE);
+			searchAirPortParkingLot.setBackground(new Color(161, 82, 23));
+			searchAirPortParkingLot.setFocusPainted(false);
+			searchAirPortParkingLot.setBounds(650, 80, 250, 35);
+			
+			add(searchAirPortParkingLot);
 			add(lb);
 			add(backButton);
 			add(mainJtabUI);
