@@ -185,7 +185,7 @@ public class AirLineDAO {
 			pstmt.setString(4, p.getDepAirportNm());
 			pstmt.setString(5, p.getDepPlandTime());
 			pstmt.setInt(6, p.getEconomyCharge());
-			pstmt.setInt(7, p.getEconomyCharge());
+			pstmt.setInt(7, p.getPrestigeCharge());
 
 			int r = pstmt.executeUpdate();
 			if (r > 0) {
