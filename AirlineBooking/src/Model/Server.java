@@ -33,6 +33,18 @@ public class Server {
 	String msg;
 	
 	// 멀티 채팅 메인 프로그램 부분
+	
+
+	boolean resultCreateReservation(Reservation r) {
+		boolean result;
+		result = rDAO.checkReservationByInfoWithSeat(r.getInfo(), r.getSeatNum());
+		if(!result) {
+			rDAO.newReservation(r);
+		}
+		return result;
+	}
+	
+	
 	public void start() {
 		logger = Logger.getLogger(this.getClass().getName());
 		try {
@@ -72,6 +84,7 @@ public class Server {
 		private BufferedReader inMsg = null;
 		private PrintWriter outMsg = null;
 
+		
 		FlightReservationThread() {
 			try {
 				inMsg = new BufferedReader(new InputStreamReader(s.getInputStream()));
@@ -83,14 +96,10 @@ public class Server {
 		}
 		// reservation 동기화 (select-좌석의 예약 여부 확인 후 좌석이 비어있는 경우 -> create-예약 생성)
 		// (select-예약 확인 -> create-예약 생성) -> blocked: (select-예약 확인 -> create-예약 생성)
-		synchronized boolean resultCreateReservation(Reservation r) {
-			boolean result;
-			result = rDAO.checkReservationByInfoWithSeat(r.getInfo(), r.getSeatNum());
-			if(!result) {
-				rDAO.newReservation(r);
-			}
-			return result;
-		}
+
+		
+
+		
 		
 		synchronized public void reservation() {
 			  strArray=m.getMsg();
@@ -160,33 +169,33 @@ public class Server {
 					reservationMsgSend(gson.toJson(Gsonmsg), m.getId());
 				}
 				else if(m.getType().equals("reservation")) {
-//					strArray=m.getMsg();
-//					
-//					Reservation r = new Reservation();
-//					r.setInfo(Integer.valueOf(strArray.get(0)));
-//					r.setSeatNum(Integer.valueOf(strArray.get(1)));
-//					r.setUser(strArray.get(2));
-//					
-//					LinkedList<String> strArrayrecieve=new LinkedList<String>();
-//					
-//					
-//					boolean output = resultCreateReservation(r);
-//					
-//					if(output){
-//						logger.info("false보냄");
-//						strArrayrecieve.add("false");
-//						Message Gsonmsg=new Message("","",strArrayrecieve,"reservationMessage");
-//						reservationMsgSend(gson.toJson(Gsonmsg), m.getId());
-//					}
-//					else {
-//						logger.info("true보냄");
-//						strArrayrecieve.add("true");
-//						strArrayrecieve.add(strArray.get(1));
-//						
-//						Message Gsonmsg=new Message("","",strArrayrecieve,"reservationMessage");
-//						reservationMsgSend(gson.toJson(Gsonmsg), m.getId());
-//					}
-					reservation();
+					strArray=m.getMsg();
+					
+					Reservation r = new Reservation();
+					r.setInfo(Integer.valueOf(strArray.get(0)));
+					r.setSeatNum(Integer.valueOf(strArray.get(1)));
+					r.setUser(strArray.get(2));
+					
+					LinkedList<String> strArrayrecieve=new LinkedList<String>();
+					
+					
+					boolean output = resultCreateReservation(r);
+					
+					if(output){
+						logger.info("false보냄");
+						strArrayrecieve.add("false");
+						Message Gsonmsg=new Message("","",strArrayrecieve,"reservationMessage");
+						reservationMsgSend(gson.toJson(Gsonmsg), m.getId());
+					}
+					else {
+						logger.info("true보냄");
+						strArrayrecieve.add("true");
+						strArrayrecieve.add(strArray.get(1));
+						
+						Message Gsonmsg=new Message("","",strArrayrecieve,"reservationMessage");
+						reservationMsgSend(gson.toJson(Gsonmsg), m.getId());
+					}
+//					reservation();
 					
 				}
 				else if(m.getType().equals("logout")) {

@@ -179,8 +179,8 @@ public class MainController {
 			String data[] = new String[6];
 			isChangeSeat = false;
 			connectServer();
-			connectServer();
-			connectServer();
+//			connectServer();
+//			connectServer();
 			
 			v.addExitWindowListener(new WindowAdapter() {
 
@@ -648,9 +648,11 @@ public class MainController {
 							strArray.add(Integer.toString(seatNum));
 							strArray.add(currentUser.getID());
 							strArray.add(Boolean.toString(isChangeSeat));
-							for(PrintWriter outMsg:outMsgs) {
-								outMsg.println(gson.toJson(new Message(v._userId, "", strArray, "reservation")));
-							}
+							outMsg.println(gson.toJson(new Message(v._userId, "", strArray, "reservation")));
+							
+//							for(PrintWriter outMsg:outMsgs) {
+//								outMsg.println(gson.toJson(new Message(v._userId, "", strArray, "reservation")));
+//							}
 						}
 						
 						// 항공기 예약 입력 초기화??
@@ -734,7 +736,7 @@ public class MainController {
 				// 입출력 스트림 생성
 				outMsg = new PrintWriter(socket.getOutputStream(), true);
 				inMsg = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-				outMsgs.add(outMsg);
+//				outMsgs.add(outMsg);
 				// 서버에 로그인 메시지 전달
 				m = new Message(v._userId, "", array, "login");
 				outMsg.println(gson.toJson(m));
