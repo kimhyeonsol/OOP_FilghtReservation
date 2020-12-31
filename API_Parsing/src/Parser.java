@@ -126,7 +126,7 @@ public class Parser {
         	for(int airportIdx=0; airportIdx<20; airportIdx++) {
         		StringBuilder urlBuilder = new StringBuilder("http://openapi.tago.go.kr/openapi/service/DmstcFlightNvgInfoService/getFlightOpratInfoList"); /*URL*/
            	 	urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=HoQJoMcIclVOuYTbwxyCnXUyrecaDhPKFkHIzaVPxyXJdqFazyYIeXDPa9hDjYdpg7zLbyXTiVPVyyAdgJ4yKw%3D%3D"); /*Service Key*/
-                urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
+                urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("1000", "UTF-8")); /*한 페이지 결과 수*/
                 urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지 번호*/
                 urlBuilder.append("&" + URLEncoder.encode("depAirportId","UTF-8") + "=" + URLEncoder.encode(realOutput[airportIdx][0], "UTF-8")); /*출발공항ID*/
                 urlBuilder.append("&" + URLEncoder.encode("arrAirportId","UTF-8") + "=" + URLEncoder.encode(realOutput[airportIdx][1], "UTF-8")); /*도착공항ID*/

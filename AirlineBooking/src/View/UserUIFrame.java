@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -55,7 +56,8 @@ public class UserUIFrame extends JFrame {// user 프레임(카드레이 아웃)
 	public MyInfoPanel myInfoPanel;
 	public FlightResPanel flightResPanel;
 	public SelectSeatPanel selectSeatPanel;
-
+	
+	
 	/////////////////////////////////////////// 생성자//////////////////////////////////////////////////////////////////
 	public UserUIFrame(String userId) {// 사용자 ID를 매개변수로 프레임 생성
 
@@ -80,10 +82,13 @@ public class UserUIFrame extends JFrame {// user 프레임(카드레이 아웃)
 		add(flightResPanel, "reservation");
 		add(selectSeatPanel, "selectSeat");
 
+		
+		
 		setVisible(true);
 	}
 
 	public void userMenuExit() {
+		// unconect
 		this.dispose();
 	}
 
@@ -133,6 +138,9 @@ public class UserUIFrame extends JFrame {// user 프레임(카드레이 아웃)
 			add(backButton);
 			add(myInfoButton);
 			add(flightResButton);
+			
+			
+			
 
 		}
 
@@ -998,6 +1006,13 @@ public class UserUIFrame extends JFrame {// user 프레임(카드레이 아웃)
 //		}
 	}
 
+	
+	
+	public void addExitWindowListener(WindowListener listener) {
+		this.addWindowListener(listener);
+	}
+	
+	
 	public void addButtonActionListener(ActionListener listener) {
 		for (JButton comp : componentList) {
 			comp.addActionListener(listener);

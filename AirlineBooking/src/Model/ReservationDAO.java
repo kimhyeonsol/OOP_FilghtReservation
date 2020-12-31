@@ -10,8 +10,8 @@ import java.util.Vector;
 
 public class ReservationDAO {
 
-	//String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-	String jdbcDriver = "com.mysql.jdbc.Driver";
+	String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+	//String jdbcDriver = "com.mysql.jdbc.Driver";
 	String jdbcUrl = "jdbc:mysql://localhost:3306/airplanereservation?&serverTimezone=Asia/Seoul&useSSL=false";
 	Connection conn;
 
@@ -33,7 +33,7 @@ public class ReservationDAO {
 	public void connectDB() throws SQLException {
 		try {
 			Class.forName(jdbcDriver);
-			conn = DriverManager.getConnection(jdbcUrl, "root", "0000");
+			conn = DriverManager.getConnection(jdbcUrl, "root", "111111");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -68,7 +68,7 @@ public class ReservationDAO {
 			r.setInfo(rs.getInt("info"));
 			r.setSeatNum(rs.getInt("seatNum"));
 			datas.add(r);
-//			items.add(String.valueOf(rs.getInt("ID")));
+//         items.add(String.valueOf(rs.getInt("ID")));
 		}
 
 		return datas;
@@ -92,26 +92,29 @@ public class ReservationDAO {
 
 		return r;
 	}
-	
-	public Reservation getReservationByInfoWithSeat(int info, int seatNum) throws SQLException {
-		sql = "select * from reservation where info = ? and seatNum = ?";
+
+	public boolean checkReservationByInfoWithSeat(int info, int seatNum) {
 		Reservation r = null;
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setInt(1, info);
-		pstmt.setInt(2, seatNum);
-		rs = pstmt.executeQuery();
-
-		rs.next();
-
-		r = new Reservation();
-		r.setID(rs.getInt("ID"));
-		r.setUser(rs.getString("user"));
-		r.setInfo(rs.getInt("info"));
-		r.setSeatNum(rs.getInt("seatNum"));
-
-		return r;
+		try {
+			sql = "select * from reservation where info = ? and seatNum = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, info);
+			pstmt.setInt(2, seatNum);
+			rs = pstmt.executeQuery();
+			rs.next();
+			r = new Reservation();
+			r.setID(rs.getInt("ID"));
+			r.setUser(rs.getString("user"));
+			r.setInfo(rs.getInt("info"));
+			r.setSeatNum(rs.getInt("seatNum"));
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			System.out.println("쿼리문 오류");
+			return false;
+		}
+		return true;
 	}
-
 
 	public ArrayList<Reservation> getReservationListByUser(String UserID) throws SQLException {
 		sql = "select * from reservation where user = ?";
@@ -133,7 +136,7 @@ public class ReservationDAO {
 			r.setInfo(rs.getInt("info"));
 			r.setSeatNum(rs.getInt("seatNum"));
 			datas.add(r);
-//			items.add(String.valueOf(rs.getInt("ID")));
+//         items.add(String.valueOf(rs.getInt("ID")));
 		}
 
 		return datas;
@@ -157,12 +160,11 @@ public class ReservationDAO {
 			r.setInfo(rs.getInt("info"));
 			r.setSeatNum(rs.getInt("seatNum"));
 			datas.add(r);
-//			items.add(String.valueOf(rs.getInt("ID")));
+//         items.add(String.valueOf(rs.getInt("ID")));
 		}
 
 		return datas;
 	}
-	
 
 	public boolean newReservation(Reservation r) {
 		sql = "insert into reservation(user, info, seatNum) " + "values(?,?,?)";

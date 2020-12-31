@@ -1,17 +1,24 @@
 package Controller;
 
 import java.awt.Color;
-import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.io.StringReader;
+import java.lang.ModuleLayer.Controller;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -20,6 +27,12 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import com.google.gson.Gson;
+import com.mysql.cj.x.protobuf.MysqlxNotice.Warning.Level;
+
+import Controller.MainController.LoginUIController;
+import Controller.MainController.ManagerUIController;
+import Controller.MainController.UserUIController;
 import Model.AirLine;
 import Model.AirLineDAO;
 import Model.Reservation;
@@ -29,6 +42,7 @@ import Model.UserDAO;
 import View.LoginUIFrame;
 import View.ManagerUIFrame;
 import View.UserUIFrame;
+import message.Message;
 
 public class MainController {
 	MainController MCT;
@@ -40,30 +54,62 @@ public class MainController {
 	ReservationDAO rDAO = new ReservationDAO();
 	UserDAO uDAO;
 
+	int seatNum;
+
 	public MainController() {
 		MCT = this;
 		uDAO = new UserDAO();
+		// 로거 객체 초기화
 	}
 
-	View.UserUIFrame UF;
-	View.ManagerUIFrame MF;
-	View.LoginUIFrame LF;
+	UserUIFrame UF;
+	ManagerUIFrame MF;
+	LoginUIFrame LF;
 //
 //	AirLineDAO aDAO;
 //	UserDAO uDAO;
 //	ReservationDAO rDAO;
 
-	class UserUIController {
+	class UserUIController extends Thread {
 		private final UserUIFrame v;
 		private String _userID;
 		private int _selectedAirLine;
 		private boolean isChangeSeat;
 
-		public void updateSelectedSeat(int selectedAirLine) throws SQLException {
+		Thread thread;
+		Gson gson = new Gson();
+		Socket socket;
+		String ip = "127.0.0.1";
+		boolean status;
+//		Logger logger;
+		Message m;
+		LinkedList<String> array = new LinkedList<String>();
+
+		// 입출력 스트림
+		private BufferedReader inMsg = null;
+		private PrintWriter outMsg = null;
+
+
+		public void updateSelectedSeat(int selectedAirLine){
 			_selectedAirLine = selectedAirLine;
-			ArrayList<Reservation> resList = rDAO.getReservationListByALInfo(selectedAirLine);
+			ArrayList<Reservation> resList = null;
+			try {
+				resList = rDAO.getReservationListByALInfo(selectedAirLine);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println(selectedAirLine);
 			v.selectSeatPanel.seatlist.clear();
+			
+			for (int i = 0; i < 40; i++) {
+				if (i % 10 == 0) {
+					v.selectSeatPanel.seatButton[i].setBackground(new Color(112, 48, 160));
+				} else {
+					v.selectSeatPanel.seatButton[i].setBackground(new Color(46, 117, 182));
+				}
+			}
+			
 
 			for (Reservation res : resList) {
 				v.selectSeatPanel.seatButton[res.getSeatNum()].setBackground((new Color(255, 192, 0)));
@@ -123,14 +169,32 @@ public class MainController {
 			}
 
 			v.myInfoPanel.myReservationUpdatePanel.textArea.setText(reservationListStr);
+			v.myInfoPanel.myReservationUpdatePanel.repaint();
 		}
 
 		public UserUIController(UserUIFrame ui) {
-
+//			logger = Logger.getLogger(this.getClass().getName());
 			this.v = ui;
 			String data[] = new String[6];
 			isChangeSeat = false;
+			connectServer();
+			connectServer();
+			connectServer();
+			
+			v.addExitWindowListener(new WindowAdapter() {
 
+				@Override
+				public void windowClosing(WindowEvent e) {
+					int confirm = JOptionPane.showOptionDialog(null, "Are You Sure to Close Application?",
+							"Exit Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null,
+							null);
+					LinkedList<String> strArray = new LinkedList<String>();
+					outMsg.println(gson.toJson(new Message(v._userId, "", strArray, "logout")));
+					if (confirm == 0) {
+						System.exit(0);
+					}
+				}
+			});
 			v.addButtonActionListener(new ActionListener() {
 
 				@Override
@@ -168,6 +232,8 @@ public class MainController {
 					} else if (obj == v.userMenuPanel.backButton) {
 						LF = new LoginUIFrame();
 						MCT.setLoginC(LF);
+						LinkedList<String> strArray = new LinkedList<String>();
+						outMsg.println(gson.toJson(new Message(v._userId, "", strArray, "logout")));
 						v.userMenuExit();
 					}
 
@@ -250,10 +316,13 @@ public class MainController {
 								rDAO.deleteReservation(search.getID());
 //								v._selectedDepAirLine = selectReser_info;
 								updateSelectedSeat(selectReser_info);
+								updateReservationList();
 //								v.selectSeatPanel.seatlist.clear();
 								isChangeSeat = true;
 								v.card.show(v.c, "selectSeat");
 								System.out.println(num);
+
+								
 							} catch (SQLException e2) {
 								// TODO Auto-generated catch block
 								e2.printStackTrace();
@@ -265,21 +334,16 @@ public class MainController {
 						if (resnum != null) {
 							////////// dB에서 해당 항공기 예약정보를 삭제
 							Reservation output = null;
-							try {
-								output = rDAO.getReservation(Integer.parseInt(resnum));
-							} catch (NumberFormatException e2) {
-								// TODO Auto-generated catch block
-								e2.printStackTrace();
-							} catch (SQLException e2) {
-								// TODO Auto-generated catch block
-								e2.printStackTrace();
-								return;
-							}
+
+							LinkedList<String> strArray = new LinkedList<String>();
+							strArray.add(resnum);
+							outMsg.println(gson.toJson(new Message(v._userId, "", strArray, "cancel")));
+
 							// #### DAO ####
-							rDAO.deleteReservation(Integer.parseInt(resnum));
+							
 							// #### DAO ####
 							// reservationList update
-							updateReservationList();
+							
 						}
 					}
 
@@ -466,9 +530,8 @@ public class MainController {
 							isChangeSeat = false;
 							v.card.show(v.c, "selectSeat");
 
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
+							
+
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -529,10 +592,8 @@ public class MainController {
 							v.resNum = Integer.valueOf(v.flightResPanel.flightsearchTextField[2].getText());
 							isChangeSeat = false;
 							v.card.show(v.c, "selectSeat");
+							
 
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -553,7 +614,6 @@ public class MainController {
 							v.card.show(v.c, "myInfo");
 						} else {
 							v.card.show(v.c, "reservation");
-
 						}
 						v.selectSeatPanel.cnt = 0;
 						v.selectSeatPanel.seatlist.clear();
@@ -573,38 +633,23 @@ public class MainController {
 							JOptionPane.showMessageDialog(null, v.resNum + "명을 선택해주세요!");
 							return;
 						}
-
-						for (int i = 0; i < v.selectSeatPanel.seatlist.size(); i++) {
-							int seatNum = v.selectSeatPanel.seatlist.get(i);
-
-							Reservation r = new Reservation();
-							r.setInfo(_selectedAirLine);
-							r.setSeatNum(seatNum);
-							r.setUser(currentUser.getID());
-							System.out.println(r.getInfo());
-							System.out.println(r.getSeatNum());
-							System.out.println(r.getUser());
-
-							try {
-								rDAO.getReservationByInfoWithSeat(_selectedAirLine, seatNum);
-								JOptionPane.showMessageDialog(null, "이미 예약된 좌석: " + seatNum);
-							} catch (HeadlessException | SQLException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-								rDAO.newReservation(r);
-								JOptionPane.showMessageDialog(null, "예약되셨습니다!");
-
-								if (isChangeSeat) {
-									v.card.show(v.c, "myInfo");
-								} else {
-									v.card.show(v.c, "reservation");
-
-								}
-
-							}
-
+						if(isChangeSeat) {
+							
+						}else {
+							
 						}
 
+						for (int i = 0; i < v.resNum; i++) {
+							seatNum = v.selectSeatPanel.seatlist.get(i);
+							System.out.println("**"+v.resNum);
+							LinkedList<String> strArray = new LinkedList<String>();
+							strArray.add(Integer.toString(_selectedAirLine));
+							strArray.add(Integer.toString(seatNum));
+							strArray.add(currentUser.getID());
+							strArray.add(Boolean.toString(isChangeSeat));
+							outMsg.println(gson.toJson(new Message(v._userId, "", strArray, "reservation")));
+						}
+						
 						// 항공기 예약 입력 초기화??
 						v.selectSeatPanel.cnt = 0;
 						v.selectSeatPanel.seatlist.clear();
@@ -632,12 +677,7 @@ public class MainController {
 						v.selectSeatPanel.seatlist.clear();
 						v.selectedSeatTextarea.setText("");
 
-						try {
-							updateSelectedSeat(_selectedAirLine);
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+						updateSelectedSeat(_selectedAirLine);
 					}
 
 					for (int i = 0; i < v.selectSeatPanel.seatButton.length; i++) {
@@ -680,6 +720,77 @@ public class MainController {
 			});
 
 		}
+
+		public void connectServer() {
+			try {
+				// 소켓 생성
+				socket = new Socket(ip, 9000);
+
+				// logger.log(Level.INFO, "[Client]Server 연결 성공!!");
+
+				// 입출력 스트림 생성
+				outMsg = new PrintWriter(socket.getOutputStream(), true);
+				inMsg = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+				// 서버에 로그인 메시지 전달
+				m = new Message(v._userId, "", array, "login");
+				outMsg.println(gson.toJson(m));
+
+				// 메시지 수신을 위한 스레드 생성
+				thread = new Thread(this);
+				thread.start();
+
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		public void run() {
+			// 수신 메시지를 처리하는 데 필요한 변수 선언
+			String msg = null;
+			status = true;
+
+			while (status) {
+				try {
+					// 메시지 수신 및 파싱
+					msg = inMsg.readLine();
+
+				} catch (IOException e) {
+					// logger.log(Level.WARNING, "[MultiChatUI]메시지 스트림 종료!!");
+				}
+
+				// JSON 메시지를 Message 객체로 매핑
+				m = gson.fromJson(msg, Message.class);
+//				System.out.println("데이터 수신");
+				if (m.getType().equals("reservationMessage")) {
+					System.out.println("데이터:" + m.getMsg().get(0));
+					if (m.getMsg().get(0).equals("false")) {
+						JOptionPane.showMessageDialog(null, "이미 예약된 좌석: " + seatNum);
+					} else {
+						JOptionPane.showMessageDialog(null, m.getMsg().get(1)+"예약되셨습니다!");
+
+						updateSelectedSeat(_selectedAirLine);
+						updateReservationList();
+						if (isChangeSeat) {
+							v.card.show(v.c, "myInfo");
+						} else {
+							v.card.show(v.c, "reservation");
+						}
+					}
+				}
+				else if(m.getType().equals("validMsg")) {
+					updateReservationList();
+				}
+			}
+
+//			logger.info("[MultiChatUI]" + thread.getName() + "메시지 수신 스레드 종료됨!!");
+
+		}
+
 	}
 
 	// 관리자 화면
@@ -1271,6 +1382,7 @@ public class MainController {
 			});
 
 		}
+
 	}
 
 	public boolean isStringDouble(String s) {
