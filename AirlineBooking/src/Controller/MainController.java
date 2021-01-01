@@ -685,6 +685,8 @@ public class MainController {
 						updateSelectedSeat(_selectedAirLine);
 					} else if (obj == v.myInfoPanel.searchAirPortParkingLot) {// 주차장 조회 버튼
 						PF = new AirPortParkingLotUIFrame();
+						setParkingC(PF);
+
 					}
 
 					for (int i = 0; i < v.selectSeatPanel.seatButton.length; i++) {
@@ -1457,6 +1459,7 @@ public class MainController {
 								}
 							}
 							v.airPortTextArea.setText(sb.toString());
+							
 						} else {
 							ArrayList<AirPortParkingLot> list = new ArrayList<AirPortParkingLot>();
 							list = pDAO.getAPInfo(airport);
@@ -1517,8 +1520,6 @@ public class MainController {
 		MainController Controller = new MainController();
 		Controller.LF = new LoginUIFrame();
 		Controller.setLoginC(Controller.LF);
-		Controller.PF = new AirPortParkingLotUIFrame();
-		Controller.setParkingC(Controller.PF);
 
 	}
 
