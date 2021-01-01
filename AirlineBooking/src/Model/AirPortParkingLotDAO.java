@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 public class AirPortParkingLotDAO {
-   String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+   //String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+   String jdbcDriver = "com.mysql.jdbc.Driver";
    String jdbcUrl = "jdbc:mysql://localhost:3306/madang?&serverTimezone=Asia/Seoul&useSSL=false";
    Connection conn;
 
@@ -48,7 +49,7 @@ public class AirPortParkingLotDAO {
    }
 
    public ArrayList<AirPortParkingLot> getAPInfo(String airPort) {
-      AirPortParkingLot p = new AirPortParkingLot();
+      
       try {
          sql = "select * from airportlot where airportKor = ? ";
          
@@ -59,6 +60,7 @@ public class AirPortParkingLotDAO {
          rs = pstmt.executeQuery();
 
          while (rs.next()) {
+        	AirPortParkingLot p = new AirPortParkingLot();
             p.setAirportEng(rs.getString("airportEng"));
             p.setAirportKor(rs.getString("airportKor"));
             p.setParkingAirportCodeName(rs.getString("parkingAirportCodeName"));
@@ -80,7 +82,7 @@ public class AirPortParkingLotDAO {
    }
 
    public ArrayList<InCheonAirPortParkingLot> getICAPInfo() {
-      InCheonAirPortParkingLot p = new InCheonAirPortParkingLot();
+      
       try {
          sql = "select * from incheonairportlot";
 
@@ -90,6 +92,7 @@ public class AirPortParkingLotDAO {
          rs = pstmt.executeQuery();
 
          while (rs.next()) {
+        	InCheonAirPortParkingLot p = new InCheonAirPortParkingLot();
             p.setFloor(rs.getString("floor"));
             p.setParking(rs.getString("parking"));
             p.setParkingarea(rs.getString("parkingarea"));

@@ -19,8 +19,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 public class AirPortParkingLotParser {
-
-	String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+	
+	String jdbcDriver = "com.mysql.jdbc.Driver";
+	//String jdbcDriver = "com.mysql.cj.jdbc.Driver";
 	String jdbcUrl = "jdbc:mysql://localhost:3306/madang?&serverTimezone=Asia/Seoul&useSSL=false";
 
 	static Gson gson = new Gson();

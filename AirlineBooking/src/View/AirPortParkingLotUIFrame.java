@@ -26,7 +26,7 @@ public class AirPortParkingLotUIFrame extends JFrame {
 	String airPortStr[] = { "인천국제공항","김포국제공항", "김해국제공항", "제주국제공항", "대구국제공항" };
 	JLabel label = new JLabel("공항 주차장 혼잡도");
 	JLabel airPortLabel = new JLabel("공항 선택");
-	JTextArea airPortTextArea = new JTextArea();
+	public JTextArea airPortTextArea = new JTextArea();
 	public JButton airPortButton = new JButton("검색하기");
 	
 
