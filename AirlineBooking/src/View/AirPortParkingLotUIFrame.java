@@ -52,7 +52,7 @@ public class AirPortParkingLotUIFrame extends JFrame {
 			}
 
 			setTitle("공항 주차장 혼잡도");
-			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 			setLayout(null);
 			label.setFont(new Font("맑은고딕", Font.BOLD, 40));
