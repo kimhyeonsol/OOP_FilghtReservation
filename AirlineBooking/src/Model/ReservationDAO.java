@@ -33,7 +33,7 @@ public class ReservationDAO {
 	public void connectDB() throws SQLException {
 		try {
 			Class.forName(jdbcDriver);
-			conn = DriverManager.getConnection(jdbcUrl, "root", "root");
+			conn = DriverManager.getConnection(jdbcUrl, "root", "0000");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -68,7 +68,6 @@ public class ReservationDAO {
 			r.setInfo(rs.getInt("info"));
 			r.setSeatNum(rs.getInt("seatNum"));
 			datas.add(r);
-//         items.add(String.valueOf(rs.getInt("ID")));
 		}
 
 		return datas;

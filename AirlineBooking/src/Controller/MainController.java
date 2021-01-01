@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringReader;
-import java.lang.ModuleLayer.Controller;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
@@ -30,15 +29,17 @@ import javax.swing.event.ChangeListener;
 import com.google.gson.Gson;
 //import com.mysql.cj.x.protobuf.MysqlxNotice.Warning.Level;
 
-import Controller.MainController.LoginUIController;
-import Controller.MainController.ManagerUIController;
-import Controller.MainController.UserUIController;
 import Model.AirLine;
 import Model.AirLineDAO;
+import Model.AirPortParkingLot;
+import Model.AirPortParkingLotDAO;
+import Model.AirPortParkingLotParser;
+import Model.InCheonAirPortParkingLot;
 import Model.Reservation;
 import Model.ReservationDAO;
 import Model.User;
 import Model.UserDAO;
+import View.AirPortParkingLotUIFrame;
 import View.LoginUIFrame;
 import View.ManagerUIFrame;
 import View.UserUIFrame;
@@ -49,10 +50,12 @@ public class MainController {
 	UserUIController UC;
 	ManagerUIController MC;
 	LoginUIController LC;
+	AirPortParkingLotUIController PC;
 
 	AirLineDAO aDAO = new AirLineDAO();
 	ReservationDAO rDAO = new ReservationDAO();
 	UserDAO uDAO;
+	AirPortParkingLotDAO pDAO = new AirPortParkingLotDAO();
 
 	int seatNum;
 
@@ -65,6 +68,7 @@ public class MainController {
 	UserUIFrame UF;
 	ManagerUIFrame MF;
 	LoginUIFrame LF;
+	AirPortParkingLotUIFrame PF;
 //
 //	AirLineDAO aDAO;
 //	UserDAO uDAO;
@@ -79,7 +83,7 @@ public class MainController {
 		Thread thread;
 		Gson gson = new Gson();
 		Socket socket;
-		String ip = "220.72.104.85";
+		String ip = "127.0.0.1";
 		boolean status;
 //		Logger logger;
 		Message m;
@@ -88,10 +92,10 @@ public class MainController {
 		// 입출력 스트림
 		private BufferedReader inMsg = null;
 		private PrintWriter outMsg = null;
-		
+
 		private ArrayList<PrintWriter> outMsgs = new ArrayList<PrintWriter>();
 
-		public void updateSelectedSeat(int selectedAirLine){
+		public void updateSelectedSeat(int selectedAirLine) {
 			_selectedAirLine = selectedAirLine;
 			ArrayList<Reservation> resList = null;
 			try {
@@ -102,7 +106,7 @@ public class MainController {
 			}
 			System.out.println(selectedAirLine);
 			v.selectSeatPanel.seatlist.clear();
-			
+
 			for (int i = 0; i < 40; i++) {
 				if (i % 10 == 0) {
 					v.selectSeatPanel.seatButton[i].setBackground(new Color(112, 48, 160));
@@ -110,7 +114,6 @@ public class MainController {
 					v.selectSeatPanel.seatButton[i].setBackground(new Color(46, 117, 182));
 				}
 			}
-			
 
 			for (Reservation res : resList) {
 				v.selectSeatPanel.seatButton[res.getSeatNum()].setBackground((new Color(255, 192, 0)));
@@ -178,11 +181,11 @@ public class MainController {
 			this.v = ui;
 			String data[] = new String[6];
 			isChangeSeat = false;
-			
+
 			connectServer();
 //			connectServer();
 //			connectServer();
-			
+
 			v.addExitWindowListener(new WindowAdapter() {
 
 				@Override
@@ -324,7 +327,6 @@ public class MainController {
 								v.card.show(v.c, "selectSeat");
 								System.out.println(num);
 
-								
 							} catch (SQLException e2) {
 								// TODO Auto-generated catch block
 								e2.printStackTrace();
@@ -342,10 +344,10 @@ public class MainController {
 							outMsg.println(gson.toJson(new Message(v._userId, "", strArray, "cancel")));
 
 							// #### DAO ####
-							
+
 							// #### DAO ####
 							// reservationList update
-							
+
 						}
 					}
 
@@ -532,8 +534,6 @@ public class MainController {
 							isChangeSeat = false;
 							v.card.show(v.c, "selectSeat");
 
-							
-
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -594,7 +594,6 @@ public class MainController {
 							v.resNum = Integer.valueOf(v.flightResPanel.flightsearchTextField[2].getText());
 							isChangeSeat = false;
 							v.card.show(v.c, "selectSeat");
-							
 
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
@@ -635,27 +634,27 @@ public class MainController {
 							JOptionPane.showMessageDialog(null, v.resNum + "명을 선택해주세요!");
 							return;
 						}
-						if(isChangeSeat) {
-							
-						}else {
-							
+						if (isChangeSeat) {
+
+						} else {
+
 						}
 
 						for (int i = 0; i < v.resNum; i++) {
 							seatNum = v.selectSeatPanel.seatlist.get(i);
-							System.out.println("**"+v.resNum);
+							System.out.println("**" + v.resNum);
 							LinkedList<String> strArray = new LinkedList<String>();
 							strArray.add(Integer.toString(_selectedAirLine));
 							strArray.add(Integer.toString(seatNum));
 							strArray.add(currentUser.getID());
 							strArray.add(Boolean.toString(isChangeSeat));
 							outMsg.println(gson.toJson(new Message(v._userId, "", strArray, "reservation")));
-							
+
 //							for(PrintWriter outMsg:outMsgs) {
 //								outMsg.println(gson.toJson(new Message(v._userId, "", strArray, "reservation")));
 //							}
 						}
-						
+
 						// 항공기 예약 입력 초기화??
 						v.selectSeatPanel.cnt = 0;
 						v.selectSeatPanel.seatlist.clear();
@@ -684,6 +683,8 @@ public class MainController {
 						v.selectedSeatTextarea.setText("");
 
 						updateSelectedSeat(_selectedAirLine);
+					} else if (obj == v.myInfoPanel.searchAirPortParkingLot) {// 주차장 조회 버튼
+						PF = new AirPortParkingLotUIFrame();
 					}
 
 					for (int i = 0; i < v.selectSeatPanel.seatButton.length; i++) {
@@ -777,7 +778,7 @@ public class MainController {
 					if (m.getMsg().get(0).equals("false")) {
 						JOptionPane.showMessageDialog(null, "이미 예약된 좌석: " + seatNum);
 					} else {
-						JOptionPane.showMessageDialog(null, m.getMsg().get(1)+"예약되셨습니다!");
+						JOptionPane.showMessageDialog(null, m.getMsg().get(1) + "예약되셨습니다!");
 
 						updateSelectedSeat(_selectedAirLine);
 						updateReservationList();
@@ -787,8 +788,7 @@ public class MainController {
 							v.card.show(v.c, "reservation");
 						}
 					}
-				}
-				else if(m.getType().equals("validMsg")) {
+				} else if (m.getType().equals("validMsg")) {
 					updateReservationList();
 				}
 			}
@@ -1072,13 +1072,13 @@ public class MainController {
 							JOptionPane.showMessageDialog(null, "입력칸을 모두 채워주세요!");
 							return;
 						}
-						
+
 						if (!isStringDouble(v.flightPanel.fliUpdatetextField[0].getText())) {
 							// 운임은 숫자로만 입력해주세요! dialog 띄우기
 							JOptionPane.showMessageDialog(null, "항공편 코드는 숫자로만 입력해주세요.");
 							return;
 						}
-						
+
 						if (!isStringDouble(v.flightPanel.fliUpdatetextField[3].getText())
 								|| !isStringDouble(v.flightPanel.fliUpdatetextField[4].getText())) {
 							// 운임은 숫자로만 입력해주세요! dialog 띄우기
@@ -1129,13 +1129,13 @@ public class MainController {
 							JOptionPane.showMessageDialog(null, "입력칸을  채워주세요!");
 							return;
 						}
-						
+
 						if (!isStringDouble(v.flightPanel.fliDeletetextField.getText())) {
 							// 운임은 숫자로만 입력해주세요! dialog 띄우기
 							JOptionPane.showMessageDialog(null, "항공편 코드는 숫자로만 입력해주세요.");
 							return;
 						}
-						
+
 						int result = aDAO.delALInfo(Integer.parseInt(v.flightPanel.fliDeletetextField.getText()));
 						// result > 0 이면 항공기 삭제 완료 다이얼로그 띄우기
 						v.flightDeleteDialog(result);
@@ -1404,6 +1404,88 @@ public class MainController {
 
 	}
 
+	class AirPortParkingLotUIController {
+		private final AirPortParkingLotUIFrame v;
+
+		AirPortParkingLotUIController(AirPortParkingLotUIFrame ui) {
+			this.v = ui;
+			v.addButtonActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// 새로운 창이 뜰때마다 parsing해오는 방식으로 해주세요
+					// Object obj = e.getSource();
+					String airport = "";
+					if (e.getSource() == v.airPortComboBox) {
+
+					}
+					if (e.getSource() == v.airPortButton) {
+						airport = v.airPortComboBox.getSelectedItem().toString();
+						StringBuffer sb = new StringBuffer();
+						try {
+							new AirPortParkingLotParser();
+						} catch (SQLException e2) {
+							e2.printStackTrace();
+						}
+
+						if (airport.equals("인천국제공항")) {
+							ArrayList<InCheonAirPortParkingLot> list = new ArrayList<InCheonAirPortParkingLot>();
+							list = pDAO.getICAPInfo();
+							if (list != null) {
+								sb.append("주차장구분\t\t주차구역 주차수\t\t 총주차면수\t 업데이트 날짜\t 업데이트 시간\n");
+								for (InCheonAirPortParkingLot a : list) {
+									if (a.getFloor().length() > 10)
+										sb.append(a.getFloor() + "\t");
+									else
+										sb.append(a.getFloor() + "\t\t");
+									sb.append(a.getParking() + "\t\t ");
+									sb.append(a.getParkingarea() + "\t ");
+									String timeString = a.getDatetm();
+
+									String year = timeString.substring(0, 4);
+									String month = timeString.substring(4, 6);
+									String day = timeString.substring(6, 8);
+									String updateDate = year + "-" + month + "-" + day;
+
+									String h = timeString.substring(8, 10);
+									String m = timeString.substring(10, 12);
+									String s = timeString.substring(12, 14);
+									String updateTime = h + ":" + m + ":" + s;
+									sb.append(updateDate + "\t");
+									sb.append(updateTime + "\n");
+
+								}
+							}
+							v.airPortTextArea.setText(sb.toString());
+						} else {
+							ArrayList<AirPortParkingLot> list = new ArrayList<AirPortParkingLot>();
+							list = pDAO.getAPInfo(airport);
+							if (list != null) {
+								sb.append("주차장명\t\t주차장 혼잡도\t 주차장 혼잡률\t 입고된 차량 수\t 전체 주차면 수\t 업데이트 날짜\t 업데이트 시간\n");
+								for (AirPortParkingLot a : list) {
+									if (a.getParkingAirportCodeName().length() > 8)
+										sb.append(a.getParkingAirportCodeName() + "\t");
+									else
+										sb.append(a.getParkingAirportCodeName() + "\t\t");
+									sb.append(a.getParkingCongestion() + "\t ");
+									sb.append(a.getParkingCongestionDegree() + "\t ");
+									sb.append(a.getParkingOccupiedSpace() + "\t ");
+									sb.append(a.getParkingTotalSpace() + "\t ");
+									sb.append(a.getSysGetdate() + "\t ");
+									sb.append(a.getSysGettime() + "\t\n");
+								}
+							}
+							v.airPortTextArea.setText(sb.toString());
+						}
+
+					}
+
+				}
+
+			});
+		}
+	}
+
 	public boolean isStringDouble(String s) {
 		try {
 			// System.out.print(s+"는 : ");
@@ -1426,11 +1508,17 @@ public class MainController {
 		MC = new ManagerUIController(ui);
 	}
 
+	public void setParkingC(AirPortParkingLotUIFrame ui) {
+		PC = new AirPortParkingLotUIController(ui);
+	}
+
 	public static void main(String[] args) {
 
 		MainController Controller = new MainController();
 		Controller.LF = new LoginUIFrame();
 		Controller.setLoginC(Controller.LF);
+		Controller.PF = new AirPortParkingLotUIFrame();
+		Controller.setParkingC(Controller.PF);
 
 	}
 

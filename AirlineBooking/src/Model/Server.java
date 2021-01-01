@@ -35,7 +35,7 @@ public class Server {
 	// 멀티 채팅 메인 프로그램 부분
 	
 
-	boolean resultCreateReservation(Reservation r) {
+	synchronized boolean resultCreateReservation(Reservation r) {
 		boolean result;
 		result = rDAO.checkReservationByInfoWithSeat(r.getInfo(), r.getSeatNum());
 		if(!result) {

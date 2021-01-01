@@ -35,7 +35,7 @@ public class UserDAO {
 	public void connectDB() throws SQLException {
 		try {
 			Class.forName(jdbcDriver);
-			conn = DriverManager.getConnection(jdbcUrl, "root", "root");
+			conn = DriverManager.getConnection(jdbcUrl, "root", "0000");
 			System.out.println("DB 연결");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

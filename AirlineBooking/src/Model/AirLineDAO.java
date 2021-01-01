@@ -29,7 +29,7 @@ public class AirLineDAO {
 		try {
 			Class.forName(jdbcDriver);
 
-			conn = DriverManager.getConnection(jdbcUrl, "root", "root");
+			conn = DriverManager.getConnection(jdbcUrl, "root", "0000");
 			if (conn == null)
 				System.out.println("conn is null");
 		} catch (Exception e) {
