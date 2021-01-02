@@ -96,37 +96,6 @@ public class Server {
 		}
 		// reservation 동기화 (select-좌석의 예약 여부 확인 후 좌석이 비어있는 경우 -> create-예약 생성)
 		// (select-예약 확인 -> create-예약 생성) -> blocked: (select-예약 확인 -> create-예약 생성)
-
-		
-
-		
-		
-		synchronized public void reservation() {
-			  strArray=m.getMsg();
-              
-              Reservation r = new Reservation();
-              r.setInfo(Integer.valueOf(strArray.get(0)));
-              r.setSeatNum(Integer.valueOf(strArray.get(1)));
-              r.setUser(strArray.get(2));
-              
-              LinkedList<String> strArrayrecieve=new LinkedList<String>();
-              
-              if(rDAO.checkReservationByInfoWithSeat(r.getInfo(), r.getSeatNum())){
-                 logger.info("false보냄");
-                 strArrayrecieve.add("false");
-                 Message Gsonmsg=new Message("","",strArrayrecieve,"reservationMessage");
-                 reservationMsgSend(gson.toJson(Gsonmsg), m.getId());
-              }
-              else {
-                 logger.info("true보냄");
-                 strArrayrecieve.add("true");
-                 strArrayrecieve.add(strArray.get(1));
-                 rDAO.newReservation(r);
-                 Message Gsonmsg=new Message("","",strArrayrecieve,"reservationMessage");
-                 reservationMsgSend(gson.toJson(Gsonmsg), m.getId());
-              }
-		}
-		
 		
 		public void run() {
 			// 상태정보가 true 이면 루프 돌면서 사용자에게서 수신된 메시지 처리
