@@ -54,7 +54,7 @@ public class AirPortParkingLotUIFrame extends JFrame {
 			label.setBounds(50, 50, 800, 40);
 			add(label);
 
-			for (int i = 0; i < airPortStr.length; i++) {
+			for (int i = 0; i < airPortStr.length; i++) { //콤보박스 아이템 추가
 				airPortComboBox.addItem(airPortStr[i]);
 			}
 
@@ -69,6 +69,7 @@ public class AirPortParkingLotUIFrame extends JFrame {
 			airPortButton.setBackground(new Color(128, 128, 128));
 			airPortButton.setBounds(600, 130, 150, 35);
 
+			airPortTextArea.setEditable(false);
 			JScrollPane scroll = new JScrollPane(airPortTextArea);
 			add(scroll);
 			scroll.setBounds(50, 190, 890, 450);
@@ -77,7 +78,7 @@ public class AirPortParkingLotUIFrame extends JFrame {
 			add(airPortComboBox);
 			add(airPortButton);
 
-///////////////////오늘 날짜////////////
+			///////////////////오늘 날짜////////////
 			Calendar cal = Calendar.getInstance();
 			int year = cal.get(Calendar.YEAR);
 			int month = cal.get(Calendar.MONTH) + 1;
@@ -95,13 +96,13 @@ public class AirPortParkingLotUIFrame extends JFrame {
 			setVisible(true);
 		}
 
-		protected void paintComponent(Graphics g) {
+		protected void paintComponent(Graphics g) { //배경 이미지 넣기
 			super.paintComponents(g);
 			g.drawImage(backImage, 0, 0, getWidth(), getHeight(), null);
 		}
 	}
 
-	public void addButtonActionListener(ActionListener listener) {
+	public void addButtonActionListener(ActionListener listener) {	//액션 리스너 부착
 		airPortComboBox.addActionListener(listener);
 		airPortButton.addActionListener(listener);
 

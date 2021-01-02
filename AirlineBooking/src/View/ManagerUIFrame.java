@@ -32,9 +32,9 @@ public class ManagerUIFrame extends JFrame {
 	public BufferedImage backButtonImg, pageImg; // 이미지
 
 	public ManagerMenuPanel managerMenuPanel = new ManagerMenuPanel(); // 메뉴 패널
-	public MemberManagerUI managerPanel = new MemberManagerUI(); // 회원 관리 패널
-	public ManagerReservationUI reservationPanel = new ManagerReservationUI(); // 예약 관리 패널
-	public ManagerFlightUI flightPanel = new ManagerFlightUI(); // 항공 관리 패널
+	public MemberManagerPanel managerPanel = new MemberManagerPanel(); // 회원 관리 패널
+	public ManagerReservationPanel reservationPanel = new ManagerReservationPanel(); // 예약 관리 패널
+	public ManagerFlightPanel flightPanel = new ManagerFlightPanel(); // 항공 관리 패널
 
 	String font = "함초롬돋움";
 
@@ -161,14 +161,14 @@ public class ManagerUIFrame extends JFrame {
 
 	////////////////////////////////// 회원관리 패널///////////////////////////////
 
-	public class MemberManagerUI extends JPanel {
+	public class MemberManagerPanel extends JPanel {
 		public GoBackButton backButton = new GoBackButton(); // 돌아가기 버튼
 		public JTextField memDeletetextField = new JTextField(); // 회원 삭제 텍스트필드
 		public JButton memDeleteButton = new JButton("삭제하기"); // 삭제하기 버튼
 		public JButton memSearchButton = new JButton("조회하기"); // 조회하기 버튼
 		public JTextArea textArea_m = new JTextArea(29, 43); // 회원 조회 textArea
 
-		MemberManagerUI() {
+		MemberManagerPanel() {
 			try {
 				pageImg = ImageIO.read(new File("pageImg.jpg"));
 			} catch (IOException e) {
@@ -201,7 +201,7 @@ public class ManagerUIFrame extends JFrame {
 		}
 
 		//////////////////////////////// 회원 삭제////////////////////////////////
-		class MemberDelete extends JPanel implements ActionListener {
+		class MemberDelete extends JPanel {
 			JPanel mainPanel = new JPanel();
 			JPanel p[] = new JPanel[2];
 			JPanel searchPanel[] = new JPanel[2];
@@ -249,7 +249,6 @@ public class ManagerUIFrame extends JFrame {
 				memDeleteButton.setFont(new Font("맑은고딕", Font.BOLD, 17));
 				memDeleteButton.setLocation(50, 380);
 				memDeleteButton.setSize(340, 50);
-				memDeleteButton.addActionListener(this);
 				p[1].add(memDeleteButton);
 
 				mainPanel.setLayout(new GridLayout(1, 2));
@@ -257,27 +256,17 @@ public class ManagerUIFrame extends JFrame {
 				mainPanel.add(p[1]);
 				add(mainPanel);
 			}
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				if (e.getSource() == memSearchButton) { // 조회하기 버튼 누를 경우 모든 회원정보 조회
-
-				} else if (e.getSource() == memDeleteButton) { // 삭제하기 버튼 누를 경우 해당 회원 삭제
-
-				}
-			}
 		}
 	}
 
 	///////////////////////////// 예약 관리 패널/////////////////////////////////
 
-	public class ManagerReservationUI extends JPanel {
+	public class ManagerReservationPanel extends JPanel {
 		public GoBackButton backButton = new GoBackButton(); // 돌아가기 버튼
 		public JTextArea textArea_r = new JTextArea(29, 87); // 예약 조회 textArea
 		public JButton reservationSearchButton = new JButton("조회하기"); // 조회 버튼
 
-		ManagerReservationUI() {
+		ManagerReservationPanel() {
 			try {
 				pageImg = ImageIO.read(new File("pageImg.jpg"));
 			} catch (IOException e) {
@@ -339,7 +328,7 @@ public class ManagerUIFrame extends JFrame {
 
 	//////////////////////////// 항공 관리 패널////////////////////////////////
 
-	public class ManagerFlightUI extends JPanel implements ActionListener {
+	public class ManagerFlightPanel extends JPanel {
 
 		// controller에서 필요한 것들
 		public GoBackButton backButton = new GoBackButton(); // 돌아가기 버튼
@@ -362,7 +351,7 @@ public class ManagerUIFrame extends JFrame {
 		public JButton flightDeleteButton = new JButton("삭제하기"); // 삭제하기 버튼
 		public JTextField fliDeletetextField = new JTextField(); // 항공 삭제 텍스트필드
 
-		ManagerFlightUI() {
+		ManagerFlightPanel() {
 			try {
 				pageImg = ImageIO.read(new File("pageImg.jpg"));
 			} catch (IOException e) {
@@ -378,7 +367,6 @@ public class ManagerUIFrame extends JFrame {
 			lb.setBounds(350, 0, 300, 100);
 
 			backButton.setBounds(10, 10, 80, 80);
-			//backButton.addActionListener(this);
 
 			mainJtabUI = new JTabbedPane(JTabbedPane.TOP);
 			mainJtabUI.setBounds(50, 100, 900, 550);
@@ -604,14 +592,6 @@ public class ManagerUIFrame extends JFrame {
 				mainPanel.add(p[1]);
 				add(mainPanel);
 			}
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-//			if (e.getSource() == backButton) {
-//				card.show(c, "managerMenu");
-//			}
 		}
 	}
 
