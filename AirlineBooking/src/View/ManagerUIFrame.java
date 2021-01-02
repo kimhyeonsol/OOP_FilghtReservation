@@ -342,7 +342,7 @@ public class ManagerUIFrame extends JFrame {
 	public class ManagerFlightUI extends JPanel implements ActionListener {
 
 		// controller에서 필요한 것들
-		GoBackButton backButton = new GoBackButton(); // 돌아가기 버튼
+		public GoBackButton backButton = new GoBackButton(); // 돌아가기 버튼
 		public JTabbedPane mainJtabUI; // 항공 관리 패널 탭팬
 		public JButton flightSearchButton_c = new JButton("조회하기"); // 조회하기 버튼
 		public JTextArea textArea_c = new JTextArea(29, 43); // 모든 항공 조회 textArea
@@ -378,7 +378,7 @@ public class ManagerUIFrame extends JFrame {
 			lb.setBounds(350, 0, 300, 100);
 
 			backButton.setBounds(10, 10, 80, 80);
-			backButton.addActionListener(this);
+			//backButton.addActionListener(this);
 
 			mainJtabUI = new JTabbedPane(JTabbedPane.TOP);
 			mainJtabUI.setBounds(50, 100, 900, 550);
@@ -609,9 +609,9 @@ public class ManagerUIFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			if (e.getSource() == backButton) {
-				card.show(c, "managerMenu");
-			}
+//			if (e.getSource() == backButton) {
+//				card.show(c, "managerMenu");
+//			}
 		}
 	}
 
@@ -632,6 +632,7 @@ public class ManagerUIFrame extends JFrame {
 		flightPanel.flightCreateButton.addActionListener(listener);
 		flightPanel.flightUpdateButton.addActionListener(listener);
 		flightPanel.flightDeleteButton.addActionListener(listener);
+		flightPanel.backButton.addActionListener(listener);
 		reservationPanel.reservationSearchButton.addActionListener(listener);
 		reservationPanel.backButton.addActionListener(listener);
 	}

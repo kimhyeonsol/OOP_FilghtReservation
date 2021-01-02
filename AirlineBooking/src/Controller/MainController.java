@@ -1169,7 +1169,11 @@ public class MainController {
 						v.setTextArea(v.flightPanel.textArea_d, sb);
 
 					}
-
+					
+					if (obj == v.flightPanel.backButton) {
+						v.card.show(v.c, "managerMenu");
+					}
+					
 					if (obj == v.managerPanel.memSearchButton) {
 						// 모든 회원정보 조회
 						ArrayList<User> list = new ArrayList<User>();
