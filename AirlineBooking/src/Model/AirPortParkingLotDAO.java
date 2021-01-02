@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 public class AirPortParkingLotDAO {
-   //String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-   String jdbcDriver = "com.mysql.jdbc.Driver";
+   String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+   //String jdbcDriver = "com.mysql.jdbc.Driver";
    String jdbcUrl = "jdbc:mysql://localhost:3306/madang?&serverTimezone=Asia/Seoul&useSSL=false";
    Connection conn;
 

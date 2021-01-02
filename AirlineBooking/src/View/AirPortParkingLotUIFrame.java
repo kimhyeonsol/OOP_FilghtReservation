@@ -38,25 +38,19 @@ public class AirPortParkingLotUIFrame extends JFrame {
 		setBounds(250, 50, 1000, 700);
 		setVisible(true);
 	}
-
-	public static void main(String[] args) throws IOException, SQLException {
-		new AirPortParkingLotUIFrame();
-	}
-
+	
 	public class AirPortPanel extends JPanel {
 		AirPortPanel() {
 			try {
-				backImage = ImageIO.read(new File("비행기.jpg"));
+				backImage = ImageIO.read(new File("주차장.jpg"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 
 			setTitle("공항 주차장 혼잡도");
-			//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 			setLayout(null);
 			label.setFont(new Font("맑은고딕", Font.BOLD, 40));
-			label.setForeground(Color.white);
 			label.setBounds(50, 50, 800, 40);
 			add(label);
 
@@ -69,6 +63,7 @@ public class AirPortParkingLotUIFrame extends JFrame {
 			airPortComboBox.setBounds(320, 130, 200, 35);
 			airPortComboBox.setFont(new Font("맑은고딕", Font.BOLD, 16));
 
+			airPortButton.setFocusPainted(false);
 			airPortButton.setFont(new Font("맑은고딕", Font.BOLD, 16));
 			airPortButton.setForeground(new Color(255, 255, 255));
 			airPortButton.setBackground(new Color(128, 128, 128));
