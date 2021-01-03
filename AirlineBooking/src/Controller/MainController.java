@@ -399,7 +399,7 @@ public class MainController {
 								// 결과가 없음..? 비행기 안뜸.. or 너무 미래
 								// 과거 시간 선택 검증
 							}
-							String depAirLineStr = "항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t일반석운임\t비즈니스석운임\n";
+							String depAirLineStr = "항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t이코니미운임\t비즈니스운임\n";
 							for (AirLine r : output) {
 								depAirLineStr += r.getID() + "\t" + r.getAirLineNm() + "\t" + r.getDepAirportNm() + "\t"
 										+ r.getArrAirportNm() + "\t" + r.getDepPlandTime().substring(8, 10) + ":"
@@ -408,7 +408,7 @@ public class MainController {
 										+ r.getArrPlandTime().substring(10, 12) + "\t" + r.getEconomyCharge() + "\t"
 										+ r.getPrestigeCharge() + "\n";
 							}
-							String desAirLineStr = "항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t일반석운임\t비즈니스석운임\n";
+							String desAirLineStr = "항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t이코니미운임\t비즈니스운임\n";
 							for (AirLine r : output2) {
 								desAirLineStr += r.getID() + "\t" + r.getAirLineNm() + "\t" + r.getDepAirportNm() + "\t"
 										+ r.getArrAirportNm() + "\t" + r.getDepPlandTime().substring(8, 10) + ":"
@@ -455,7 +455,7 @@ public class MainController {
 								// 과거 시간 선택 검증
 							}
 
-							String depAirLineStr = "항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t일반석운임\t비즈니스석운임\n";
+							String depAirLineStr = "항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t이코니미운임\t비즈니스운임\n";
 							for (AirLine r : output) {
 								depAirLineStr += r.getID() + "\t" + r.getAirLineNm() + "\t" + r.getDepAirportNm() + "\t"
 										+ r.getArrAirportNm() + "\t" + r.getDepPlandTime().substring(8, 10) + ":"
@@ -866,7 +866,7 @@ public class MainController {
 
 					StringBuffer sb = new StringBuffer();
 					if (list != null) {
-						sb.append("항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
+						sb.append("항공코드\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
 						for (AirLine p : list) {
 							sb.append(p.getID() + "\t");
 							sb.append(p.getAirLineNm() + "\t");
@@ -933,7 +933,7 @@ public class MainController {
 
 						StringBuffer sb = new StringBuffer();
 						if (list != null) {
-							sb.append("항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
+							sb.append("항공코드\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
 							for (AirLine p : list) {
 								sb.append(p.getID() + "\t");
 								sb.append(p.getAirLineNm() + "\t");
@@ -960,7 +960,7 @@ public class MainController {
 
 						StringBuffer sb = new StringBuffer();
 						if (list != null) {
-							sb.append("항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
+							sb.append("항공코드\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
 							for (AirLine p : list) {
 								sb.append(p.getID() + "\t");
 								sb.append(p.getAirLineNm() + "\t");
@@ -986,7 +986,7 @@ public class MainController {
 
 						StringBuffer sb = new StringBuffer();
 						if (list != null) {
-							sb.append("항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
+							sb.append("항공코드\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
 							for (AirLine p : list) {
 								sb.append(p.getID() + "\t");
 								sb.append(p.getAirLineNm() + "\t");
@@ -1047,7 +1047,7 @@ public class MainController {
 
 						StringBuffer sb = new StringBuffer();
 						if (list != null) {
-							sb.append("항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
+							sb.append("항공코드\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
 							for (AirLine p : list) {
 								sb.append(p.getID() + "\t");
 								sb.append(p.getAirLineNm() + "\t");
@@ -1077,7 +1077,7 @@ public class MainController {
 
 						if (!isStringDouble(v.flightPanel.fliUpdatetextField[0].getText())) {
 							// 운임은 숫자로만 입력해주세요! dialog 띄우기
-							JOptionPane.showMessageDialog(null, "항공권 ID는 숫자로만 입력해주세요.");
+							JOptionPane.showMessageDialog(null, "항공편 코드는 숫자로만 입력해주세요.");
 							return;
 						}
 
@@ -1110,7 +1110,7 @@ public class MainController {
 
 						StringBuffer sb = new StringBuffer();
 						if (list != null) {
-							sb.append("항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
+							sb.append("항공코드\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
 							for (AirLine p : list) {
 								sb.append(p.getID() + "\t");
 								sb.append(p.getAirLineNm() + "\t");
@@ -1134,7 +1134,7 @@ public class MainController {
 
 						if (!isStringDouble(v.flightPanel.fliDeletetextField.getText())) {
 							// 운임은 숫자로만 입력해주세요! dialog 띄우기
-							JOptionPane.showMessageDialog(null, "항공권 ID는 숫자로만 입력해주세요.");
+							JOptionPane.showMessageDialog(null, "항공편 코드는 숫자로만 입력해주세요.");
 							return;
 						}
 
@@ -1154,7 +1154,7 @@ public class MainController {
 
 						StringBuffer sb = new StringBuffer();
 						if (list != null) {
-							sb.append("항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
+							sb.append("항공코드\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
 							for (AirLine p : list) {
 								sb.append(p.getID() + "\t");
 								sb.append(p.getAirLineNm() + "\t");
@@ -1169,11 +1169,7 @@ public class MainController {
 						v.setTextArea(v.flightPanel.textArea_d, sb);
 
 					}
-					
-					if (obj == v.flightPanel.backButton) {
-						v.card.show(v.c, "managerMenu");
-					}
-					
+
 					if (obj == v.managerPanel.memSearchButton) {
 						// 모든 회원정보 조회
 						ArrayList<User> list = new ArrayList<User>();
@@ -1339,10 +1335,12 @@ public class MainController {
 					if (obj == v.loginUIpanel.loginButton[0]) {// 로그인 버튼
 						v.userId = v.loginUIpanel.loginTextField[0].getText();
 						String pw = v.loginUIpanel.loginTextField[1].getText();
-						if (v.dao.getUser(v.userId) == null) {
+						uDAO = new UserDAO();
+						if (uDAO.getUser(v.userId) == null) {
 							JOptionPane.showMessageDialog(null, "존재하지 않는 회원정보입니다.");
 							return;
-						} else {
+						} 
+						else {
 							if (v.dao.getUser(v.userId).getPw().equals(pw)) {
 								UF = new UserUIFrame(v.userId);
 								MCT.setUserC(UF);
@@ -1351,7 +1349,6 @@ public class MainController {
 								JOptionPane.showMessageDialog(null, "비밀번호를 틀렸습니다.");
 								return;
 							}
-
 						}
 
 					} else if (obj == v.loginUIpanel.loginButton[1]) {// 회원가입 버튼
@@ -1463,7 +1460,7 @@ public class MainController {
 								}
 							}
 							v.airPortTextArea.setText(sb.toString());
-							
+
 						} else {
 							ArrayList<AirPortParkingLot> list = new ArrayList<AirPortParkingLot>();
 							list = pDAO.getAPInfo(airport);

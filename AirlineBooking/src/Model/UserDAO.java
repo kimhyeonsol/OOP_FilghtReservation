@@ -96,8 +96,10 @@ public class UserDAO {
 			u.setEmail(rs.getString("email"));
 			u.setBirth(rs.getString("birth"));
 			u.setPhone(rs.getString("phone"));
+			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			u=null;
 		}
 		return u;
 	}
