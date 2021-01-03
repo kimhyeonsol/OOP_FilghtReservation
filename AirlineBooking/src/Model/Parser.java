@@ -93,7 +93,7 @@ public class Parser {
 	public void connectDB() throws SQLException {
 		try {
 			Class.forName(jdbcDriver);
-			conn = DriverManager.getConnection(jdbcUrl, "root", "111111");// check your username and pw
+			conn = DriverManager.getConnection(jdbcUrl, "root", "root");// check your username and pw
 			System.out.println("연결완료");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

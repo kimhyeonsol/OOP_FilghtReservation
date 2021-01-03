@@ -73,7 +73,7 @@ public class AirPortParkingLotParser {
 	public void connectDB() throws SQLException {
 		try {
 			Class.forName(jdbcDriver);
-			conn = DriverManager.getConnection(jdbcUrl, "root", "111111");// check your username and pw
+			conn = DriverManager.getConnection(jdbcUrl, "madang", "madang");// check your username and pw
 			st = conn.createStatement();
 
 			String sql = "DROP TABLE if exists incheonairportlot";

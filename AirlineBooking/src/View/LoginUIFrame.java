@@ -36,6 +36,9 @@ public class LoginUIFrame extends JFrame {
 	public SignUpPanel signUpPanel = new SignUpPanel();
 	public String userId = "", font = "함초롬돋움";// 사용자 아이디 문자열
 
+	public UserDAO dao;
+
+
 	public LoginUIFrame() {
 		setTitle("LoginUIFrame");
 		setBounds(450, 200, 500, 380);
@@ -47,7 +50,7 @@ public class LoginUIFrame extends JFrame {
 		c.add(startUIPanel, "1");
 		c.add(loginUIpanel, "2");
 		c.add(signUpPanel, "3");
-		
+
 		setVisible(true);
 	}
 
@@ -268,6 +271,7 @@ public class LoginUIFrame extends JFrame {
 //             signUpButton.addActionListener(this);
 			componentList.add(signUpButton);
 			add(signUpButton);
+			dao = new UserDAO();
 		}
 
 		protected void paintComponent(Graphics g) {

@@ -28,7 +28,7 @@ public class AirPortParkingLotDAO {
       try {
          Class.forName(jdbcDriver);
 
-         conn = DriverManager.getConnection(jdbcUrl, "root", "111111");
+         conn = DriverManager.getConnection(jdbcUrl, "madang", "madang");
          if (conn == null)
             System.out.println("conn is null");
       } catch (Exception e) {

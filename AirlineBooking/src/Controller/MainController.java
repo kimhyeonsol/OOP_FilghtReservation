@@ -301,6 +301,8 @@ public class MainController {
 						// #### DAO ####
 						MCT.LF = new LoginUIFrame();
 						MCT.setLoginC(MCT.LF);
+						LinkedList<String> strArray = new LinkedList<String>();
+						outMsg.println(gson.toJson(new Message(v._userId, "", strArray, "logout")));
 						v.userMenuExit();
 					}
 
