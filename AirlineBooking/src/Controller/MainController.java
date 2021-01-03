@@ -70,9 +70,9 @@ public class MainController {
 	LoginUIFrame LF;
 	AirPortParkingLotUIFrame PF;
 //
-//	AirLineDAO aDAO;
-//	UserDAO uDAO;
-//	ReservationDAO rDAO;
+//   AirLineDAO aDAO;
+//   UserDAO uDAO;
+//   ReservationDAO rDAO;
 
 	class UserUIController extends Thread {
 		private final UserUIFrame v;
@@ -85,7 +85,7 @@ public class MainController {
 		Socket socket;
 		String ip = "127.0.0.1";
 		boolean status;
-//		Logger logger;
+//      Logger logger;
 		Message m;
 		LinkedList<String> array = new LinkedList<String>();
 
@@ -118,23 +118,23 @@ public class MainController {
 			for (Reservation res : resList) {
 				v.selectSeatPanel.seatButton[res.getSeatNum()].setBackground((new Color(255, 192, 0)));
 				v.selectSeatPanel.seatButton[res.getSeatNum()].setFocusPainted(true);
-//				v.selectSeatPanel.seatButton[res.getSeatNum()].setEnabled(false);
-//				if(res.getUser().equals(_userID)) {
-//					int i = res.getSeatNum();
-//					String str = "";
-//					if (i < 10) {
-//						str += "A";
-//					} else if (i < 20) {
-//						str += "B";
-//					} else if (i < 30) {
-//						str += "C";
-//					} else if (i < 40) {
-//						str += "D";
-//					}
-//					v.selectSeatPanel.seatlist.add(i);
-//					v.selectedSeatTextarea
-//					.setText(v.selectedSeatTextarea.getText() + "  " + str + (i % 10 + 1));
-//				}
+//            v.selectSeatPanel.seatButton[res.getSeatNum()].setEnabled(false);
+//            if(res.getUser().equals(_userID)) {
+//               int i = res.getSeatNum();
+//               String str = "";
+//               if (i < 10) {
+//                  str += "A";
+//               } else if (i < 20) {
+//                  str += "B";
+//               } else if (i < 30) {
+//                  str += "C";
+//               } else if (i < 40) {
+//                  str += "D";
+//               }
+//               v.selectSeatPanel.seatlist.add(i);
+//               v.selectedSeatTextarea
+//               .setText(v.selectedSeatTextarea.getText() + "  " + str + (i % 10 + 1));
+//            }
 
 			}
 		}
@@ -177,14 +177,14 @@ public class MainController {
 		}
 
 		public UserUIController(UserUIFrame ui) {
-//			logger = Logger.getLogger(this.getClass().getName());
+//         logger = Logger.getLogger(this.getClass().getName());
 			this.v = ui;
 			String data[] = new String[6];
 			isChangeSeat = false;
 
 			connectServer();
-//			connectServer();
-//			connectServer();
+//         connectServer();
+//         connectServer();
 
 			v.addExitWindowListener(new WindowAdapter() {
 
@@ -205,11 +205,11 @@ public class MainController {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					Object obj = e.getSource();
-//					FlightResPanel pnFR = v.flightResPanel;
+//               FlightResPanel pnFR = v.flightResPanel;
 					User currentUser = uDAO.getUser(v._userId);
 					_userID = currentUser.getID();
 
-//					public UserMenuPanel userMenuPanel;
+//               public UserMenuPanel userMenuPanel;
 					if (obj == v.userMenuPanel.myInfoButton) {
 						v.card.show(v.c, "myInfo");
 						currentUser = uDAO.getUser(v._userId);
@@ -242,12 +242,12 @@ public class MainController {
 						v.userMenuExit();
 					}
 
-//					public MyInfoPanel myInfoPanel;
+//               public MyInfoPanel myInfoPanel;
 					else if (obj == v.myInfoPanel.backButton) {// 뒤로가기버튼
 						v.card.show(v.c, "userMenu");
 					}
 
-//					public class MyInfoUpdatePanel extends JPanel {
+//               public class MyInfoUpdatePanel extends JPanel {
 					else if (obj == v.myInfoPanel.myInfoUpdatePanel.saveButton) {// 내정보 문서로 저장하기 버튼
 						int ret = v.myInfoPanel.myInfoUpdatePanel.chooser.showSaveDialog(null);
 						if (ret != JFileChooser.APPROVE_OPTION) {
@@ -304,7 +304,7 @@ public class MainController {
 						v.userMenuExit();
 					}
 
-//					public class MyReservationUpdatePanel extends JPanel {// 내 항공편 예약 현황
+//               public class MyReservationUpdatePanel extends JPanel {// 내 항공편 예약 현황
 					else if (obj == v.myInfoPanel.myReservationUpdatePanel.changeSeatBtn) {// 자리변경하기 버튼
 						String resnum = JOptionPane.showInputDialog("자리변경 할 항공편의 예약번호를 입력하세요");
 						v.resNum = 1;
@@ -319,10 +319,10 @@ public class MainController {
 								}
 								selectReser_info = search.getInfo();
 								rDAO.deleteReservation(search.getID());
-//								v._selectedDepAirLine = selectReser_info;
+//                        v._selectedDepAirLine = selectReser_info;
 								updateSelectedSeat(selectReser_info);
 								updateReservationList();
-//								v.selectSeatPanel.seatlist.clear();
+//                        v.selectSeatPanel.seatlist.clear();
 								isChangeSeat = true;
 								v.card.show(v.c, "selectSeat");
 								System.out.println(num);
@@ -351,16 +351,16 @@ public class MainController {
 						}
 					}
 
-//					public FlightResPanel flightResPanel;
+//               public FlightResPanel flightResPanel;
 					else if (obj == v.flightResPanel.backButton) {// 뒤로가기 버튼
 						v.card.show(v.c, "userMenu");
 					}
 
-//					public class RegisterFlightPanel extends JPanel implements ItemListener {
+//               public class RegisterFlightPanel extends JPanel implements ItemListener {
 					if (obj == v.flightResPanel.flightSearchButton) {// 비행기 검색하기 버튼
 						// #### DAO ####
 						String departAirport = v.flightResPanel.departureAirportCombo.getSelectedItem().toString();// 출발
-																													// 공항
+						// 공항
 						String destAirport = v.flightResPanel.destAirportCombo.getSelectedItem().toString();// 도착 공항
 						String departDate = v.flightResPanel.flightsearchTextField[0].getText();// 가는 날
 						String destDate = v.flightResPanel.flightsearchTextField[1].getText();// 오는 날
@@ -399,7 +399,7 @@ public class MainController {
 								// 결과가 없음..? 비행기 안뜸.. or 너무 미래
 								// 과거 시간 선택 검증
 							}
-							String depAirLineStr = "항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t이코니미운임\t비즈니스운임\n";
+							String depAirLineStr = "항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t일반석운임\t비즈니스석운임\n";
 							for (AirLine r : output) {
 								depAirLineStr += r.getID() + "\t" + r.getAirLineNm() + "\t" + r.getDepAirportNm() + "\t"
 										+ r.getArrAirportNm() + "\t" + r.getDepPlandTime().substring(8, 10) + ":"
@@ -408,7 +408,7 @@ public class MainController {
 										+ r.getArrPlandTime().substring(10, 12) + "\t" + r.getEconomyCharge() + "\t"
 										+ r.getPrestigeCharge() + "\n";
 							}
-							String desAirLineStr = "항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t이코니미운임\t비즈니스운임\n";
+							String desAirLineStr = "항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t일반석운임\t비즈니스석운임\n";
 							for (AirLine r : output2) {
 								desAirLineStr += r.getID() + "\t" + r.getAirLineNm() + "\t" + r.getDepAirportNm() + "\t"
 										+ r.getArrAirportNm() + "\t" + r.getDepPlandTime().substring(8, 10) + ":"
@@ -455,7 +455,7 @@ public class MainController {
 								// 과거 시간 선택 검증
 							}
 
-							String depAirLineStr = "항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t이코니미운임\t비즈니스운임\n";
+							String depAirLineStr = "항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t일반석운임\t비즈니스석운임\n";
 							for (AirLine r : output) {
 								depAirLineStr += r.getID() + "\t" + r.getAirLineNm() + "\t" + r.getDepAirportNm() + "\t"
 										+ r.getArrAirportNm() + "\t" + r.getDepPlandTime().substring(8, 10) + ":"
@@ -470,7 +470,7 @@ public class MainController {
 							else
 								v.flightResPanel.departureAirportTextArea.setText(depAirLineStr);
 
-//							v.flightResPanel.departureAirportTextArea.setText(depAirLineStr);
+//                     v.flightResPanel.departureAirportTextArea.setText(depAirLineStr);
 							v.flightResPanel.destAirportTextArea.setText("");
 
 							// output -> 항공기 textArea(scroll)1 반영 및 refresh
@@ -584,8 +584,8 @@ public class MainController {
 								JOptionPane.showMessageDialog(null, "위 결과에 있는 항공권 ID를 입력하세요!");
 								return;
 							}
-//							selectedAirLine = aDAO
-//									.getALInfo(Integer.parseInt(v.flightResPanel.selectedFlightIDTextField2.getText()));
+//                     selectedAirLine = aDAO
+//                           .getALInfo(Integer.parseInt(v.flightResPanel.selectedFlightIDTextField2.getText()));
 							if (selectedAirLine == null) {
 								return;
 							}
@@ -608,27 +608,32 @@ public class MainController {
 						int index = v.flightResPanel.destAirportCombo.getSelectedIndex();
 					}
 
-//					public SelectSeatPanel selectSeatPanel;
+//               public SelectSeatPanel selectSeatPanel;
 					else if (obj == v.selectSeatPanel.backButton) {// 뒤로가기 버튼
 						updateReservationList();
-						if (isChangeSeat) {
-							v.card.show(v.c, "myInfo");
-						} else {
-							v.card.show(v.c, "reservation");
-						}
-						v.selectSeatPanel.cnt = 0;
-						v.selectSeatPanel.seatlist.clear();
-						v.selectedSeatTextarea.setText("");
-
-						for (int i = 0; i < 40; i++) {
-							if (i % 10 == 0) {
-								v.selectSeatPanel.seatButton[i].setBackground(new Color(112, 48, 160));
+						if (v.resNum == v.selectSeatPanel.seatlist.size()) {
+							if (isChangeSeat) {
+								v.card.show(v.c, "myInfo");
 							} else {
-								v.selectSeatPanel.seatButton[i].setBackground(new Color(46, 117, 182));
+								v.card.show(v.c, "reservation");
 							}
+							v.selectSeatPanel.cnt = 0;
+							v.selectSeatPanel.seatlist.clear();
+							v.selectedSeatTextarea.setText("");
+
+							for (int i = 0; i < 40; i++) {
+								if (i % 10 == 0) {
+									v.selectSeatPanel.seatButton[i].setBackground(new Color(112, 48, 160));
+								} else {
+									v.selectSeatPanel.seatButton[i].setBackground(new Color(46, 117, 182));
+								}
+							}
+						} else {
+							JOptionPane.showMessageDialog(null, v.resNum + "명을 선택해주세요!");
 						}
+
 					}
-//					public class SelectSeatTab extends JPanel {
+//               public class SelectSeatTab extends JPanel {
 					else if (obj == v.selectSeatPanel.reserveButton) {// 예약하기버튼
 						if (v.selectSeatPanel.seatlist.size() != v.resNum) {
 							JOptionPane.showMessageDialog(null, v.resNum + "명을 선택해주세요!");
@@ -650,22 +655,22 @@ public class MainController {
 							strArray.add(Boolean.toString(isChangeSeat));
 							outMsg.println(gson.toJson(new Message(v._userId, "", strArray, "reservation")));
 
-//							for(PrintWriter outMsg:outMsgs) {
-//								outMsg.println(gson.toJson(new Message(v._userId, "", strArray, "reservation")));
-//							}
+//                     for(PrintWriter outMsg:outMsgs) {
+//                        outMsg.println(gson.toJson(new Message(v._userId, "", strArray, "reservation")));
+//                     }
 						}
 
 						// 항공기 예약 입력 초기화??
 						v.selectSeatPanel.cnt = 0;
 						v.selectSeatPanel.seatlist.clear();
 						v.selectedSeatTextarea.setText("");
-//						for (int i = 0; i < 40; i++) {// 일단 좌석 색깔 다 초기화 시킴, 예약된 좌석은 라벨 x로 바꾸고, 선택 안되게 설정해주어야함.
-//							if (i % 10 == 0) {
-//								v.selectSeatPanel.seatButton[i].setBackground(new Color(112, 48, 160));
-//							} else {
-//								v.selectSeatPanel.seatButton[i].setBackground(new Color(46, 117, 182));
-//							}
-//						}
+//                  for (int i = 0; i < 40; i++) {// 일단 좌석 색깔 다 초기화 시킴, 예약된 좌석은 라벨 x로 바꾸고, 선택 안되게 설정해주어야함.
+//                     if (i % 10 == 0) {
+//                        v.selectSeatPanel.seatButton[i].setBackground(new Color(112, 48, 160));
+//                     } else {
+//                        v.selectSeatPanel.seatButton[i].setBackground(new Color(46, 117, 182));
+//                     }
+//                  }
 						updateReservationList();
 						return;// 밑에 for문이니깐 예약하기 버튼이면 걍 return 시켜주기
 					} else if (obj == v.selectSeatPanel.selectSeatTab.resetButton) {// 좌석초기화 버튼
@@ -740,7 +745,7 @@ public class MainController {
 				// 입출력 스트림 생성
 				outMsg = new PrintWriter(socket.getOutputStream(), true);
 				inMsg = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//				outMsgs.add(outMsg);
+//            outMsgs.add(outMsg);
 				// 서버에 로그인 메시지 전달
 				m = new Message(v._userId, "", array, "login");
 				outMsg.println(gson.toJson(m));
@@ -774,13 +779,25 @@ public class MainController {
 
 				// JSON 메시지를 Message 객체로 매핑
 				m = gson.fromJson(msg, Message.class);
-//				System.out.println("데이터 수신");
+//            System.out.println("데이터 수신");
 				if (m.getType().equals("reservationMessage")) {
 					System.out.println("데이터:" + m.getMsg().get(0));
 					if (m.getMsg().get(0).equals("false")) {
 						JOptionPane.showMessageDialog(null, "이미 예약된 좌석: " + seatNum);
 					} else {
-						JOptionPane.showMessageDialog(null, m.getMsg().get(1) + "예약되셨습니다!");
+
+						int i = Integer.parseInt(m.getMsg().get(1));
+						String str = "";
+						if (i < 10) {
+							str += "A";
+						} else if (i < 20) {
+							str += "B";
+						} else if (i < 30) {
+							str += "C";
+						} else if (i < 40) {
+							str += "D";
+						}
+						JOptionPane.showMessageDialog(null, str +(i % 10 + 1)+ "예약되셨습니다!");
 
 						updateSelectedSeat(_selectedAirLine);
 						updateReservationList();
@@ -795,7 +812,7 @@ public class MainController {
 				}
 			}
 
-//			logger.info("[MultiChatUI]" + thread.getName() + "메시지 수신 스레드 종료됨!!");
+//         logger.info("[MultiChatUI]" + thread.getName() + "메시지 수신 스레드 종료됨!!");
 
 		}
 
@@ -866,7 +883,7 @@ public class MainController {
 
 					StringBuffer sb = new StringBuffer();
 					if (list != null) {
-						sb.append("항공코드\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
+						sb.append("항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
 						for (AirLine p : list) {
 							sb.append(p.getID() + "\t");
 							sb.append(p.getAirLineNm() + "\t");
@@ -933,7 +950,7 @@ public class MainController {
 
 						StringBuffer sb = new StringBuffer();
 						if (list != null) {
-							sb.append("항공코드\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
+							sb.append("항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
 							for (AirLine p : list) {
 								sb.append(p.getID() + "\t");
 								sb.append(p.getAirLineNm() + "\t");
@@ -960,7 +977,7 @@ public class MainController {
 
 						StringBuffer sb = new StringBuffer();
 						if (list != null) {
-							sb.append("항공코드\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
+							sb.append("항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
 							for (AirLine p : list) {
 								sb.append(p.getID() + "\t");
 								sb.append(p.getAirLineNm() + "\t");
@@ -986,7 +1003,7 @@ public class MainController {
 
 						StringBuffer sb = new StringBuffer();
 						if (list != null) {
-							sb.append("항공코드\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
+							sb.append("항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
 							for (AirLine p : list) {
 								sb.append(p.getID() + "\t");
 								sb.append(p.getAirLineNm() + "\t");
@@ -1047,7 +1064,7 @@ public class MainController {
 
 						StringBuffer sb = new StringBuffer();
 						if (list != null) {
-							sb.append("항공코드\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
+							sb.append("항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
 							for (AirLine p : list) {
 								sb.append(p.getID() + "\t");
 								sb.append(p.getAirLineNm() + "\t");
@@ -1077,7 +1094,7 @@ public class MainController {
 
 						if (!isStringDouble(v.flightPanel.fliUpdatetextField[0].getText())) {
 							// 운임은 숫자로만 입력해주세요! dialog 띄우기
-							JOptionPane.showMessageDialog(null, "항공편 코드는 숫자로만 입력해주세요.");
+							JOptionPane.showMessageDialog(null, "항공권 ID는 숫자로만 입력해주세요.");
 							return;
 						}
 
@@ -1110,7 +1127,7 @@ public class MainController {
 
 						StringBuffer sb = new StringBuffer();
 						if (list != null) {
-							sb.append("항공코드\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
+							sb.append("항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
 							for (AirLine p : list) {
 								sb.append(p.getID() + "\t");
 								sb.append(p.getAirLineNm() + "\t");
@@ -1134,7 +1151,7 @@ public class MainController {
 
 						if (!isStringDouble(v.flightPanel.fliDeletetextField.getText())) {
 							// 운임은 숫자로만 입력해주세요! dialog 띄우기
-							JOptionPane.showMessageDialog(null, "항공편 코드는 숫자로만 입력해주세요.");
+							JOptionPane.showMessageDialog(null, "항공권 ID는 숫자로만 입력해주세요.");
 							return;
 						}
 
@@ -1154,7 +1171,7 @@ public class MainController {
 
 						StringBuffer sb = new StringBuffer();
 						if (list != null) {
-							sb.append("항공코드\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
+							sb.append("항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
 							for (AirLine p : list) {
 								sb.append(p.getID() + "\t");
 								sb.append(p.getAirLineNm() + "\t");
@@ -1170,6 +1187,10 @@ public class MainController {
 
 					}
 
+					if (obj == v.flightPanel.backButton) {
+						v.card.show(v.c, "managerMenu");
+					}
+
 					if (obj == v.managerPanel.memSearchButton) {
 						// 모든 회원정보 조회
 						ArrayList<User> list = new ArrayList<User>();
@@ -1182,7 +1203,7 @@ public class MainController {
 						// v.setTextArea(v.managerPanel.textArea_m, sb);
 
 						if (list != null) {
-							sb.append("아이디\t이름\t비밀번호\t이메일\t\t생일\t전화번호\n");
+							sb.append("아이디\t이름\t비밀번호\t이메일\t생일\t전화번호\n");
 							for (User p : list) {
 								sb.append(p.getID() + "\t");
 								sb.append(p.getName() + "\t");
@@ -1241,18 +1262,18 @@ public class MainController {
 							e1.printStackTrace();
 						}
 
-//						StringBuffer sb = new StringBuffer();
+//                  StringBuffer sb = new StringBuffer();
 						String reservationListStr = "예약 ID\t항공사 이름\t예약자 이름\t좌석\t출발 시간\t도착 시간\t출발 공항\t도착 공항\t비용\n";
-//						if (list != null) {
-//							sb.append("예약코드\t회원ID\t항공ID\t좌석번호\n");
-//							for (Reservation p : list) {
-//								sb.append(p.getID() + "\t");
-//								sb.append(p.getUser() + "\t");
-//								sb.append(p.getInfo() + "\t");
-//								sb.append(p.getSeatNum() + "\t\n");
-//							}
-//						}
-//						v.setTextArea(v.reservationPanel.textArea_r, sb);
+//                  if (list != null) {
+//                     sb.append("예약코드\t회원ID\t항공ID\t좌석번호\n");
+//                     for (Reservation p : list) {
+//                        sb.append(p.getID() + "\t");
+//                        sb.append(p.getUser() + "\t");
+//                        sb.append(p.getInfo() + "\t");
+//                        sb.append(p.getSeatNum() + "\t\n");
+//                     }
+//                  }
+//                  v.setTextArea(v.reservationPanel.textArea_r, sb);
 
 						for (Reservation r : list) {
 							AirLine outAL = aDAO.getALInfo(r.getInfo());
@@ -1310,7 +1331,7 @@ public class MainController {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-//					public class StartUIPanel extends JPanel {
+//               public class StartUIPanel extends JPanel {
 					Object obj = e.getSource();
 					if (obj == v.startUIPanel.managerButton) {
 						System.out.println("매니저");
@@ -1320,9 +1341,9 @@ public class MainController {
 					}
 					if (obj == v.startUIPanel.userButton) {
 						System.out.println("사용자");
-//						LF = new View.LoginUIFrame();
-//						MCT.setLoginC(LF);
-//						v.
+//                  LF = new View.LoginUIFrame();
+//                  MCT.setLoginC(LF);
+//                  v.
 						v.card.next(v.c);
 					}
 
@@ -1330,17 +1351,17 @@ public class MainController {
 						System.out.println("로그인");
 					}
 
-//					public LoginUIPanel loginUIpanel=new LoginUIPanel();
+//               public LoginUIPanel loginUIpanel=new LoginUIPanel();
 
 					if (obj == v.loginUIpanel.loginButton[0]) {// 로그인 버튼
 						v.userId = v.loginUIpanel.loginTextField[0].getText();
 						String pw = v.loginUIpanel.loginTextField[1].getText();
 						uDAO = new UserDAO();
 						if (uDAO.getUser(v.userId) == null) {
+							System.out.println("실행");
 							JOptionPane.showMessageDialog(null, "존재하지 않는 회원정보입니다.");
 							return;
-						} 
-						else {
+						} else {
 							if (uDAO.getUser(v.userId).getPw().equals(pw)) {
 								UF = new UserUIFrame(v.userId);
 								MCT.setUserC(UF);
@@ -1349,6 +1370,7 @@ public class MainController {
 								JOptionPane.showMessageDialog(null, "비밀번호를 틀렸습니다.");
 								return;
 							}
+
 						}
 
 					} else if (obj == v.loginUIpanel.loginButton[1]) {// 회원가입 버튼
@@ -1359,8 +1381,8 @@ public class MainController {
 						v.card.show(v.c, "1");
 					}
 
-//					public void actionPerformed(ActionEvent e) {
-//					class SignUpPanel extends JPanel implements ActionListener {
+//               public void actionPerformed(ActionEvent e) {
+//               class SignUpPanel extends JPanel implements ActionListener {
 
 					if (obj == v.signUpPanel.signUpButton) {// 회원가입 버튼
 

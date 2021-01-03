@@ -47,7 +47,7 @@ public class LoginUIFrame extends JFrame {
 		c.add(startUIPanel, "1");
 		c.add(loginUIpanel, "2");
 		c.add(signUpPanel, "3");
-
+		
 		setVisible(true);
 	}
 
