@@ -1341,7 +1341,7 @@ public class MainController {
 							return;
 						} 
 						else {
-							if (v.dao.getUser(v.userId).getPw().equals(pw)) {
+							if (uDAO.getUser(v.userId).getPw().equals(pw)) {
 								UF = new UserUIFrame(v.userId);
 								MCT.setUserC(UF);
 								v.loginUIFrameExit();
