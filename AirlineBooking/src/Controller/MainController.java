@@ -253,6 +253,43 @@ public class MainController {
 					else if (obj == v.myInfoPanel.myReservationUpdatePanel.changeSeatBtn) {// 자리변경하기 버튼
 						String resnum = JOptionPane.showInputDialog("자리변경 할 항공편의 예약번호를 입력하세요");
 						v.resNum = 1;
+						if(resnum.equals(""))
+						{
+							JOptionPane.showMessageDialog(null, "예약번호가 입력되지 않았습니다");
+							return;
+						}
+						
+						
+						int flag=0;
+						try {
+							AirLine selectedAirLine = new AirLine();
+							StringReader result = new StringReader(v.myInfoPanel.myReservationUpdatePanel.textArea.getText());
+							BufferedReader br = new BufferedReader(result);
+							List<String> data = new ArrayList<String>();
+							while (true) {
+								String line = br.readLine();
+								if (line == null)
+									break;
+								data.add(line);
+							}
+							
+							ListIterator<String> iterator = data.listIterator();
+							while (iterator.hasNext()) {
+								String line = iterator.next();
+								String[] arr = line.split("\t", 2);
+								if (arr[0].equals(resnum)) {
+									flag = 1;
+									break;
+								}
+							}
+							if (flag == 0) { // 검색한 항목에 없는 예약 id 입력한 경우
+								JOptionPane.showMessageDialog(null, "위 결과에 있는 예약 ID를 입력하세요!");
+								return;
+							}
+						}catch (IOException e1) {
+							e1.printStackTrace();
+						}
+						
 						if (resnum != null) {
 							int num = Integer.parseInt(resnum);
 							LinkedList<String> strArray = new LinkedList<String>();//로그아웃 메시지 송신
@@ -264,6 +301,43 @@ public class MainController {
 					
 					else if (obj == v.myInfoPanel.myReservationUpdatePanel.cancleResBtn) {// 예약취소하기 버튼
 						String resnum = JOptionPane.showInputDialog("예약취소 할 항공편의 예약번호를 입력하세요");
+						if(resnum.equals(""))
+						{
+							JOptionPane.showMessageDialog(null, "예약번호가 입력되지 않았습니다");
+							return;
+						}
+						
+						
+						int flag=0;
+						try {
+							AirLine selectedAirLine = new AirLine();
+							StringReader result = new StringReader(v.myInfoPanel.myReservationUpdatePanel.textArea.getText());
+							BufferedReader br = new BufferedReader(result);
+							List<String> data = new ArrayList<String>();
+							while (true) {
+								String line = br.readLine();
+								if (line == null)
+									break;
+								data.add(line);
+							}
+							
+							ListIterator<String> iterator = data.listIterator();
+							while (iterator.hasNext()) {
+								String line = iterator.next();
+								String[] arr = line.split("\t", 2);
+								if (arr[0].equals(resnum)) {
+									flag = 1;
+									break;
+								}
+							}
+							if (flag == 0) { // 검색한 항목에 없는 예약 id 입력한 경우
+								JOptionPane.showMessageDialog(null, "위 결과에 있는 예약 ID를 입력하세요!");
+								return;
+							}
+						}catch (IOException e1) {
+							e1.printStackTrace();
+						}
+						
 						if (resnum != null) {
 							////////// dB에서 해당 항공기 예약정보를 삭제
 							Reservation output = null;
