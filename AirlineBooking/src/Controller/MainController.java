@@ -253,16 +253,18 @@ public class MainController {
 					else if (obj == v.myInfoPanel.myReservationUpdatePanel.changeSeatBtn) {// 자리변경하기 버튼
 						String resnum = JOptionPane.showInputDialog("자리변경 할 항공편의 예약번호를 입력하세요");
 						v.resNum = 1;
+						
+						// 텍스트 필드에 아무것도 입력되지 않았을 때
 						if(resnum.equals(""))
 						{
 							JOptionPane.showMessageDialog(null, "예약번호가 입력되지 않았습니다");
 							return;
 						}
 						
-						
 						int flag=0;
+						
+						// textArea에 출력된 예약id들을 arr에 저장하고, 사용자가 입력한 값이 포함되어 있는지 확인
 						try {
-							AirLine selectedAirLine = new AirLine();
 							StringReader result = new StringReader(v.myInfoPanel.myReservationUpdatePanel.textArea.getText());
 							BufferedReader br = new BufferedReader(result);
 							List<String> data = new ArrayList<String>();
@@ -301,6 +303,7 @@ public class MainController {
 					
 					else if (obj == v.myInfoPanel.myReservationUpdatePanel.cancleResBtn) {// 예약취소하기 버튼
 						String resnum = JOptionPane.showInputDialog("예약취소 할 항공편의 예약번호를 입력하세요");
+						// 텍스트 필드에 아무것도 입력되지 않았을 때
 						if(resnum.equals(""))
 						{
 							JOptionPane.showMessageDialog(null, "예약번호가 입력되지 않았습니다");
@@ -309,8 +312,8 @@ public class MainController {
 						
 						
 						int flag=0;
+						// textArea에 출력된 예약id들을 arr에 저장하고, 사용자가 입력한 값이 포함되어 있는지 확인
 						try {
-							AirLine selectedAirLine = new AirLine();
 							StringReader result = new StringReader(v.myInfoPanel.myReservationUpdatePanel.textArea.getText());
 							BufferedReader br = new BufferedReader(result);
 							List<String> data = new ArrayList<String>();
@@ -368,13 +371,14 @@ public class MainController {
 						// 왕복
 						if (v.flightResPanel.radio[1].isSelected()) {
 
+							// 입력 칸 모두 채웠는지 검사
 							if (departDate.equals("") || destDate.equals("")
 									|| v.flightResPanel.flightsearchTextField[2].getText().equals("")) {
 								JOptionPane.showMessageDialog(null, "입력칸을 모두 채워주세요!");
 								return;
 							}
+							// 인원은 숫자로만 입력받아야 하기 때문에 검사
 							if (!isStringDouble(v.flightResPanel.flightsearchTextField[2].getText())) {
-								// 운임은 숫자로만 입력해주세요! dialog 띄우기
 								JOptionPane.showMessageDialog(null, "인원은 숫자로만 입력해주세요.");
 								return;
 							}
@@ -398,8 +402,9 @@ public class MainController {
 								JOptionPane.showMessageDialog(null, "입력칸을 모두 채워주세요!");
 								return;
 							}
+							// 인원은 숫자로만 입력받아야 하기 때문에 검사
 							if (!isStringDouble(v.flightResPanel.flightsearchTextField[2].getText())) {
-								// 운임은 숫자로만 입력해주세요! dialog 띄우기
+
 								JOptionPane.showMessageDialog(null, "인원은 숫자로만 입력해주세요.");
 								return;
 							}
@@ -824,9 +829,6 @@ public class MainController {
 	// 관리자 화면
 	class ManagerUIController{
 		private final ManagerUIFrame v;
-		
-	
-
 		public ManagerUIController(ManagerUIFrame ui) {
 
 			this.v = ui;
@@ -878,31 +880,6 @@ public class MainController {
 			});
 
 			v.addButtonActionListener(new ActionListener() {
-				public void print() {
-					ArrayList<AirLine> list = new ArrayList<AirLine>();
-					try {
-						
-						list = aDAO.getAllALInfo();
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}
-
-					StringBuffer sb = new StringBuffer();
-					if (list != null) {
-						sb.append("항공ID\t항공사\t출발공항\t도착공항\t출발시간\t도착시간\t\t일반석운임\t비즈니스석운임\n");
-						for (AirLine p : list) {
-							sb.append(p.getID() + "\t");
-							sb.append(p.getAirLineNm() + "\t");
-							sb.append(p.getDepAirportNm() + "\t");
-							sb.append(p.getArrAirportNm() + "\t");
-							sb.append(p.getDepPlandTime() + "\t");
-							sb.append(p.getArrPlandTime() + "\t\t");
-							sb.append(p.getEconomyCharge() + "\t");
-							sb.append(p.getPrestigeCharge() + "\t\n");
-						}
-					}
-				}
-
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
@@ -943,8 +920,9 @@ public class MainController {
 					if (obj == v.managerPanel.backButton) {
 						v.card.show(v.c, "managerMenu"); // 관리자메뉴로 넘어감
 					}
-
-					if (obj == v.flightPanel.flightSearchButton_c) {// textarea에 전체 출력
+					
+					// 항공 등록 창 - 조회하기 버튼
+					if (obj == v.flightPanel.flightSearchButton_c) {
 						ArrayList<AirLine> list = new ArrayList<AirLine>();
 						try {
 							list = aDAO.getAllALInfo();
@@ -968,9 +946,9 @@ public class MainController {
 						}
 						v.setTextArea(v.flightPanel.textArea_c, sb);
 					}
-
+					
+					// 항공 변경 창 - 조회하기 버튼
 					if (obj == v.flightPanel.flightSearchButton_u) {
-						//// textarea에 전체 출력
 						ArrayList<AirLine> list = new ArrayList<AirLine>();
 						try {
 							list = aDAO.getAllALInfo();
@@ -995,8 +973,8 @@ public class MainController {
 						v.setTextArea(v.flightPanel.textArea_u, sb);
 					}
 
+					// 항공 삭제 창 - 조회하기 버튼
 					if (obj == v.flightPanel.flightSearchButton_d) {
-						//// textarea에 전체 출력
 						ArrayList<AirLine> list = new ArrayList<AirLine>();
 						try {
 							list = aDAO.getAllALInfo();
@@ -1021,6 +999,7 @@ public class MainController {
 						v.setTextArea(v.flightPanel.textArea_d, sb);
 					}
 
+					//항공 등록하기 버튼
 					if (obj == v.flightPanel.flightCreateButton) {
 						AirLine info = new AirLine();
 						// 텍스트필드 다 입력되었는지 검사
@@ -1032,9 +1011,9 @@ public class MainController {
 							JOptionPane.showMessageDialog(null, "입력칸을 모두 채워주세요!");
 							return;
 						}
+						// 운임은 숫자로만 입력해야 되기 때문에 검사
 						if (!isStringDouble(v.flightPanel.fliCreatetextField[3].getText())
 								|| !isStringDouble(v.flightPanel.fliCreatetextField[4].getText())) {
-							// 운임은 숫자로만 입력해주세요! dialog 띄우기
 							JOptionPane.showMessageDialog(null, "운임은 숫자로만 입력해주세요.");
 							return;
 						}
@@ -1081,10 +1060,12 @@ public class MainController {
 						}
 						v.setTextArea(v.flightPanel.textArea_c, sb);
 					}
-
+					
+					// 항공 변경하기 버튼
 					if (obj == v.flightPanel.flightUpdateButton) {
 
 						AirLine info = new AirLine();
+						// 텍스트필드 다 입력되었는지 검사
 						if (v.flightPanel.fliUpdatetextField[0].getText().equals("")
 								|| v.flightPanel.fliUpdatetextField[1].getText().equals("")
 								|| v.flightPanel.fliUpdatetextField[2].getText().equals("")
@@ -1093,16 +1074,15 @@ public class MainController {
 							JOptionPane.showMessageDialog(null, "입력칸을 모두 채워주세요!");
 							return;
 						}
-
+						
+						// 항공권 id와 운임은 int형이기 때문에 숫자로만 입력되어야 함
 						if (!isStringDouble(v.flightPanel.fliUpdatetextField[0].getText())) {
-							// 운임은 숫자로만 입력해주세요! dialog 띄우기
 							JOptionPane.showMessageDialog(null, "항공권 ID는 숫자로만 입력해주세요.");
 							return;
 						}
 
 						if (!isStringDouble(v.flightPanel.fliUpdatetextField[3].getText())
 								|| !isStringDouble(v.flightPanel.fliUpdatetextField[4].getText())) {
-							// 운임은 숫자로만 입력해주세요! dialog 띄우기
 							JOptionPane.showMessageDialog(null, "운임은 숫자로만 입력해주세요.");
 							return;
 						}
@@ -1141,15 +1121,17 @@ public class MainController {
 						}
 						v.setTextArea(v.flightPanel.textArea_u, sb);
 					}
-
+					
+					// 항공 삭제하기 버튼
 					if (obj == v.flightPanel.flightDeleteButton) {
+						// 텍스트필드 입력 되었는지 검사
 						if (v.flightPanel.fliDeletetextField.getText().equals("")) {
 							JOptionPane.showMessageDialog(null, "입력칸을  채워주세요!");
 							return;
 						}
-
+						
+						// 항공권 id와 운임은 int형이기 때문에 숫자로만 입력되어야 함
 						if (!isStringDouble(v.flightPanel.fliDeletetextField.getText())) {
-							// 운임은 숫자로만 입력해주세요! dialog 띄우기
 							JOptionPane.showMessageDialog(null, "항공권 ID는 숫자로만 입력해주세요.");
 							return;
 						}
@@ -1185,11 +1167,13 @@ public class MainController {
 						v.setTextArea(v.flightPanel.textArea_d, sb);
 
 					}
-
+					
+					// 항공 관리 창의 뒤로가기 버튼
 					if (obj == v.flightPanel.backButton) {
 						v.card.show(v.c, "managerMenu");
 					}
 
+					// 회원 관리 창의 조회하기 버튼
 					if (obj == v.managerPanel.memSearchButton) {
 						// 모든 회원정보 조회
 						ArrayList<User> list = new ArrayList<User>();
@@ -1215,6 +1199,7 @@ public class MainController {
 
 					}
 
+					// 회원 관리 창의 삭제하기 버튼
 					if (obj == v.managerPanel.memDeleteButton) {
 						// 멤버 삭제
 						int result = uDAO.deleteUser(v.managerPanel.memDeletetextField.getText());
@@ -1245,11 +1230,13 @@ public class MainController {
 						v.managerPanel.textArea_m.setText(sb.toString());
 
 					}
-
+					
+					// 예약 관리 창의 뒤로가기 버튼
 					if (obj == v.reservationPanel.backButton) {
 						v.card.show(v.c, "managerMenu");
 					}
 
+					// 예약 관리 창의 조회하기 버튼
 					if (obj == v.reservationPanel.reservationSearchButton) {
 						ArrayList<Reservation> list = new ArrayList<Reservation>();
 						try {
@@ -1284,14 +1271,11 @@ public class MainController {
 						}
 
 						v.reservationPanel.textArea_r.setText(reservationListStr);
-
-						//
 					}
 				}
 
 				public boolean isStringDouble(String s) {
 					try {
-						// System.out.print(s+"는 : ");
 						Double.parseDouble(s);
 						return true;
 					} catch (NumberFormatException e) {
@@ -1424,12 +1408,11 @@ public class MainController {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// 새로운 창이 뜰때마다 parsing해오는 방식으로 해주세요
-					// Object obj = e.getSource();
 					String airport = "";
 					if (e.getSource() == v.airPortComboBox) {
 
 					}
+					//공항 주차장 창의 검색하기 버튼 
 					if (e.getSource() == v.airPortButton) {
 						airport = v.airPortComboBox.getSelectedItem().toString();
 						StringBuffer sb = new StringBuffer();
@@ -1439,6 +1422,7 @@ public class MainController {
 							e2.printStackTrace();
 						}
 
+						//인천공항과 나머지 4가지 공항의 데이터가 다르기 때문에 if문으로 구분하여 사용
 						if (airport.equals("인천국제공항")) {
 							ArrayList<InCheonAirPortParkingLot> list = new ArrayList<InCheonAirPortParkingLot>();
 							list = pDAO.getICAPInfo();
@@ -1453,6 +1437,7 @@ public class MainController {
 									sb.append(a.getParkingarea() + "\t ");
 									String timeString = a.getDatetm();
 
+									// 사용자가 한 눈에 알아보기 쉽도록 하기 위해서 문자열을 쪼갬
 									String year = timeString.substring(0, 4);
 									String month = timeString.substring(4, 6);
 									String day = timeString.substring(6, 8);
@@ -1500,7 +1485,6 @@ public class MainController {
 
 	public boolean isStringDouble(String s) {
 		try {
-			// System.out.print(s+"는 : ");
 			Double.parseDouble(s);
 			return true;
 		} catch (NumberFormatException e) {
