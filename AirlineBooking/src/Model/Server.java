@@ -28,7 +28,9 @@ public class Server {
 	// 로거 객체
 	Logger logger;
 	
+	AirLineDAO aDAO=new AirLineDAO();
 	ReservationDAO rDAO=new ReservationDAO();
+	UserDAO uDAO=new UserDAO();
 
 	String msg;
 	
@@ -103,40 +105,48 @@ public class Server {
 				// 수신된 메시지를 msg변수에 저장
 				try {
 					msg = inMsg.readLine();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
+				} 
+				catch (IOException e) {
 					e.printStackTrace();
 				}
 				// JSON 메시지를 Message 객체로 매핑
 				m = gson.fromJson(msg, Message.class);
 
-				
 				// 로그인 메시지일 떄
 				if (m.getType().equals("login")) {
 					userid = m.getId();
+				}
+				//로그아웃 메시지일때
+				else if(m.getType().equals("logout")) {
+					reservesThreadsList.remove(this);
+					status=false;
 				}
 				// 예약 취소 메시지일 떄
 				else if (m.getType().equals("cancel")) {
 					userid = m.getId();
 					Reservation output=null;
+					LinkedList<String> strArrayrecieve;
 					try {
 						output=rDAO.getReservation(Integer.valueOf(m.getMsg().get(0)));
-					} catch (NumberFormatException e) {
-						// TODO Auto-generated catch block
+					} 
+					catch (NumberFormatException e) {
 						e.printStackTrace();
 						return;
 						
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						strArrayrecieve=new LinkedList<String>();
+						strArrayrecieve.add("invalid");
+						Message Gsonmsg=new Message("","",strArrayrecieve,"cancel");
+						reservationMsgSend(gson.toJson(Gsonmsg), m.getId());
 						return;
 					}
 					rDAO.deleteReservation(Integer.valueOf(m.getMsg().get(0)));
-					LinkedList<String> strArrayrecieve=new LinkedList<String>();
+					strArrayrecieve=new LinkedList<String>();
 					strArrayrecieve.add("valid");
-					Message Gsonmsg=new Message("","",strArrayrecieve,"validMsg");
+					Message Gsonmsg=new Message("","",strArrayrecieve,"cancel");
 					reservationMsgSend(gson.toJson(Gsonmsg), m.getId());
 				}
+				//자리예약 메시지일때(자리선택하기 페이지)
 				else if(m.getType().equals("reservation")) {
 					strArray=m.getMsg();
 					
@@ -146,7 +156,6 @@ public class Server {
 					r.setUser(strArray.get(2));
 					
 					LinkedList<String> strArrayrecieve=new LinkedList<String>();
-					
 					
 					boolean output = resultCreateReservation(r);
 					
@@ -160,16 +169,104 @@ public class Server {
 						logger.info("true보냄");
 						strArrayrecieve.add("true");
 						strArrayrecieve.add(strArray.get(1));
-						
 						Message Gsonmsg=new Message("","",strArrayrecieve,"reservationMessage");
 						reservationMsgSend(gson.toJson(Gsonmsg), m.getId());
 					}
-//					reservation();
-					
 				}
-				else if(m.getType().equals("logout")) {
-					reservesThreadsList.remove(this);
-					status=false;
+				//내정보 가져오기 메시지일때
+				else if(m.getType().equals("MyInfo")) {
+					User currentUser = uDAO.getUser(m.getMsg().get(0));
+					LinkedList<String> strArrayrecieve=new LinkedList<String>();
+					strArrayrecieve.add(currentUser.getName());
+					strArrayrecieve.add(currentUser.getID());
+					strArrayrecieve.add(currentUser.getPw());
+					strArrayrecieve.add(currentUser.getEmail());
+					strArrayrecieve.add(currentUser.getBirth());
+					strArrayrecieve.add(currentUser.getPhone());
+		
+					Message Gsonmsg=new Message("","",strArrayrecieve,"MyInfo");
+					reservationMsgSend(gson.toJson(Gsonmsg), m.getId());
+				}
+				//내정보 변경하기 메시지일때
+				else if(m.getType().equals("MyInfoChange")) {
+					User user = new User();
+					user.setUser(m.getMsg());
+					uDAO.updateUser(user);
+					LinkedList<String> strArrayrecieve=new LinkedList<String>();
+					Message Gsonmsg=new Message("","",strArrayrecieve,"MyInfoChange");
+					reservationMsgSend(gson.toJson(Gsonmsg), m.getId());
+				}
+				//내정보 탈퇴하기 메시지일때
+				else if(m.getType().equals("MyInfoDelete")) {
+					// #### DAO #### -> 삭제 전: dialog 필요성,
+					User user = new User();
+					user.setUser(m.getMsg());
+					uDAO.deleteUser(user.getID());
+				}
+				//좌석 변경 가능한 상황인지 알아보는 메시지일때
+				else if(m.getType().equals("MySeatChange")) {
+					int num = Integer.parseInt(m.getMsg().get(0));
+					Reservation search;
+					LinkedList<String> strArrayrecieve=new LinkedList<String>();
+					try {
+						search = rDAO.getReservation(num);
+						if (!search.getUser().equals(m.getMsg().get(1))) {
+							strArrayrecieve.add("invalid");
+						}
+						else {
+							strArrayrecieve.add("valid");
+							strArrayrecieve.add(Integer.toString(search.getInfo()));
+							strArrayrecieve.add(Integer.toString(search.getID()));
+						}
+						Message Gsonmsg=new Message("","",strArrayrecieve,"MySeatChange");
+						reservationMsgSend(gson.toJson(Gsonmsg), m.getId());
+						
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				//좌석 변경 가능한 상황일떄 좌석변경하기 메시지 
+				else if(m.getType().equals("MySeatChange_isvalid")) {
+					rDAO.deleteReservation(Integer.valueOf(m.getMsg().get(0)));
+					
+					LinkedList<String> strArrayrecieve=new LinkedList<String>();
+					strArrayrecieve.add("deleteComplete");
+					Message Gsonmsg=new Message("","",strArrayrecieve,"MySeatChange_isvalid");
+					reservationMsgSend(gson.toJson(Gsonmsg), m.getId());
+				}
+				//왕복 항공편 조회하는 메시지
+				else if(m.getType().equals("AirLineInfo_roundtrip")) {
+					ArrayList<AirLine> output = null;
+					ArrayList<AirLine> output2 = null; // 돌아오는
+					
+					try {
+						output = aDAO.getALInfoByChoice(m.getMsg().get(0), m.getMsg().get(1), m.getMsg().get(2));
+						output2 = aDAO.getALInfoByChoice(m.getMsg().get(1), m.getMsg().get(0), m.getMsg().get(3));
+						// results by current day/time
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						// 결과가 없음..? 비행기 안뜸.. or 너무 미래
+						// 과거 시간 선택 검증
+					}
+					Message Gsonmsg=new Message("","",output,output2,"AirLineInfo_roundtrip");
+					reservationMsgSend(gson.toJson(Gsonmsg), m.getId());
+				}
+				//편도 항공편 조회하는 메시지
+				else if(m.getType().equals("AirLineInfo_oneway")) {
+					ArrayList<AirLine> output = null;
+					ArrayList<AirLine> output2 = null; // 돌아오는
+					try {
+						output = aDAO.getALInfoByChoice(m.getMsg().get(0), m.getMsg().get(1), m.getMsg().get(2));
+					} catch (SQLException e) {
+						
+						e.printStackTrace();
+						// 결과가 없음..? 비행기 안뜸.. or 너무 미래
+						// 과거 시간 선택 검증
+					}
+					Message Gsonmsg=new Message("","",output,output2,"AirLineInfo_roundtrip");
+					reservationMsgSend(gson.toJson(Gsonmsg), m.getId());
+					
 				}
 				// 그 밖의 경우, 즉 일반 메시지일 때
 				else {

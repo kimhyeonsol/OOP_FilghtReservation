@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.LinkedList;
+
 public class User {
 	private String ID;
 	private String name;
@@ -54,6 +56,14 @@ public class User {
 		setEmail(data[3]);
 		setBirth(data[4]);
 		setPhone(data[5]);
+	}
+	public void setUser(LinkedList<String> data) {
+		setName(data.get(0));
+		setID(data.get(1));
+		setPw(data.get(2));
+		setEmail(data.get(3));
+		setBirth(data.get(4));
+		setPhone(data.get(5));
 	}
 	
 }
