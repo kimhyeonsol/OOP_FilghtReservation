@@ -72,9 +72,6 @@ public class LoginUIFrame extends JFrame {
 			}
 			setLayout(null);
 
-//            managerButton.addActionListener(this);
-//            userButton.addActionListener(this);
-
 			managerButton.setBounds(50, 150, 150, 150);
 			userButton.setBounds(280, 150, 150, 150);
 			add(managerButton);
@@ -117,17 +114,6 @@ public class LoginUIFrame extends JFrame {
 			}
 		}
 
-//         @Override
-//         
-//         public void actionPerformed(ActionEvent e) {
-//            if(e.getSource() == managerButton) {//관리자 버튼
-//               new ManagerUIFrame();
-//               loginUIFrameExit();
-//            }
-//            if(e.getSource() == userButton) {//사용자 버튼
-//               card.next(c);
-//            }
-//         }
 	}
 
 	////////////////////////////////////////////// 로그인
@@ -169,7 +155,7 @@ public class LoginUIFrame extends JFrame {
 				loginButton[i].setForeground(new Color(255, 255, 255));
 				loginButton[i].setBackground(new Color(37, 51, 42));
 				loginButton[i].setFocusPainted(false);
-//            loginButton[i].addActionListener(this);
+
 				componentList.add(loginButton[i]);
 				add(loginButton[i]);
 			}
@@ -182,7 +168,7 @@ public class LoginUIFrame extends JFrame {
 			backButton.setForeground(new Color(255, 255, 255));
 			backButton.setBackground(new Color(37, 51, 42));
 			backButton.setFocusPainted(false);
-//         backButton.addActionListener(this);
+
 			componentList.add(backButton);
 			backButton.setFont(new Font("맑은고딕", Font.BOLD, 15));
 			backButton.setBounds(65, 284, 130, 27);
@@ -193,26 +179,7 @@ public class LoginUIFrame extends JFrame {
 			super.paintComponent(g);
 			g.drawImage(backImage, 0, 0, getWidth(), getHeight(), null);
 		}
-//      @Override
-//      public void actionPerformed(ActionEvent e) {
-//         
-//         if(e.getSource() == loginButton[0]) {//로그인 버튼
-//            userId=loginTextField[0].getText();
-//        	if(dao.getUser(userId)==null) {
-//        		JOptionPane.showMessageDialog(null, "존재하지 않는 회원정보입니다.");
-//                return;
-//            }
-//        	new UserUIFrame(userId);
-//            loginUIFrameExit();
-//         }
-//         else if(e.getSource() == loginButton[1]) {//회원가입 버튼
-//            card.next(c);
-//         }
-//         
-//         else if(e.getSource() == backButton) {//돌아가기 버튼
-//            card.show(c, "1");
-//         }
-//      }
+
 	}
 
 	////////////////////////////////////////////// 회원가입
@@ -258,7 +225,6 @@ public class LoginUIFrame extends JFrame {
 			backButton.setForeground(Color.white);
 			backButton.setFont(new Font("맑은고딕", Font.BOLD, 17));
 			backButton.setBounds(80, 308, 120, 23);
-//             backButton.addActionListener(this);
 			componentList.add(backButton);
 			add(backButton);
 
@@ -268,7 +234,6 @@ public class LoginUIFrame extends JFrame {
 			signUpButton.setForeground(Color.white);
 			signUpButton.setFont(new Font("맑은고딕", Font.BOLD, 17));
 			signUpButton.setBounds(290, 308, 120, 23);
-//             signUpButton.addActionListener(this);
 			componentList.add(signUpButton);
 			add(signUpButton);
 			dao = new UserDAO();
@@ -278,36 +243,12 @@ public class LoginUIFrame extends JFrame {
 			super.paintComponent(g);
 		}
 
-//		@Override
-//		public void actionPerformed(ActionEvent e) {
-//			if (e.getSource() == signUpButton) {// 회원가입 버튼
-//				User user = new User();
-//				user.setID(textField[1].getText());
-//				user.setName(textField[0].getText());
-//				user.setPw(textField[2].getText());
-//				user.setEmail(textField[3].getText());
-//				user.setBirth(textField[4].getText());
-//				user.setPhone(textField[5].getText());
-//
-//				if (!dao.newUser(user)) {
-//					JOptionPane.showMessageDialog(null, "사용불가능한 ID입니다.");
-//					return;
-//				}
-//				JOptionPane.showMessageDialog(null, "회원가입되었습니다!!");
-//				card.previous(c);
-//			} else if (e.getSource() == backButton) {// 돌아가기 버튼
-//				card.show(c, "2");
-//			}
-//		}
 	}
 
 	public void addButtonActionListener(ActionListener listener) {
 		startUIPanel.userButton.addActionListener(listener);
 		startUIPanel.managerButton.addActionListener(listener);
 
-		// loginUIpanel
-//	   loginUIpanel.loginButton[0].addActionListener(listener);
-//	   loginUIpanel.loginButton[1].addActionListener(listener);
 		for (JButton comp : componentList) {
 			comp.addActionListener(listener);
 		}
