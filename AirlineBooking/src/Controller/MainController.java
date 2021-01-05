@@ -833,48 +833,56 @@ public class MainController {
 
 			this.v = ui;
 
-			// 탭팬 액션리스너
+			// 항공 관리 탭팬 액션리스너
 			v.addChangeListener((ChangeListener) new ChangeListener() {
 				public void stateChanged(ChangeEvent e) { // 컴포넌트들 기본값으로 초기화
-					if (v.flightPanel.mainJtabUI.getSelectedIndex() == 0) {
+					if (v.flightPanel.mainJtabUI.getSelectedIndex() == 0) { //'항공 등록' 탭팬 선택
 						v.flightPanel.createTextArea.setText("");
 						v.flightPanel.updateTextArea.setText("");
-						v.flightPanel.deleteTextArea.setText("");
-						for (int i = 0; i < v.flightPanel.fliCreatetextField.length; i++) {
+						v.flightPanel.deleteTextArea.setText(""); //textArea 초기화
+						
+						for (int i = 0; i < v.flightPanel.fliCreatetextField.length; i++) { //항공 등록 textField 초기화
 							v.flightPanel.fliCreatetextField[i].setText("");
 						}
-						for (int i = 0; i < v.flightPanel.fliUpdatetextField.length; i++) {
+						for (int i = 0; i < v.flightPanel.fliUpdatetextField.length; i++) { //항공 변경 textField 초기화
 							v.flightPanel.fliUpdatetextField[i].setText("");
 						}
-						v.flightPanel.fliDeletetextField.setText("");
+						v.flightPanel.fliDeletetextField.setText(""); //항공 삭제 textField 초기화
+						
 						v.flightPanel.departureAirportCreateCombo.setSelectedIndex(0);
-						v.flightPanel.destAirportCreateCombo.setSelectedIndex(0);
-					} else if (v.flightPanel.mainJtabUI.getSelectedIndex() == 1) {
+						v.flightPanel.destAirportCreateCombo.setSelectedIndex(0); //공항 선택 comboBox 초기화
+					} 
+					else if (v.flightPanel.mainJtabUI.getSelectedIndex() == 1) { //'항공 변경' 탭팬 선택
 						v.flightPanel.createTextArea.setText("");
 						v.flightPanel.updateTextArea.setText("");
-						v.flightPanel.deleteTextArea.setText("");
-						for (int i = 0; i < v.flightPanel.fliCreatetextField.length; i++) {
+						v.flightPanel.deleteTextArea.setText(""); //textArea 초기화
+						
+						for (int i = 0; i < v.flightPanel.fliCreatetextField.length; i++) { //항공 등록 textField 초기화
 							v.flightPanel.fliCreatetextField[i].setText("");
 						}
-						for (int i = 0; i < v.flightPanel.fliUpdatetextField.length; i++) {
+						for (int i = 0; i < v.flightPanel.fliUpdatetextField.length; i++) { //항공 변경 textField 초기화
 							v.flightPanel.fliUpdatetextField[i].setText("");
 						}
-						v.flightPanel.fliDeletetextField.setText("");
+						v.flightPanel.fliDeletetextField.setText(""); //항공 삭제 textField 초기화
+						
 						v.flightPanel.departureAirportCreateCombo.setSelectedIndex(0);
-						v.flightPanel.destAirportCreateCombo.setSelectedIndex(0);
-					} else if (v.flightPanel.mainJtabUI.getSelectedIndex() == 2) {
+						v.flightPanel.destAirportCreateCombo.setSelectedIndex(0); //공항 선택 comboBox 초기화
+					} 
+					else if (v.flightPanel.mainJtabUI.getSelectedIndex() == 2) { //'항공 삭제' 탭팬 선택
 						v.flightPanel.createTextArea.setText("");
 						v.flightPanel.updateTextArea.setText("");
-						v.flightPanel.deleteTextArea.setText("");
-						for (int i = 0; i < v.flightPanel.fliCreatetextField.length; i++) {
+						v.flightPanel.deleteTextArea.setText(""); //textArea 초기화
+						
+						for (int i = 0; i < v.flightPanel.fliCreatetextField.length; i++) { //항공 등록 textField 초기화
 							v.flightPanel.fliCreatetextField[i].setText("");
 						}
-						for (int i = 0; i < v.flightPanel.fliUpdatetextField.length; i++) {
+						for (int i = 0; i < v.flightPanel.fliUpdatetextField.length; i++) { //항공 변경 textField 초기화
 							v.flightPanel.fliUpdatetextField[i].setText("");
 						}
-						v.flightPanel.fliDeletetextField.setText("");
+						v.flightPanel.fliDeletetextField.setText(""); //항공 삭제 textField 초기화
+						
 						v.flightPanel.departureAirportCreateCombo.setSelectedIndex(0);
-						v.flightPanel.destAirportCreateCombo.setSelectedIndex(0);
+						v.flightPanel.destAirportCreateCombo.setSelectedIndex(0); //공항 선택 comboBox 초기화
 					}
 				}
 			});
@@ -913,12 +921,12 @@ public class MainController {
 						v.flightPanel.departureAirportCreateCombo.setSelectedIndex(0);
 						v.flightPanel.destAirportCreateCombo.setSelectedIndex(0);
 
-						v.flightPanel.mainJtabUI.setSelectedIndex(0); // 탭팬 기본값이 항공 등록 탭
+						v.flightPanel.mainJtabUI.setSelectedIndex(0); // 항공 관리 탭팬 기본값이 '항공 등록' 탭
 						v.card.show(v.c, "flight"); // 항공 관리 패널로 넘어감
 					}
 
 					if (obj == v.managerPanel.backButton) {
-						v.card.show(v.c, "managerMenu"); // 관리자메뉴로 넘어감
+						v.card.show(v.c, "managerMenu"); // 관리자 메뉴로 넘어감
 					}
 					
 					// 항공 등록 창 - 조회하기 버튼
@@ -1409,9 +1417,7 @@ public class MainController {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					String airport = "";
-					if (e.getSource() == v.airPortComboBox) {
-
-					}
+					
 					//공항 주차장 창의 검색하기 버튼 
 					if (e.getSource() == v.airPortButton) {
 						airport = v.airPortComboBox.getSelectedItem().toString();
