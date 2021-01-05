@@ -20,14 +20,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
-public class AirPortParkingLotUIFrame extends JFrame {
-	public BufferedImage backImage;
-	public JComboBox airPortComboBox = new JComboBox();
+public class AirPortParkingLotUIFrame extends JFrame { //실시간 공항 주차장 정보 조회 프레임
+	public BufferedImage backImage; //배경 이미지
+	public JComboBox airPortComboBox = new JComboBox(); //공항 선택 콤보박스
 	String airPortStr[] = { "인천국제공항","김포국제공항", "김해국제공항", "제주국제공항", "대구국제공항" };
 	JLabel label = new JLabel("공항 주차장 혼잡도");
 	JLabel airPortLabel = new JLabel("공항 선택");
-	public JTextArea airPortTextArea = new JTextArea();
-	public JButton airPortButton = new JButton("검색하기");
+	public JTextArea airPortTextArea = new JTextArea(); //주차장 정보 조회 textArea
+	public JButton airPortButton = new JButton("검색하기"); //주차장 정보 '검색하기' 버튼
 	
 
 	public AirPortParkingLotUIFrame() {
@@ -78,7 +78,7 @@ public class AirPortParkingLotUIFrame extends JFrame {
 			add(airPortComboBox);
 			add(airPortButton);
 
-			///////////////////오늘 날짜////////////
+			////////////////오늘 날짜////////////////
 			Calendar cal = Calendar.getInstance();
 			int year = cal.get(Calendar.YEAR);
 			int month = cal.get(Calendar.MONTH) + 1;

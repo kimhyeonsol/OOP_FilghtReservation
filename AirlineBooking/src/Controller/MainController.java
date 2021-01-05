@@ -837,9 +837,9 @@ public class MainController {
 			v.addChangeListener((ChangeListener) new ChangeListener() {
 				public void stateChanged(ChangeEvent e) { // 컴포넌트들 기본값으로 초기화
 					if (v.flightPanel.mainJtabUI.getSelectedIndex() == 0) {
-						v.flightPanel.textArea_c.setText("");
-						v.flightPanel.textArea_u.setText("");
-						v.flightPanel.textArea_d.setText("");
+						v.flightPanel.createTextArea.setText("");
+						v.flightPanel.updateTextArea.setText("");
+						v.flightPanel.deleteTextArea.setText("");
 						for (int i = 0; i < v.flightPanel.fliCreatetextField.length; i++) {
 							v.flightPanel.fliCreatetextField[i].setText("");
 						}
@@ -850,9 +850,9 @@ public class MainController {
 						v.flightPanel.departureAirportCreateCombo.setSelectedIndex(0);
 						v.flightPanel.destAirportCreateCombo.setSelectedIndex(0);
 					} else if (v.flightPanel.mainJtabUI.getSelectedIndex() == 1) {
-						v.flightPanel.textArea_c.setText("");
-						v.flightPanel.textArea_u.setText("");
-						v.flightPanel.textArea_d.setText("");
+						v.flightPanel.createTextArea.setText("");
+						v.flightPanel.updateTextArea.setText("");
+						v.flightPanel.deleteTextArea.setText("");
 						for (int i = 0; i < v.flightPanel.fliCreatetextField.length; i++) {
 							v.flightPanel.fliCreatetextField[i].setText("");
 						}
@@ -863,9 +863,9 @@ public class MainController {
 						v.flightPanel.departureAirportCreateCombo.setSelectedIndex(0);
 						v.flightPanel.destAirportCreateCombo.setSelectedIndex(0);
 					} else if (v.flightPanel.mainJtabUI.getSelectedIndex() == 2) {
-						v.flightPanel.textArea_c.setText("");
-						v.flightPanel.textArea_u.setText("");
-						v.flightPanel.textArea_d.setText("");
+						v.flightPanel.createTextArea.setText("");
+						v.flightPanel.updateTextArea.setText("");
+						v.flightPanel.deleteTextArea.setText("");
 						for (int i = 0; i < v.flightPanel.fliCreatetextField.length; i++) {
 							v.flightPanel.fliCreatetextField[i].setText("");
 						}
@@ -890,18 +890,18 @@ public class MainController {
 						v.managerMenuExit(); // 관리자 메뉴 프레임 닫음
 					}
 					if (obj == v.managerMenuPanel.memButton) {
-						v.managerPanel.textArea_m.setText(""); // 텍스트아리아 초기화
+						v.managerPanel.memTextArea.setText(""); // 텍스트아리아 초기화
 						v.managerPanel.memDeletetextField.setText(""); // 텍스트필드 초기화
 						v.card.show(v.c, "manager"); // 회원 관리 패널로 넘어감
 					}
 					if (obj == v.managerMenuPanel.resButton) {
-						v.reservationPanel.textArea_r.setText(""); // 텍스트아리아 초기화
+						v.reservationPanel.resTextArea.setText(""); // 텍스트아리아 초기화
 						v.card.show(v.c, "reservation"); // 예약 관리 패널로 넘어감
 					}
 					if (obj == v.managerMenuPanel.fliButton) {
-						v.flightPanel.textArea_c.setText("");
-						v.flightPanel.textArea_u.setText("");
-						v.flightPanel.textArea_d.setText(""); // 텍스트아리아 초기화
+						v.flightPanel.createTextArea.setText("");
+						v.flightPanel.updateTextArea.setText("");
+						v.flightPanel.deleteTextArea.setText(""); // 텍스트아리아 초기화
 
 						for (int i = 0; i < 5; i++) // 텍스트필드 초기화
 							v.flightPanel.fliCreatetextField[i].setText("");
@@ -922,7 +922,7 @@ public class MainController {
 					}
 					
 					// 항공 등록 창 - 조회하기 버튼
-					if (obj == v.flightPanel.flightSearchButton_c) {
+					if (obj == v.flightPanel.flightCreateSearchButton) {
 						ArrayList<AirLine> list = new ArrayList<AirLine>();
 						try {
 							list = aDAO.getAllALInfo();
@@ -944,11 +944,11 @@ public class MainController {
 								sb.append(p.getPrestigeCharge() + "\t\n");
 							}
 						}
-						v.setTextArea(v.flightPanel.textArea_c, sb);
+						v.setTextArea(v.flightPanel.createTextArea, sb);
 					}
 					
 					// 항공 변경 창 - 조회하기 버튼
-					if (obj == v.flightPanel.flightSearchButton_u) {
+					if (obj == v.flightPanel.flightUpdateSearchButton) {
 						ArrayList<AirLine> list = new ArrayList<AirLine>();
 						try {
 							list = aDAO.getAllALInfo();
@@ -970,11 +970,11 @@ public class MainController {
 								sb.append(p.getPrestigeCharge() + "\t\n");
 							}
 						}
-						v.setTextArea(v.flightPanel.textArea_u, sb);
+						v.setTextArea(v.flightPanel.updateTextArea, sb);
 					}
 
 					// 항공 삭제 창 - 조회하기 버튼
-					if (obj == v.flightPanel.flightSearchButton_d) {
+					if (obj == v.flightPanel.flightDeleteSearchButton) {
 						ArrayList<AirLine> list = new ArrayList<AirLine>();
 						try {
 							list = aDAO.getAllALInfo();
@@ -996,7 +996,7 @@ public class MainController {
 								sb.append(p.getPrestigeCharge() + "\t\n");
 							}
 						}
-						v.setTextArea(v.flightPanel.textArea_d, sb);
+						v.setTextArea(v.flightPanel.deleteTextArea, sb);
 					}
 
 					//항공 등록하기 버튼
@@ -1058,7 +1058,7 @@ public class MainController {
 								sb.append(p.getPrestigeCharge() + "\t\n");
 							}
 						}
-						v.setTextArea(v.flightPanel.textArea_c, sb);
+						v.setTextArea(v.flightPanel.createTextArea, sb);
 					}
 					
 					// 항공 변경하기 버튼
@@ -1119,7 +1119,7 @@ public class MainController {
 								sb.append(p.getPrestigeCharge() + "\t\n");
 							}
 						}
-						v.setTextArea(v.flightPanel.textArea_u, sb);
+						v.setTextArea(v.flightPanel.updateTextArea, sb);
 					}
 					
 					// 항공 삭제하기 버튼
@@ -1164,7 +1164,7 @@ public class MainController {
 								sb.append(p.getPrestigeCharge() + "\t\n");
 							}
 						}
-						v.setTextArea(v.flightPanel.textArea_d, sb);
+						v.setTextArea(v.flightPanel.deleteTextArea, sb);
 
 					}
 					
@@ -1195,7 +1195,7 @@ public class MainController {
 
 							}
 						}
-						v.setTextArea(v.managerPanel.textArea_m, sb);
+						v.setTextArea(v.managerPanel.memTextArea, sb);
 
 					}
 
@@ -1227,7 +1227,7 @@ public class MainController {
 								sb.append(p.getPhone() + "\t\n");
 							}
 						}
-						v.managerPanel.textArea_m.setText(sb.toString());
+						v.managerPanel.memTextArea.setText(sb.toString());
 
 					}
 					
@@ -1270,7 +1270,7 @@ public class MainController {
 
 						}
 
-						v.reservationPanel.textArea_r.setText(reservationListStr);
+						v.reservationPanel.resTextArea.setText(reservationListStr);
 					}
 				}
 
@@ -1427,7 +1427,7 @@ public class MainController {
 							ArrayList<InCheonAirPortParkingLot> list = new ArrayList<InCheonAirPortParkingLot>();
 							list = pDAO.getICAPInfo();
 							if (list != null) {
-								sb.append("주차장구분\t\t주차구역 주차수\t\t 총주차면수\t 업데이트 날짜\t 업데이트 시간\n");
+								sb.append("주차구역명\t\t 입고된 차량 수\t\t 전체 주차면 수\t 업데이트 날짜\t 업데이트 시간\n");
 								for (InCheonAirPortParkingLot a : list) {
 									if (a.getFloor().length() > 10)
 										sb.append(a.getFloor() + "\t");
@@ -1458,7 +1458,7 @@ public class MainController {
 							ArrayList<AirPortParkingLot> list = new ArrayList<AirPortParkingLot>();
 							list = pDAO.getAPInfo(airport);
 							if (list != null) {
-								sb.append("주차장명\t\t주차장 혼잡도\t 주차장 혼잡률\t 입고된 차량 수\t 전체 주차면 수\t 업데이트 날짜\t 업데이트 시간\n");
+								sb.append("주차구역명\t\t 주차장 혼잡도\t 주차장 혼잡률\t 입고된 차량 수\t 전체 주차면 수\t 업데이트 날짜\t 업데이트 시간\n");
 								for (AirPortParkingLot a : list) {
 									if (a.getParkingAirportCodeName().length() > 8)
 										sb.append(a.getParkingAirportCodeName() + "\t");

@@ -1,10 +1,10 @@
 package Model;
 
 public class InCheonAirPortParkingLot {
-   String floor;
-   String parking;
-   String parkingarea;
-   String datetm;
+   String floor; //주차구역명
+   String parking; //입고된 차량 수
+   String parkingarea; //전체 주차면 수
+   String datetm; //업데이트 시각
    
    
    public String getFloor() {
