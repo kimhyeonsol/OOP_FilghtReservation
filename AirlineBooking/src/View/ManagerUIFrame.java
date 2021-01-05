@@ -622,12 +622,7 @@ public class ManagerUIFrame extends JFrame {
 	public void addChangeListener(ChangeListener changeListener) { //항공 관리 탭팬에 ChangeListener 부착
 		flightPanel.mainJtabUI.addChangeListener((ChangeListener) changeListener);
 	}
-
-	public void setTextArea(JTextArea ta, StringBuffer sb) { //텍스트아리아에 정보 띄우기
-		ta.setText(sb.toString());
-		ta.setCaretPosition(0); //텍스트아리아 맨 위로
-	}
-
+	
 	public void memberDeleteDialog(int result) { //회원 삭제 다이얼로그
 		if (result > 0)
 			JOptionPane.showMessageDialog(null, "회원 삭제 완료!");
