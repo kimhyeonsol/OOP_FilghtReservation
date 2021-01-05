@@ -262,7 +262,7 @@ public class LoginUIFrame extends JFrame {
 		JOptionPane.showMessageDialog(null, "사용 불가능한 ID입니다!");
 	}
 	
-	public void signUpDialog() { //회원가입 텍스트필드 다이얼로그
+	public void signUpDialog() { //회원가입 다이얼로그
 		JOptionPane.showMessageDialog(null, "회원가입되었습니다!");
 	}
 	

@@ -209,7 +209,7 @@ public class MainController {
 					else if (obj == v.myInfoPanel.myInfoUpdatePanel.saveButton) {// 내정보 문서로 저장하기 버튼
 						int ret = v.myInfoPanel.myInfoUpdatePanel.chooser.showSaveDialog(null);
 						if (ret != JFileChooser.APPROVE_OPTION) {
-							JOptionPane.showMessageDialog(null, "경로를 선택하지 않았습니다");
+							v.myInfoSaveDialog();
 							return;
 						}
 						v.myInfoPanel.myInfoUpdatePanel.pathName = v.myInfoPanel.myInfoUpdatePanel.chooser
@@ -224,7 +224,6 @@ public class MainController {
 						} catch (Exception e1) {
 							e1.printStackTrace();
 						}
-						System.out.println("SAVE Done...");
 					}
 
 					else if (obj == v.myInfoPanel.myInfoUpdatePanel.updateButton) {// 내정보 변경하기 버튼
@@ -251,13 +250,13 @@ public class MainController {
 					}
 					
 					else if (obj == v.myInfoPanel.myReservationUpdatePanel.changeSeatBtn) {// 자리변경하기 버튼
-						String resnum = JOptionPane.showInputDialog("자리변경 할 항공편의 예약번호를 입력하세요");
+						String resnum = v.myReservationChangeSeatDialog();
 						v.resNum = 1;
 						
 						// 텍스트 필드에 아무것도 입력되지 않았을 때
 						if(resnum.equals(""))
 						{
-							JOptionPane.showMessageDialog(null, "예약번호가 입력되지 않았습니다");
+							v.myReservationTextFieldDialog();
 							return;
 						}
 						
@@ -285,7 +284,7 @@ public class MainController {
 								}
 							}
 							if (flag == 0) { // 검색한 항목에 없는 예약 id 입력한 경우
-								JOptionPane.showMessageDialog(null, "위 결과에 있는 예약 ID를 입력하세요!");
+								v.myReservationIDDialog();
 								return;
 							}
 						}catch (IOException e1) {
@@ -302,11 +301,11 @@ public class MainController {
 					} 
 					
 					else if (obj == v.myInfoPanel.myReservationUpdatePanel.cancleResBtn) {// 예약취소하기 버튼
-						String resnum = JOptionPane.showInputDialog("예약취소 할 항공편의 예약번호를 입력하세요");
+						String resnum = v.myReservationCancleResDialog();
 						// 텍스트 필드에 아무것도 입력되지 않았을 때
 						if(resnum.equals(""))
 						{
-							JOptionPane.showMessageDialog(null, "예약번호가 입력되지 않았습니다");
+							v.myReservationTextFieldDialog();
 							return;
 						}
 						
@@ -334,7 +333,7 @@ public class MainController {
 								}
 							}
 							if (flag == 0) { // 검색한 항목에 없는 예약 id 입력한 경우
-								JOptionPane.showMessageDialog(null, "위 결과에 있는 예약 ID를 입력하세요!");
+								v.myReservationIDDialog();
 								return;
 							}
 						}catch (IOException e1) {
@@ -363,7 +362,7 @@ public class MainController {
 						String destDate = v.flightResPanel.flightsearchTextField[1].getText();// 오는 날
 
 						if (!v.flightResPanel.radio[1].isSelected() && !v.flightResPanel.radio[0].isSelected()) {
-							JOptionPane.showMessageDialog(null, "편도 왕복 선택해주세요!");
+							v.flightResRadioButtonDialog();
 							return;
 						}
 						int pNum; // 왕복 편도 if 문에서 값 저장함
@@ -374,12 +373,12 @@ public class MainController {
 							// 입력 칸 모두 채웠는지 검사
 							if (departDate.equals("") || destDate.equals("")
 									|| v.flightResPanel.flightsearchTextField[2].getText().equals("")) {
-								JOptionPane.showMessageDialog(null, "입력칸을 모두 채워주세요!");
+								v.flightResTextFieldDialog();
 								return;
 							}
 							// 인원은 숫자로만 입력받아야 하기 때문에 검사
 							if (!isStringDouble(v.flightResPanel.flightsearchTextField[2].getText())) {
-								JOptionPane.showMessageDialog(null, "인원은 숫자로만 입력해주세요.");
+								v.flightResPersonnelDialog();
 								return;
 							}
 
@@ -399,13 +398,13 @@ public class MainController {
 							// 입력칸 검사
 							if (departDate.equals("")
 									|| v.flightResPanel.flightsearchTextField[2].getText().equals("")) {
-								JOptionPane.showMessageDialog(null, "입력칸을 모두 채워주세요!");
+								v.flightResTextFieldDialog();
 								return;
 							}
 							// 인원은 숫자로만 입력받아야 하기 때문에 검사
 							if (!isStringDouble(v.flightResPanel.flightsearchTextField[2].getText())) {
 
-								JOptionPane.showMessageDialog(null, "인원은 숫자로만 입력해주세요.");
+								v.flightResPersonnelDialog();
 								return;
 							}
 
@@ -423,12 +422,12 @@ public class MainController {
 					if (obj == v.flightResPanel.selectSeatButton1) {// 가는자리선택하기 버튼
 						int flag = 0;
 						if (v.flightResPanel.flightsearchTextField[2].getText().equals("")) {// 인원수 textfield 비어있으면
-							JOptionPane.showMessageDialog(null, "탑승할 인원을 선택하세요!");
+							v.flightResTextFieldDialog();
 							return;
 						}
 						if (!isStringDouble(v.flightResPanel.selectedFlightIDTextField1.getText())) {
 							// 운임은 숫자로만 입력해주세요! dialog 띄우기
-							JOptionPane.showMessageDialog(null, "항공권ID는 숫자로만 입력해주세요.");
+							v.flightResIDNumDialog();
 							return;
 						}
 						try {
@@ -454,7 +453,7 @@ public class MainController {
 								}
 							}
 							if (flag == 0) { // 검색한 항목에 없는 항공id 입력한 경우
-								JOptionPane.showMessageDialog(null, "위 결과에 있는 항공권 ID를 입력하세요!");
+								v.flightResIDDialog();
 								return;
 							}
 							if (selectedAirLine == null) {
@@ -474,12 +473,12 @@ public class MainController {
 					if (obj == v.flightResPanel.selectSeatButton2) {// 오는자리선택하기 버튼
 						int flag = 0;
 						if (v.flightResPanel.flightsearchTextField[2].getText().equals("")) {// 인원수 textfield 비어있으면
-							JOptionPane.showMessageDialog(null, "탑승할 인원을 선택하세요!");
+							v.flightResTextFieldDialog();
 							return;
 						}
 						if (!isStringDouble(v.flightResPanel.selectedFlightIDTextField2.getText())) {
 							// 운임은 숫자로만 입력해주세요! dialog 띄우기
-							JOptionPane.showMessageDialog(null, "항공권ID는 숫자로만 입력해주세요.");
+							v.flightResIDNumDialog();
 							return;
 						}
 
@@ -509,7 +508,7 @@ public class MainController {
 							}
 
 							if (flag == 0) { // 검색한 항목에 없는 항공id 입력한 경우
-								JOptionPane.showMessageDialog(null, "위 결과에 있는 항공권 ID를 입력하세요!");
+								v.flightResIDDialog();
 								return;
 							}
 							if (selectedAirLine == null) {
@@ -554,13 +553,13 @@ public class MainController {
 								}
 							}
 						} else {
-							JOptionPane.showMessageDialog(null, v.resNum + "명을 선택해주세요!");
+							v.selectSeatDialog();
 						}
 					}
 
 					else if (obj == v.selectSeatPanel.reserveButton) {// 예약하기버튼
 						if (v.selectSeatPanel.seatlist.size() != v.resNum) {
-							JOptionPane.showMessageDialog(null, v.resNum + "명을 선택해주세요!");
+							v.selectSeatDialog();
 							return;
 						}
 						for (int i = 0; i < v.resNum; i++) {
@@ -689,7 +688,7 @@ public class MainController {
 				if (m.getType().equals("reservationMessage")) {
 					System.out.println("데이터:" + m.getMsg().get(0));
 					if (m.getMsg().get(0).equals("false")) {
-						JOptionPane.showMessageDialog(null, "이미 예약된 좌석: " + seatNum);
+						v.reservedSeatDialog(seatNum);
 					} else {
 
 						int i = Integer.parseInt(m.getMsg().get(1));
@@ -703,7 +702,7 @@ public class MainController {
 						} else if (i < 40) {
 							str += "D";
 						}
-						JOptionPane.showMessageDialog(null, str + (i % 10 + 1) + "예약되셨습니다!");
+						v.selectSeatResDialog(str, i);
 
 						updateSelectedSeat(_selectedAirLine);
 						updateReservationList();

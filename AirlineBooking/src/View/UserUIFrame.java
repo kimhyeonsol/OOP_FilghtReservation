@@ -341,7 +341,6 @@ public class UserUIFrame extends JFrame {// user 프레임(카드레이 아웃)
             cancelButton.setFont(new Font("맑은고딕", Font.BOLD, 12));
             cancelButton.setLocation(280, 475);
             cancelButton.setSize(110, 30);
-//            cancelButton.addActionListener(this);
             componentList.add(cancelButton);
             p[1].add(cancelButton);
 
@@ -351,44 +350,6 @@ public class UserUIFrame extends JFrame {// user 프레임(카드레이 아웃)
             add(mainPanel);
 
          }
-
-//         @Override
-//         public void actionPerformed(ActionEvent e) {
-//
-//            if (e.getSource() == saveButton) {// 내정보 문서로 저장하기 버튼
-//               int ret = chooser.showSaveDialog(null);
-//               if (ret != JFileChooser.APPROVE_OPTION) {
-//                  JOptionPane.showMessageDialog(null, "경로를 선택하지 않았습니다");
-//                  return;
-//               }
-//               pathName = chooser.getSelectedFile().getPath();
-//               File wfile = new File(pathName);
-//               try {
-//                  BufferedWriter writer = new BufferedWriter(new FileWriter(wfile));
-//                  String s;
-//                  s = textArea.getText();
-//                  writer.write(s + "\r\n");
-//                  writer.close();
-//               } catch (Exception e1) {
-//                  e1.printStackTrace();
-//               }
-//               System.out.println("SAVE Done...");
-//            }
-//
-//            else if (e.getSource() == updateButton) {// 내정보 변경하기 버튼
-//               String memo = new String("*항공예약시스템에 저장된 내 정보*\r\n\r\n");
-//               for (int i = 0; i < 6; i++) {
-//                  memo += (infoStr[i] + ": " + textField[i].getText() + "\r\n");
-//               }
-//               textArea.setText(memo);
-//            } else if (e.getSource() == cancelButton) {// 프로그램 탈퇴하기 버튼
-//               String memo = new String("*항공예약시스템에 저장된 내 정보*\r\n\r\n");
-//               for (int i = 0; i < 6; i++) {
-//                  memo += (infoStr[i] + ": " + textField[i].getText() + "\r\n");
-//               }
-//               textArea.setText(memo);
-//            }
-//         }
       }
 
       ////////////////////////////////////////////////////////// 내 항공편 예약 현황
@@ -841,87 +802,7 @@ public class UserUIFrame extends JFrame {// user 프레임(카드레이 아웃)
             setVisible(true);
 
          }
-
-//         @Override
-//         public void actionPerformed(ActionEvent e) {
-//
-//            if (e.getSource() == reserveButton) {// 예약하기버튼
-//               JOptionPane.showMessageDialog(null, "예약되셨습니다!");
-//               card.show(c, "reservation");
-//               cnt = 0;
-//               seatlist.clear();
-//               selectedSeatTextarea.setText("");
-//               for (int i = 0; i < 40; i++) {// 일단 좌석 색깔 다 초기화 시킴, 예약된 좌석은 라벨 x로 바꾸고, 선택 안되게 설정해주어야함.
-//                  if (i % 10 == 0) {
-//                     seatButton[i].setBackground(new Color(112, 48, 160));
-//                  } else {
-//                     seatButton[i].setBackground(new Color(46, 117, 182));
-//                  }
-//               }
-//               return;// 밑에 for문이니깐 예약하기 버튼이면 걍 return 시켜주기
-//            }
-//
-//            for (int i = 0; i < seatButton.length; i++) {
-//
-//               if (e.getSource() == seatButton[i]) {
-//                  for (int j = 0; j < seatlist.size(); j++) {
-//                     if (i == seatlist.get(j)) {
-//                        return;
-//                     }
-//                  }
-//                  seatlist.add(i);
-//                  cnt++;
-//                  if (cnt > resNum) {
-//                     return;
-//                  }
-//                  seatButton[i].setBackground(new Color(255, 192, 0));
-//                  seatButton[i].setFocusPainted(false);
-//                  String str = "";
-//                  if (i < 10) {
-//                     str += "A";
-//                  } else if (i < 20) {
-//                     str += "B";
-//                  } else if (i < 30) {
-//                     str += "C";
-//                  } else if (i < 40) {
-//                     str += "D";
-//                  }
-//                  selectedSeatTextarea.setText(selectedSeatTextarea.getText() + "  " + str + (i % 10 + 1));
-//               }
-//
-//               else if (e.getSource() == resetButton) {// 좌석초기화 버튼
-//                  if (i % 10 == 0) {
-//                     seatButton[i].setBackground(new Color(112, 48, 160));
-//                  } else {
-//                     seatButton[i].setBackground(new Color(46, 117, 182));
-//                  }
-//                  cnt = 0;
-//                  seatlist.clear();
-//                  selectedSeatTextarea.setText("");
-//               }
-//            }
-//         }
       }
-
-//      @Override
-//      public void actionPerformed(ActionEvent e) {
-//         // TODO Auto-generated method stub
-//         if (e.getSource() == backButton) {// 뒤로가기 버튼
-//            card.show(c, "reservation");
-//
-//            cnt = 0;
-//            seatlist.clear();
-//            selectedSeatTextarea.setText("");
-//
-//            for (int i = 0; i < 40; i++) {
-//               if (i % 10 == 0) {
-//                  seatButton[i].setBackground(new Color(112, 48, 160));
-//               } else {
-//                  seatButton[i].setBackground(new Color(46, 117, 182));
-//               }
-//            }
-//         }
-//      }
    }
 
    
@@ -935,11 +816,63 @@ public class UserUIFrame extends JFrame {// user 프레임(카드레이 아웃)
       for (JButton comp : componentList) {
          comp.addActionListener(listener);
       }
-      // RegisterFlightPanel
+
       myInfoPanel.searchAirPortParkingLot.addActionListener(listener);
       flightResPanel.departureAirportCombo.addActionListener(listener);
       flightResPanel.destAirportCombo.addActionListener(listener);
-
    }
-
+   
+   public void myInfoSaveDialog() { //내 정보 문서로 저장 다이얼로그
+		JOptionPane.showMessageDialog(null, "경로를 선택하지 않았습니다!");
+   }
+   
+   public String myReservationChangeSeatDialog() { //자리 변경 다이얼로그
+		String resnum = JOptionPane.showInputDialog("자리변경 할 항공편의 예약번호를 입력하세요.");
+		return resnum;
+   }
+   
+   public String myReservationCancleResDialog() { //예약 취소 다이얼로그
+		String resnum = JOptionPane.showInputDialog("예약취소 할 항공편의 예약번호를 입력하세요.");
+		return resnum;
+   }
+   
+   public void myReservationTextFieldDialog() { //내 예약 변경 다이얼로그
+		JOptionPane.showMessageDialog(null, "예약번호가 입력되지 않았습니다!");
+   }
+   
+   public void myReservationIDDialog() { //내 예약 ID 다이얼로그
+		JOptionPane.showMessageDialog(null, "잘못된 예약 ID 입니다!");
+   }
+   
+   public void flightResRadioButtonDialog() { //편도,왕복 다이얼로그
+		JOptionPane.showMessageDialog(null, "편도/왕복 선택해주세요!");
+   }
+   
+   public void flightResTextFieldDialog() { //항공 검색 텍스트필드 다이얼로그
+		JOptionPane.showMessageDialog(null, "입력칸을 모두 채워주세요!");
+   }
+   
+   public void flightResPersonnelDialog() { //항공 검색 인원 텍스트필드 다이얼로그
+		JOptionPane.showMessageDialog(null, "인원은 숫자로만 입력해주세요!");
+   }
+   
+   public void flightResIDNumDialog() { //항공권 ID 숫자로 입력 텍스트필드 다이얼로그
+		JOptionPane.showMessageDialog(null, "항공권ID는 숫자로만 입력해주세요!");
+   }
+   
+   public void flightResIDDialog() { //항공권 ID 오류 텍스트필드 다이얼로그
+		JOptionPane.showMessageDialog(null, "잘못된 항공권 ID 입니다!");
+   }
+   
+   public void selectSeatDialog() { //좌석 선택 인원 다이얼로그
+	   JOptionPane.showMessageDialog(null, resNum + "명을 선택해주세요!");
+   }
+   
+   public void reservedSeatDialog(int seatNum) { //예약된 좌석 선택 다이얼로그
+	   JOptionPane.showMessageDialog(null, "이미 예약된 좌석: " + seatNum);
+   }
+   
+   public void selectSeatResDialog(String str, int i) { //좌석 예약 다이얼로그
+	   JOptionPane.showMessageDialog(null, str + (i % 10 + 1) + "예약되셨습니다!");
+   }
 }
