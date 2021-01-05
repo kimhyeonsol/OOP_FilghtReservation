@@ -1,24 +1,15 @@
 package Model;
 public class AirPortParkingLot {
    
-   String airportEng; //공항 영어로
-   String airportKor; //공항 한국어로
-   String parkingAirportCodeName; //주차장 구역
-   String parkingCongestion; //혼잡도
-   String parkingCongestionDegree; //혼잡률
+   String airportKor; //공항명(한글)
+   String parkingAirportCodeName; //주차구역명
+   String parkingCongestion; //주차장 혼잡도
+   String parkingCongestionDegree; //주차장 혼잡률
    String parkingOccupiedSpace; //입고된 차량 수
-   String parkingTotalSpace; // 전체 주차면 수
+   String parkingTotalSpace; //전체 주차면 수
    String sysGetdate; //업데이트 날짜
    String sysGettime; //업데이트 시각
    
-  
-   public String getAirportEng() {
-         return airportEng;
-   }
-
-   public void setAirportEng(String airportEng) {
-         this.airportEng = airportEng;
-   }
    
    ////////////////////////////////////////////////
    

@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 public class AirPortParkingLotDAO {
-   //String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-   String jdbcDriver = "com.mysql.jdbc.Driver";
+   String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+   //String jdbcDriver = "com.mysql.jdbc.Driver";
    String jdbcUrl = "jdbc:mysql://localhost:3306/madang?&serverTimezone=Asia/Seoul&useSSL=false";
    Connection conn;
 
@@ -48,7 +48,7 @@ public class AirPortParkingLotDAO {
       }
    }
 
-   public ArrayList<AirPortParkingLot> getAPInfo(String airPort) {
+   public ArrayList<AirPortParkingLot> getAPInfo(String airPort) { //airPort값과 일치하는 공항의 주차장 정보를 가져옴
       
       try {
          sql = "select * from airportlot where airportKor = ? ";
@@ -61,7 +61,6 @@ public class AirPortParkingLotDAO {
 
          while (rs.next()) {
         	AirPortParkingLot p = new AirPortParkingLot();
-            p.setAirportEng(rs.getString("airportEng"));
             p.setAirportKor(rs.getString("airportKor"));
             p.setParkingAirportCodeName(rs.getString("parkingAirportCodeName"));
             p.setParkingCongestion(rs.getString("parkingCongestion"));
@@ -81,7 +80,7 @@ public class AirPortParkingLotDAO {
       return null;
    }
 
-   public ArrayList<InCheonAirPortParkingLot> getICAPInfo() {
+   public ArrayList<InCheonAirPortParkingLot> getICAPInfo() { //인천 공항 주차장 정보를 가져옴
       
       try {
          sql = "select * from incheonairportlot";

@@ -31,12 +31,11 @@ public class ManagerUIFrame extends JFrame {
 	public BufferedImage backImage, menuImage1, menuImage2, menuImage3;
 	public BufferedImage backButtonImg, pageImg; // 이미지
 
-	public ManagerMenuPanel managerMenuPanel = new ManagerMenuPanel(); // 메뉴 패널
+	// controller에서 필요한 것들
+	public ManagerMenuPanel managerMenuPanel = new ManagerMenuPanel(); // 관리자 메뉴 패널
 	public MemberManagerPanel managerPanel = new MemberManagerPanel(); // 회원 관리 패널
 	public ManagerReservationPanel reservationPanel = new ManagerReservationPanel(); // 예약 관리 패널
 	public ManagerFlightPanel flightPanel = new ManagerFlightPanel(); // 항공 관리 패널
-
-	String font = "함초롬돋움";
 
 	public Container c;
 	public CardLayout card;
@@ -60,11 +59,11 @@ public class ManagerUIFrame extends JFrame {
 		setVisible(true);
 	}
 
-	public void managerMenuExit() {
+	public void managerMenuExit() { //관리자 페이지 프레임 닫음
 		this.dispose();
 	}
 
-	class GoBackButton extends JButton {
+	class GoBackButton extends JButton { //뒤로가기 버튼
 		GoBackButton() {
 			try {
 				backButtonImg = ImageIO.read(new File("뒤로가기.png"));
@@ -127,7 +126,8 @@ public class ManagerUIFrame extends JFrame {
 	}
 
 	public class ManagerMenuPanel extends JPanel { // 관리자 메뉴 패널
-		public GoBackButton backButton = new GoBackButton(); // 돌아가기 버튼
+		// controller에서 필요한 것들
+		public GoBackButton backButton = new GoBackButton(); // 뒤로가기 버튼
 		public memberManageButton memButton = new memberManageButton(); // 회원 관리 버튼
 		public reservationManageButton resButton = new reservationManageButton(); // 예약 관리 버튼
 		public flightManageButton fliButton = new flightManageButton(); // 항공 관리 버튼
@@ -162,11 +162,12 @@ public class ManagerUIFrame extends JFrame {
 	////////////////////////////////// 회원관리 패널///////////////////////////////
 
 	public class MemberManagerPanel extends JPanel {
-		public GoBackButton backButton = new GoBackButton(); // 돌아가기 버튼
+		// controller에서 필요한 것들
+		public GoBackButton backButton = new GoBackButton(); // 뒤로가기 버튼
 		public JTextField memDeletetextField = new JTextField(); // 회원 삭제 텍스트필드
-		public JButton memDeleteButton = new JButton("삭제하기"); // 삭제하기 버튼
-		public JButton memSearchButton = new JButton("조회하기"); // 조회하기 버튼
-		public JTextArea textArea_m = new JTextArea(29, 43); // 회원 조회 textArea
+		public JButton memDeleteButton = new JButton("삭제하기"); // 회원 '삭제하기' 버튼
+		public JButton memSearchButton = new JButton("조회하기"); // 회원 '조회하기' 버튼
+		public JTextArea memTextArea = new JTextArea(29, 43); // 회원 조회 textArea
 
 		MemberManagerPanel() {
 			try {
@@ -226,8 +227,8 @@ public class ManagerUIFrame extends JFrame {
 				searchPanel[0].setLayout(new FlowLayout());
 				searchPanel[0].add(memSearchButton);
 
-				textArea_m.setEditable(false);
-				searchPanel[1].add(new JScrollPane(textArea_m));
+				memTextArea.setEditable(false);
+				searchPanel[1].add(new JScrollPane(memTextArea));
 
 				p[0].add(searchPanel[0], BorderLayout.NORTH);
 				p[0].add(searchPanel[1], BorderLayout.CENTER);
@@ -262,9 +263,10 @@ public class ManagerUIFrame extends JFrame {
 	///////////////////////////// 예약 관리 패널/////////////////////////////////
 
 	public class ManagerReservationPanel extends JPanel {
-		public GoBackButton backButton = new GoBackButton(); // 돌아가기 버튼
-		public JTextArea textArea_r = new JTextArea(29, 87); // 예약 조회 textArea
-		public JButton reservationSearchButton = new JButton("조회하기"); // 조회 버튼
+		// controller에서 필요한 것들
+		public GoBackButton backButton = new GoBackButton(); // 뒤로가기 버튼
+		public JTextArea resTextArea = new JTextArea(29, 87); // 예약 조회 textArea
+		public JButton reservationSearchButton = new JButton("조회하기"); // 예약 '조회하기' 버튼
 
 		ManagerReservationPanel() {
 			try {
@@ -293,12 +295,12 @@ public class ManagerUIFrame extends JFrame {
 			setVisible(true);
 		}
 
-		protected void paintComponent(Graphics g) {
+		protected void paintComponent(Graphics g) { //배경 이미지 삽입
 			super.paintComponent(g);
 			g.drawImage(pageImg, 0, 0, getWidth(), getHeight(), null);
 		}
 
-		class ReservationSearch extends JPanel { // 예약 조회
+		class ReservationSearch extends JPanel { // 예약 조회 패널
 			JPanel mainPanel = new JPanel();
 			JPanel p[] = new JPanel[2];
 
@@ -314,8 +316,8 @@ public class ManagerUIFrame extends JFrame {
 				reservationSearchButton.setBackground(new Color(128, 128, 128));
 
 				p[0].add(reservationSearchButton);
-				textArea_r.setEditable(false);
-				p[1].add(new JScrollPane(textArea_r));
+				resTextArea.setEditable(false);
+				p[1].add(new JScrollPane(resTextArea));
 
 				mainPanel.setLayout(new BorderLayout());
 				mainPanel.add(p[0], BorderLayout.NORTH);
@@ -331,24 +333,24 @@ public class ManagerUIFrame extends JFrame {
 	public class ManagerFlightPanel extends JPanel {
 
 		// controller에서 필요한 것들
-		public GoBackButton backButton = new GoBackButton(); // 돌아가기 버튼
+		public GoBackButton backButton = new GoBackButton(); // 뒤로가기 버튼
 		public JTabbedPane mainJtabUI; // 항공 관리 패널 탭팬
-		public JButton flightSearchButton_c = new JButton("조회하기"); // 조회하기 버튼
-		public JTextArea textArea_c = new JTextArea(29, 43); // 모든 항공 조회 textArea
-		public JButton flightSearchButton_u = new JButton("조회하기"); // 조회하기 버튼
-		public JTextArea textArea_u = new JTextArea(29, 43); // 모든 항공 조회 textArea
-		public JButton flightSearchButton_d = new JButton("조회하기"); // 조회하기 버튼
-		public JTextArea textArea_d = new JTextArea(29, 43); // 모든 항공 조회 textArea
+		public JButton flightCreateSearchButton = new JButton("조회하기"); // 항공 등록 탭팬의 조회하기 버튼
+		public JTextArea createTextArea = new JTextArea(29, 43); // 항공 등록 탭팬의 모든 항공 조회 textArea
+		public JButton flightUpdateSearchButton = new JButton("조회하기"); // 항공 변경 탭팬의 조회하기 버튼
+		public JTextArea updateTextArea = new JTextArea(29, 43); // 항공 변경 탭팬의 모든 항공 조회 textArea
+		public JButton flightDeleteSearchButton = new JButton("조회하기"); // 항공 삭제 탭팬의 조회하기 버튼
+		public JTextArea deleteTextArea = new JTextArea(29, 43); // 항공 삭제 탭팬의 모든 항공 조회 textArea
 
-		public JButton flightCreateButton = new JButton("등록하기"); // 등록하기 버튼
+		public JButton flightCreateButton = new JButton("등록하기"); // 항공 '등록하기' 버튼
 		public JTextField fliCreatetextField[] = new JTextField[5]; // 항공 등록 텍스트필드
 		public JComboBox departureAirportCreateCombo = new JComboBox(); // 항공 등록에서 출발 공항 콤보박스
 		public JComboBox destAirportCreateCombo = new JComboBox(); // 항공 등록에서 도착 공항 콤보박스
 		public String comboStr[] = { "인천", "김포", "제주", "대구", "김해" };
 
-		public JButton flightUpdateButton = new JButton("변경하기"); // 변경하기 버튼
+		public JButton flightUpdateButton = new JButton("변경하기"); // 항공 '변경하기' 버튼
 		public JTextField fliUpdatetextField[] = new JTextField[5]; // 항공 변경 텍스트필드
-		public JButton flightDeleteButton = new JButton("삭제하기"); // 삭제하기 버튼
+		public JButton flightDeleteButton = new JButton("삭제하기"); // 항공 '삭제하기' 버튼
 		public JTextField fliDeletetextField = new JTextField(); // 항공 삭제 텍스트필드
 
 		ManagerFlightPanel() {
@@ -404,15 +406,15 @@ public class ManagerUIFrame extends JFrame {
 
 				p[0].setLayout(new BorderLayout());
 
-				flightSearchButton_c.setFocusPainted(false);
-				flightSearchButton_c.setFont(new Font("맑은고딕", Font.BOLD, 15));
-				flightSearchButton_c.setForeground(new Color(255, 255, 255));
-				flightSearchButton_c.setBackground(new Color(128, 128, 128));
+				flightCreateSearchButton.setFocusPainted(false);
+				flightCreateSearchButton.setFont(new Font("맑은고딕", Font.BOLD, 15));
+				flightCreateSearchButton.setForeground(new Color(255, 255, 255));
+				flightCreateSearchButton.setBackground(new Color(128, 128, 128));
 
 				searchPanel[0].setLayout(new FlowLayout());
-				searchPanel[0].add(flightSearchButton_c);
-				textArea_c.setEditable(false);
-				searchPanel[1].add(new JScrollPane(textArea_c));
+				searchPanel[0].add(flightCreateSearchButton);
+				createTextArea.setEditable(false);
+				searchPanel[1].add(new JScrollPane(createTextArea));
 
 				p[0].add(searchPanel[0], BorderLayout.NORTH);
 				p[0].add(searchPanel[1], BorderLayout.CENTER);
@@ -491,15 +493,15 @@ public class ManagerUIFrame extends JFrame {
 
 				p[0].setLayout(new BorderLayout());
 
-				flightSearchButton_u.setFocusPainted(false);
-				flightSearchButton_u.setFont(new Font("맑은고딕", Font.BOLD, 15));
-				flightSearchButton_u.setForeground(new Color(255, 255, 255));
-				flightSearchButton_u.setBackground(new Color(128, 128, 128));
+				flightUpdateSearchButton.setFocusPainted(false);
+				flightUpdateSearchButton.setFont(new Font("맑은고딕", Font.BOLD, 15));
+				flightUpdateSearchButton.setForeground(new Color(255, 255, 255));
+				flightUpdateSearchButton.setBackground(new Color(128, 128, 128));
 
 				searchPanel[0].setLayout(new FlowLayout());
-				searchPanel[0].add(flightSearchButton_u);
-				textArea_u.setEditable(false);
-				searchPanel[1].add(new JScrollPane(textArea_u));
+				searchPanel[0].add(flightUpdateSearchButton);
+				updateTextArea.setEditable(false);
+				searchPanel[1].add(new JScrollPane(updateTextArea));
 
 				p[0].add(searchPanel[0], BorderLayout.NORTH);
 				p[0].add(searchPanel[1], BorderLayout.CENTER);
@@ -554,15 +556,15 @@ public class ManagerUIFrame extends JFrame {
 
 				p[0].setLayout(new BorderLayout());
 
-				flightSearchButton_d.setFocusPainted(false);
-				flightSearchButton_d.setFont(new Font("맑은고딕", Font.BOLD, 15));
-				flightSearchButton_d.setForeground(new Color(255, 255, 255));
-				flightSearchButton_d.setBackground(new Color(128, 128, 128));
+				flightDeleteSearchButton.setFocusPainted(false);
+				flightDeleteSearchButton.setFont(new Font("맑은고딕", Font.BOLD, 15));
+				flightDeleteSearchButton.setForeground(new Color(255, 255, 255));
+				flightDeleteSearchButton.setBackground(new Color(128, 128, 128));
 
 				searchPanel[0].setLayout(new FlowLayout());
-				searchPanel[0].add(flightSearchButton_d);
-				textArea_d.setEditable(false);
-				searchPanel[1].add(new JScrollPane(textArea_d));
+				searchPanel[0].add(flightDeleteSearchButton);
+				deleteTextArea.setEditable(false);
+				searchPanel[1].add(new JScrollPane(deleteTextArea));
 
 				p[0].add(searchPanel[0], BorderLayout.NORTH);
 				p[0].add(searchPanel[1], BorderLayout.CENTER);
@@ -595,7 +597,7 @@ public class ManagerUIFrame extends JFrame {
 		}
 	}
 
-	public void addButtonActionListener(ActionListener listener) {
+	public void addButtonActionListener(ActionListener listener) { //버튼에 ActionListener 부착
 		managerMenuPanel.backButton.addActionListener(listener);
 		managerMenuPanel.memButton.addActionListener(listener);
 		managerMenuPanel.resButton.addActionListener(listener);
@@ -605,9 +607,9 @@ public class ManagerUIFrame extends JFrame {
 		managerPanel.memDeleteButton.addActionListener(listener);
 		managerPanel.memSearchButton.addActionListener(listener);
 
-		flightPanel.flightSearchButton_c.addActionListener(listener);
-		flightPanel.flightSearchButton_u.addActionListener(listener);
-		flightPanel.flightSearchButton_d.addActionListener(listener);
+		flightPanel.flightCreateSearchButton.addActionListener(listener);
+		flightPanel.flightUpdateSearchButton.addActionListener(listener);
+		flightPanel.flightDeleteSearchButton.addActionListener(listener);
 
 		flightPanel.flightCreateButton.addActionListener(listener);
 		flightPanel.flightUpdateButton.addActionListener(listener);
@@ -617,37 +619,37 @@ public class ManagerUIFrame extends JFrame {
 		reservationPanel.backButton.addActionListener(listener);
 	}
 
-	public void addChangeListener(ChangeListener changeListener) {
+	public void addChangeListener(ChangeListener changeListener) { //항공 관리 탭팬에 ChangeListener 부착
 		flightPanel.mainJtabUI.addChangeListener((ChangeListener) changeListener);
 	}
 
-	public void setTextArea(JTextArea ta, StringBuffer sb) {
+	public void setTextArea(JTextArea ta, StringBuffer sb) { //텍스트아리아에 정보 띄우기
 		ta.setText(sb.toString());
-		ta.setCaretPosition(0);
+		ta.setCaretPosition(0); //텍스트아리아 맨 위로
 	}
 
-	public void memberDeleteDialog(int result) {
+	public void memberDeleteDialog(int result) { //회원 삭제 다이얼로그
 		if (result > 0)
 			JOptionPane.showMessageDialog(null, "회원 삭제 완료!");
 		else
 			JOptionPane.showMessageDialog(null, "회원 삭제 실패!");
 	}
 
-	public void flightCreateDialog(int result) {
+	public void flightCreateDialog(int result) { //항공 등록 다이얼로그
 		if (result > 0)
 			JOptionPane.showMessageDialog(null, "항공 등록 완료!");
 		else
 			JOptionPane.showMessageDialog(null, "항공 등록 실패!");
 	}
 
-	public void flightUpdateDialog(int result) {
+	public void flightUpdateDialog(int result) { //항공 변경 다이얼로그
 		if (result > 0)
 			JOptionPane.showMessageDialog(null, "항공 변경 완료!");
 		else
 			JOptionPane.showMessageDialog(null, "항공 변경 실패!");
 	}
 
-	public void flightDeleteDialog(int result) {
+	public void flightDeleteDialog(int result) { //항공 삭제 다이얼로그
 		if (result > 0)
 			JOptionPane.showMessageDialog(null, "항공 삭제 완료!");
 		else
