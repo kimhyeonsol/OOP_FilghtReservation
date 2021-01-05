@@ -312,5 +312,28 @@ public class LoginUIFrame extends JFrame {
 			comp.addActionListener(listener);
 		}
 	}
+	
+	public void signUpTextFieldDialog() { //회원가입 텍스트필드 다이얼로그
+		JOptionPane.showMessageDialog(null, "입력칸을 모두 채워주세요!");
+	}
+	
+	public void signUpIDDialog() { //회원가입 ID 다이얼로그
+		JOptionPane.showMessageDialog(null, "사용 불가능한 ID입니다!");
+	}
+	
+	public void signUpDialog() { //회원가입 텍스트필드 다이얼로그
+		JOptionPane.showMessageDialog(null, "회원가입되었습니다!");
+	}
+	
+	public void loginMemberInfoDialog() { //로그인 회원정보 다이얼로그
+		JOptionPane.showMessageDialog(null, "존재하지 않는 회원정보입니다!");
+	}
+	
+	public void loginPasswordDialog() { //로그인 비밀번호 다이얼로그
+		JOptionPane.showMessageDialog(null, "비밀번호를 틀렸습니다!");
+	}
+	
+	
+	
 
 }

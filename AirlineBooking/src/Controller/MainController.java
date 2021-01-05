@@ -1019,13 +1019,13 @@ public class MainController {
 								|| v.flightPanel.fliCreatetextField[2].getText().equals("")
 								|| v.flightPanel.fliCreatetextField[3].getText().equals("")
 								|| v.flightPanel.fliCreatetextField[4].getText().equals("")) {
-							JOptionPane.showMessageDialog(null, "입력칸을 모두 채워주세요!");
+							v.flightTextFieldDialog();
 							return;
 						}
 						// 운임은 숫자로만 입력해야 되기 때문에 검사
 						if (!isStringDouble(v.flightPanel.fliCreatetextField[3].getText())
 								|| !isStringDouble(v.flightPanel.fliCreatetextField[4].getText())) {
-							JOptionPane.showMessageDialog(null, "운임은 숫자로만 입력해주세요.");
+							v.flightFreightDialog();
 							return;
 						}
 						info.setAirLineNm(v.flightPanel.fliCreatetextField[0].getText());
@@ -1083,19 +1083,19 @@ public class MainController {
 								|| v.flightPanel.fliUpdatetextField[2].getText().equals("")
 								|| v.flightPanel.fliUpdatetextField[3].getText().equals("")
 								|| v.flightPanel.fliUpdatetextField[4].getText().equals("")) {
-							JOptionPane.showMessageDialog(null, "입력칸을 모두 채워주세요!");
+							v.flightTextFieldDialog();
 							return;
 						}
 						
 						// 항공권 id와 운임은 int형이기 때문에 숫자로만 입력되어야 함
 						if (!isStringDouble(v.flightPanel.fliUpdatetextField[0].getText())) {
-							JOptionPane.showMessageDialog(null, "항공권 ID는 숫자로만 입력해주세요.");
+							v.flightIDDialog();
 							return;
 						}
 
 						if (!isStringDouble(v.flightPanel.fliUpdatetextField[3].getText())
 								|| !isStringDouble(v.flightPanel.fliUpdatetextField[4].getText())) {
-							JOptionPane.showMessageDialog(null, "운임은 숫자로만 입력해주세요.");
+							v.flightFreightDialog();
 							return;
 						}
 						info.setID(Integer.parseInt(v.flightPanel.fliUpdatetextField[0].getText()));
@@ -1139,13 +1139,13 @@ public class MainController {
 					if (obj == v.flightPanel.flightDeleteButton) {
 						// 텍스트필드 입력 되었는지 검사
 						if (v.flightPanel.fliDeletetextField.getText().equals("")) {
-							JOptionPane.showMessageDialog(null, "입력칸을  채워주세요!");
+							v.flightTextFieldDialog();
 							return;
 						}
 						
 						// 항공권 id와 운임은 int형이기 때문에 숫자로만 입력되어야 함
 						if (!isStringDouble(v.flightPanel.fliDeletetextField.getText())) {
-							JOptionPane.showMessageDialog(null, "항공권 ID는 숫자로만 입력해주세요.");
+							v.flightIDDialog();
 							return;
 						}
 
@@ -1318,7 +1318,6 @@ public class MainController {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-//               public class StartUIPanel extends JPanel {
 					Object obj = e.getSource();
 					if (obj == v.startUIPanel.managerButton) {
 						System.out.println("매니저");
@@ -1328,9 +1327,6 @@ public class MainController {
 					}
 					if (obj == v.startUIPanel.userButton) {
 						System.out.println("사용자");
-//                  LF = new View.LoginUIFrame();
-//                  MCT.setLoginC(LF);
-//                  v.
 						v.card.next(v.c);
 					}
 
@@ -1338,15 +1334,12 @@ public class MainController {
 						System.out.println("로그인");
 					}
 
-//               public LoginUIPanel loginUIpanel=new LoginUIPanel();
-
 					if (obj == v.loginUIpanel.loginButton[0]) {// 로그인 버튼
 						v.userId = v.loginUIpanel.loginTextField[0].getText();
 						String pw = v.loginUIpanel.loginTextField[1].getText();
 						uDAO = new UserDAO();
 						if (uDAO.getUser(v.userId) == null) {
-							System.out.println("실행");
-							JOptionPane.showMessageDialog(null, "존재하지 않는 회원정보입니다.");
+							v.loginMemberInfoDialog();
 							return;
 						} else {
 							if (uDAO.getUser(v.userId).getPw().equals(pw)) {
@@ -1354,7 +1347,7 @@ public class MainController {
 								MCT.setUserC(UF);
 								v.loginUIFrameExit();
 							} else {
-								JOptionPane.showMessageDialog(null, "비밀번호를 틀렸습니다.");
+								v.loginPasswordDialog();
 								return;
 							}
 
@@ -1368,8 +1361,6 @@ public class MainController {
 						v.card.show(v.c, "1");
 					}
 
-//               public void actionPerformed(ActionEvent e) {
-//               class SignUpPanel extends JPanel implements ActionListener {
 
 					if (obj == v.signUpPanel.signUpButton) {// 회원가입 버튼
 
@@ -1379,7 +1370,7 @@ public class MainController {
 								|| v.signUpPanel.textField[3].getText().equals("")
 								|| v.signUpPanel.textField[4].getText().equals("")
 								|| v.signUpPanel.textField[5].getText().equals("")) {
-							JOptionPane.showMessageDialog(null, "입력칸을 모두 채워주세요!");
+							v.signUpTextFieldDialog();
 							return;
 						}
 
@@ -1392,13 +1383,13 @@ public class MainController {
 						user.setUser(userData);
 
 						if (!uDAO.newUser(user)) {
-							JOptionPane.showMessageDialog(null, "사용불가능한 ID입니다.");
+							v.signUpIDDialog();
 							for (int i = 0; i < 6; i++) {
 								v.signUpPanel.textField[i].setText("");
 							}
 							return;
 						}
-						JOptionPane.showMessageDialog(null, "회원가입되었습니다!!");
+						v.signUpDialog();
 
 						for (int i = 0; i < 6; i++) {
 							v.signUpPanel.textField[i].setText("");

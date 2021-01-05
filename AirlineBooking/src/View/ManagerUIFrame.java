@@ -650,5 +650,19 @@ public class ManagerUIFrame extends JFrame {
 		else
 			JOptionPane.showMessageDialog(null, "항공 삭제 실패!");
 	}
+	
+	public void flightTextFieldDialog() { //항공 텍스트필드 다이얼로그
+		JOptionPane.showMessageDialog(null, "입력칸을 모두 채워주세요!");
+	}
+	
+	public void flightFreightDialog() { //항공 운임 다이얼로그
+		JOptionPane.showMessageDialog(null, "운임은 숫자로만 입력해주세요!");
+	}
+	
+	public void flightIDDialog() { //항공권 ID 다이얼로그
+		JOptionPane.showMessageDialog(null, "항공권 ID는 숫자로만 입력해주세요!");
+	}
+	
+	
 
 }
