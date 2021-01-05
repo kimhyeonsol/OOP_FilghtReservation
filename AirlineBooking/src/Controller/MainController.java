@@ -952,7 +952,8 @@ public class MainController {
 								sb.append(p.getPrestigeCharge() + "\t\n");
 							}
 						}
-						v.setTextArea(v.flightPanel.createTextArea, sb);
+						v.flightPanel.createTextArea.setText(sb.toString());
+						v.flightPanel.createTextArea.setCaretPosition(0); //텍스트아리아 맨 위로
 					}
 					
 					// 항공 변경 창 - 조회하기 버튼
@@ -978,7 +979,8 @@ public class MainController {
 								sb.append(p.getPrestigeCharge() + "\t\n");
 							}
 						}
-						v.setTextArea(v.flightPanel.updateTextArea, sb);
+						v.flightPanel.updateTextArea.setText(sb.toString());
+						v.flightPanel.updateTextArea.setCaretPosition(0);
 					}
 
 					// 항공 삭제 창 - 조회하기 버튼
@@ -1004,7 +1006,8 @@ public class MainController {
 								sb.append(p.getPrestigeCharge() + "\t\n");
 							}
 						}
-						v.setTextArea(v.flightPanel.deleteTextArea, sb);
+						v.flightPanel.deleteTextArea.setText(sb.toString());
+						v.flightPanel.deleteTextArea.setCaretPosition(0);
 					}
 
 					//항공 등록하기 버튼
@@ -1066,7 +1069,8 @@ public class MainController {
 								sb.append(p.getPrestigeCharge() + "\t\n");
 							}
 						}
-						v.setTextArea(v.flightPanel.createTextArea, sb);
+						v.flightPanel.createTextArea.setText(sb.toString());
+						v.flightPanel.createTextArea.setCaretPosition(0);
 					}
 					
 					// 항공 변경하기 버튼
@@ -1127,7 +1131,8 @@ public class MainController {
 								sb.append(p.getPrestigeCharge() + "\t\n");
 							}
 						}
-						v.setTextArea(v.flightPanel.updateTextArea, sb);
+						v.flightPanel.updateTextArea.setText(sb.toString());
+						v.flightPanel.updateTextArea.setCaretPosition(0);
 					}
 					
 					// 항공 삭제하기 버튼
@@ -1172,7 +1177,8 @@ public class MainController {
 								sb.append(p.getPrestigeCharge() + "\t\n");
 							}
 						}
-						v.setTextArea(v.flightPanel.deleteTextArea, sb);
+						v.flightPanel.deleteTextArea.setText(sb.toString());
+						v.flightPanel.deleteTextArea.setCaretPosition(0);
 
 					}
 					
@@ -1203,7 +1209,8 @@ public class MainController {
 
 							}
 						}
-						v.setTextArea(v.managerPanel.memTextArea, sb);
+						v.managerPanel.memTextArea.setText(sb.toString());
+						v.managerPanel.memTextArea.setCaretPosition(0);
 
 					}
 
@@ -1236,6 +1243,7 @@ public class MainController {
 							}
 						}
 						v.managerPanel.memTextArea.setText(sb.toString());
+						v.managerPanel.memTextArea.setCaretPosition(0);
 
 					}
 					
@@ -1279,6 +1287,7 @@ public class MainController {
 						}
 
 						v.reservationPanel.resTextArea.setText(reservationListStr);
+						v.reservationPanel.resTextArea.setCaretPosition(0);
 					}
 				}
 
