@@ -298,7 +298,7 @@ public class Server {
 
 	public static void main(String[] args) throws SQLException {
 		Server server = new Server();
-		new Parser();//파싱
+		//new Parser();//파싱
 		server.start();//서버 스타트
 	}
 }

@@ -25,7 +25,8 @@ public class Parser extends Conf{
 	static int count=0;
 	static int index=0;
 	static String[][] realOutput = new String[20][2];
-	 
+	java.sql.Statement st;
+	int r;
 	   
 	   Scanner scanner=new Scanner(System.in);
 	   
@@ -50,25 +51,57 @@ public class Parser extends Conf{
 			e.printStackTrace();
 		}
 		connectDB();
+		//////////////////////////////
 		
+		
+		st = conn.createStatement();
+		//r = st.executeUpdate(sql);
+		
+		//airlineinfo 테이블 생성
+		sql = "CREATE TABLE airlineinfo(\r\n" + "ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,\r\n"
+				+ "airLineNm VARCHAR(45) NOT NULL,\r\n" + "arrAirportNm VARCHAR(45) NOT NULL,\r\n"
+				+ "arrPlandTime VARCHAR(12) NOT NULL,\r\n" + "depAirportNm VARCHAR(45) NOT NULL,\r\n"
+				+ "depPlandTime VARCHAR(12) NOT NULL,\r\n" + "economyCharge INT NULL,\r\n"
+				+ "prestigeCharge INT NULL\r\n" +  ")";
+		r = st.executeUpdate(sql);
+	
+		
+		//user table 생성
+		sql = "CREATE TABLE user(\r\n" + "ID VARCHAR(45) PRIMARY KEY NOT NULL,\r\n"
+				+ "name VARCHAR(45) NOT NULL,\r\n" + "pw VARCHAR(45) NOT NULL,\r\n"
+				+ "email VARCHAR(45) NOT NULL,\r\n" + "birth VARCHAR(8) NOT NULL,\r\n"
+				+ "phone VARCHAR(11) NOT NULL\r\n"  + ")";
+		r = st.executeUpdate(sql);
+		
+		//reservation table 생성
+		sql = "CREATE TABLE reservation(\r\n" + "ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,\r\n"
+				+ "user VARCHAR(45) NOT NULL,\r\n" + "info INT NOT NULL,\r\n"
+				+ "seatNum INT NULL\r\n" + ")";
+		r = st.executeUpdate(sql);
+		
+		sql = "ALTER TABLE reservation \r\n" + "ADD CONSTRAINT user\r\n" + 
+				"  FOREIGN KEY (user)\r\n" + 
+				"  REFERENCES airplanereservation.user (ID)\r\n" + 
+				"  ON DELETE CASCADE\r\n" + 
+				"  ON UPDATE NO ACTION, " + "ADD CONSTRAINT info\r\n" + 
+						"  FOREIGN KEY (info)\r\n" + 
+						"  REFERENCES airplanereservation.airlineinfo (ID)\r\n" + 
+						"  ON DELETE CASCADE\r\n" + 
+						"  ON UPDATE NO ACTION";
+		
+
 		for(Info li:list) {
 			insertAPInfo(li);
+			
 		}
+		sql = "update airlineinfo set prestigeCharge = '125000' where prestigeCharge='0' ";
+		r = st.executeUpdate(sql);
 		
+		System.out.println("r의 값   "+ r);
 		System.out.println(count);
 		closeDB();
 	}
    
-//	public void closeDB() {
-//		try {
-//			pstmt.close();
-////			rs.close();
-//			conn.close();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//	}
-
 	public void insertAPInfo(Info in) {
 		String sql = "insert into airlineinfo(airLineNm, arrAirportNm, arrPlandTime, depAirportNm, depPlandTime, economyCharge,prestigeCharge)  values(?,?,?,?,?,?,?)";
 		

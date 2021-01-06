@@ -9,8 +9,8 @@ import java.util.Vector;
 
 public class Conf {
 
-	String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-	// String jdbcDriver = "com.mysql.jdbc.Driver";
+	//String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+	 String jdbcDriver = "com.mysql.jdbc.Driver";
 	
 	String jdbcUrl = "jdbc:mysql://localhost:3306/"; 
 	String meta = "?&serverTimezone=Asia/Seoul&useSSL=false";
@@ -27,7 +27,7 @@ public class Conf {
 
 	public Conf() {
 		    _userName = "root"; // example
-    		_userPw = "111111";
+    		_userPw = "0000";
 	   }
 
 	public void connectDB() throws SQLException {
