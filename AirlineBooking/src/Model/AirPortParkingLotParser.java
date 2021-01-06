@@ -22,7 +22,9 @@ public class AirPortParkingLotParser {
 	
 	//String jdbcDriver = "com.mysql.jdbc.Driver";
 	String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-	String jdbcUrl = "jdbc:mysql://localhost:3306/madang?&serverTimezone=Asia/Seoul&useSSL=false";
+	String jdbcUrl1 = "jdbc:mysql://localhost:3306?&serverTimezone=Asia/Seoul&useSSL=false";
+	String jdbcUrl2 = "jdbc:mysql://localhost:3306/project?&serverTimezone=Asia/Seoul&useSSL=false";
+	
 
 	static Gson gson = new Gson();
 
@@ -75,11 +77,32 @@ public class AirPortParkingLotParser {
 	public void connectDB() throws SQLException {
 		try {
 			Class.forName(jdbcDriver);
-			conn = DriverManager.getConnection(jdbcUrl, "madang", "madang");// check your username and pw
-			st = conn.createStatement();
+	         conn = DriverManager.getConnection(jdbcUrl1, "root", "root");// check your username and pw
+	         st = conn.createStatement();
 
+	         String sql = "DROP DATABASE IF EXISTS  project";
+	         r = st.executeUpdate(sql);
+	         sql = "DROP USER IF EXISTS  project@localhost";
+	         r = st.executeUpdate(sql);
+	         sql = "create user project@localhost identified WITH mysql_native_password  by 'project'";
+	         r = st.executeUpdate(sql);
+	         sql = "create database project";
+	         r = st.executeUpdate(sql);
+	         sql = "grant all privileges on project.* to project@localhost with grant option";
+	         r = st.executeUpdate(sql);
+	         sql = "commit";
+	         r = st.executeUpdate(sql);
+	         sql = "USE project";
+	         r = st.executeUpdate(sql);
+	         
+	         
+	         Class.forName(jdbcDriver);
+	         conn = DriverManager.getConnection(jdbcUrl2, "project", "project");// check your username and pw
+	         st = conn.createStatement();
+
+		
 			/////////////incheonairportlot 테이블 drop 후 새로 생성///////////////
-			String sql = "DROP TABLE if exists incheonairportlot";
+			sql = "DROP TABLE if exists incheonairportlot";
 			r = st.executeUpdate(sql);
 			sql = "CREATE TABLE incheonairportlot(\r\n" + "floor VARCHAR(45) NOT NULL,\r\n"
 					+ "parking VARCHAR(45) NOT NULL,\r\n" + "parkingarea VARCHAR(45) NOT NULL,\r\n"

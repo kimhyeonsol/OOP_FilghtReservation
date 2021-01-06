@@ -11,7 +11,7 @@ import java.util.Vector;
 public class AirPortParkingLotDAO {
    String jdbcDriver = "com.mysql.cj.jdbc.Driver";
    //String jdbcDriver = "com.mysql.jdbc.Driver";
-   String jdbcUrl = "jdbc:mysql://localhost:3306/madang?&serverTimezone=Asia/Seoul&useSSL=false";
+   String jdbcUrl = "jdbc:mysql://localhost:3306/project?&serverTimezone=Asia/Seoul&useSSL=false";
    Connection conn;
 
    PreparedStatement pstmt;
@@ -28,7 +28,7 @@ public class AirPortParkingLotDAO {
       try {
          Class.forName(jdbcDriver);
 
-         conn = DriverManager.getConnection(jdbcUrl, "madang", "madang");
+         conn = DriverManager.getConnection(jdbcUrl, "project", "project");
          if (conn == null)
             System.out.println("conn is null");
       } catch (Exception e) {
