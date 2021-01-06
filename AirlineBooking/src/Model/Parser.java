@@ -81,14 +81,14 @@ public class Parser extends Conf{
 		
 		sql = "ALTER TABLE reservation \r\n" + "ADD CONSTRAINT user\r\n" + 
 				"  FOREIGN KEY (user)\r\n" + 
-				"  REFERENCES airplanereservation.user (ID)\r\n" + 
+				"  REFERENCES user (ID)\r\n" + 
 				"  ON DELETE CASCADE\r\n" + 
 				"  ON UPDATE NO ACTION, " + "ADD CONSTRAINT info\r\n" + 
 						"  FOREIGN KEY (info)\r\n" + 
-						"  REFERENCES airplanereservation.airlineinfo (ID)\r\n" + 
+						"  REFERENCES airlineinfo (ID)\r\n" + 
 						"  ON DELETE CASCADE\r\n" + 
 						"  ON UPDATE NO ACTION";
-		
+		r = st.executeUpdate(sql);
 
 		for(Info li:list) {
 			insertAPInfo(li);
