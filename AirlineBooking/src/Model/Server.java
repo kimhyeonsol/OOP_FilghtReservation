@@ -288,7 +288,6 @@ public class Server {
 			for (FlightReservationThread ct : reservesThreadsList) {
 				System.out.println(ct.userid+": "+reciever);
 				if(ct.userid.equals(reciever)) {
-					
 					ct.outMsg.println(msg);
 					break;
 				}
@@ -298,7 +297,7 @@ public class Server {
 
 	public static void main(String[] args) throws SQLException {
 		Server server = new Server();
-		//new Parser();//파싱
+		new Parser();//파싱
 		server.start();//서버 스타트
 	}
 }

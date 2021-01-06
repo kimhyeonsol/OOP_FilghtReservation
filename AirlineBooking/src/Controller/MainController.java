@@ -99,18 +99,19 @@ public class MainController {
 				resList = rDAO.getReservationListByALInfo(selectedAirLine);
 			} catch (SQLException e) {
 				e.printStackTrace();
+				System.out.println("DB 오류!");
 			}
-			System.out.println(selectedAirLine);
-			v.selectSeatPanel.seatlist.clear();
+			System.out.println(selectedAirLine); // 현재 선택된 항공편 ID 출력
+			v.selectSeatPanel.seatlist.clear(); // 이전 선택한 좌석 리스트 초기화
 
 			for (int i = 0; i < 40; i++) {
 				if (i % 10 == 0) {
-					v.selectSeatPanel.seatButton[i].setBackground(new Color(112, 48, 160));
+					v.selectSeatPanel.seatButton[i].setBackground(new Color(112, 48, 160)); // 비즈니스 좌석 0, 10, 20, 30 
 				} else {
-					v.selectSeatPanel.seatButton[i].setBackground(new Color(46, 117, 182));
+					v.selectSeatPanel.seatButton[i].setBackground(new Color(46, 117, 182)); // 그 외 일반 좌석
 				}
 			}
-			for (Reservation res : resList) {
+			for (Reservation res : resList) { // 해당 항공편의 예약을 모두 표기 -> 색 변환
 				v.selectSeatPanel.seatButton[res.getSeatNum()].setBackground((new Color(255, 192, 0)));
 				v.selectSeatPanel.seatButton[res.getSeatNum()].setFocusPainted(true);
 			}
@@ -122,7 +123,8 @@ public class MainController {
 			try {
 				res = rDAO.getReservationListByUser(currentUser.getID());
 			} catch (SQLException e1) {
-				e1.printStackTrace();
+//				e1.printStackTrace();
+				System.out.println("DB 오류!");
 			}
 
 			String reservationListStr = "예약 ID\t항공사 이름\t예약자 이름\t좌석\t출발 시간\t도착 시간\t출발 공항\t도착 공항\t비용\n";
@@ -203,7 +205,7 @@ public class MainController {
 					}
 
 					else if (obj == v.myInfoPanel.backButton) {// 뒤로가기버튼
-						v.card.show(v.c, "userMenu");
+						v.card.show(v.c, "userMenu"); // 내 정보 -> 유저 메뉴
 					}
 
 					else if (obj == v.myInfoPanel.myInfoUpdatePanel.saveButton) {// 내정보 문서로 저장하기 버튼
@@ -254,7 +256,7 @@ public class MainController {
 						v.resNum = 1;
 						
 						// 텍스트 필드에 아무것도 입력되지 않았을 때
-						if(resnum.equals(""))
+						if(resnum == null)
 						{
 							v.myReservationTextFieldDialog();
 							return;
@@ -564,7 +566,7 @@ public class MainController {
 						}
 						for (int i = 0; i < v.resNum; i++) {
 							seatNum = v.selectSeatPanel.seatlist.get(i);
-							System.out.println("**" + v.resNum);
+//							System.out.println("**" + v.resNum);
 							LinkedList<String> strArray = new LinkedList<String>();
 							strArray.add(Integer.toString(_selectedAirLine));
 							strArray.add(Integer.toString(seatNum));
@@ -607,8 +609,8 @@ public class MainController {
 							}
 
 							v.selectSeatPanel.seatlist.add(i);
-							System.out.println(i);
-							System.out.println(v.selectSeatPanel.cnt);
+							System.out.println(i); // 선택한 좌석의 index 0~39
+//							System.out.println(v.selectSeatPanel.cnt);
 							v.selectSeatPanel.cnt++;
 							if (v.selectSeatPanel.cnt > v.resNum) {
 								v.selectSeatPanel.cnt--;
@@ -934,7 +936,8 @@ public class MainController {
 						try {
 							list = aDAO.getAllALInfo();
 						} catch (SQLException e1) {
-							e1.printStackTrace();
+//							e1.printStackTrace();
+							System.out.println("DB 오류!");
 						}
 
 						StringBuffer sb = new StringBuffer();
@@ -961,7 +964,8 @@ public class MainController {
 						try {
 							list = aDAO.getAllALInfo();
 						} catch (SQLException e1) {
-							e1.printStackTrace();
+//							e1.printStackTrace();
+							System.out.println("DB 오류!");
 						}
 
 						StringBuffer sb = new StringBuffer();
@@ -988,7 +992,8 @@ public class MainController {
 						try {
 							list = aDAO.getAllALInfo();
 						} catch (SQLException e1) {
-							e1.printStackTrace();
+//							e1.printStackTrace();
+							System.out.println("DB 오류!");
 						}
 
 						StringBuffer sb = new StringBuffer();
@@ -1051,7 +1056,8 @@ public class MainController {
 						try {
 							list = aDAO.getAllALInfo();
 						} catch (SQLException e1) {
-							e1.printStackTrace();
+//							e1.printStackTrace();
+							System.out.println("DB 오류!");
 						}
 
 						StringBuffer sb = new StringBuffer();
@@ -1114,7 +1120,8 @@ public class MainController {
 						try {
 							list = aDAO.getAllALInfo();
 						} catch (SQLException e1) {
-							e1.printStackTrace();
+//							e1.printStackTrace();
+							System.out.println("DB 오류!");
 						}
 						StringBuffer sb = new StringBuffer();
 						if (list != null) {
@@ -1159,7 +1166,8 @@ public class MainController {
 						try {
 							list = aDAO.getAllALInfo();
 						} catch (SQLException e1) {
-							e1.printStackTrace();
+//							e1.printStackTrace();
+							System.out.println("DB 오류!");
 						}
 
 						StringBuffer sb = new StringBuffer();
@@ -1193,7 +1201,8 @@ public class MainController {
 						try {
 							list = uDAO.getAll();
 						} catch (SQLException e1) {
-							e1.printStackTrace();
+//							e1.printStackTrace();
+							System.out.println("DB 오류!");
 						}
 						StringBuffer sb = new StringBuffer("");
 						if (list != null) {
@@ -1227,7 +1236,8 @@ public class MainController {
 							list = uDAO.getAll();
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
-							e1.printStackTrace();
+//							e1.printStackTrace();
+							System.out.println("DB 오류!");
 						}
 
 						if (list != null) {
@@ -1257,7 +1267,8 @@ public class MainController {
 						try {
 							list = rDAO.getAll();
 						} catch (SQLException e1) {
-							e1.printStackTrace();
+//							e1.printStackTrace();
+							System.out.println("DB 오류!");
 						}
 						String reservationListStr = "예약 ID\t항공사 이름\t예약자 이름\t좌석\t출발 시간\t도착 시간\t출발 공항\t도착 공항\t비용\n";
 
@@ -1424,7 +1435,8 @@ public class MainController {
 						try {
 							new AirPortParkingLotParser();
 						} catch (SQLException e2) {
-							e2.printStackTrace();
+//							e2.printStackTrace();
+							System.out.println("DB 오류!");
 						}
 
 						//인천공항과 나머지 4가지 공항의 데이터가 다르기 때문에 if문으로 구분하여 사용

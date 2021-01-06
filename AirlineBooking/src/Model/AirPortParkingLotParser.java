@@ -18,19 +18,17 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-public class AirPortParkingLotParser {
+public class AirPortParkingLotParser extends Conf{
 	
 	//String jdbcDriver = "com.mysql.jdbc.Driver";
-	String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-	String jdbcUrl1 = "jdbc:mysql://localhost:3306?&serverTimezone=Asia/Seoul&useSSL=false";
-	String jdbcUrl2 = "jdbc:mysql://localhost:3306/project?&serverTimezone=Asia/Seoul&useSSL=false";
-	
-
+//	String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+//	String jdbcUrl = "jdbc:mysql://localhost:3306/madang?&serverTimezone=Asia/Seoul&useSSL=false";
+//
 	static Gson gson = new Gson();
 
-	java.sql.Connection conn;
-	PreparedStatement pstmt;
-	ResultSet rs;
+//	java.sql.Connection conn;
+//	PreparedStatement pstmt;
+//	ResultSet rs;
 	java.sql.Statement st;
 
 	int r;
@@ -44,7 +42,9 @@ public class AirPortParkingLotParser {
 	String airPort[] = { "GMP", "PUS", "CJU", "TAE" };
 
 	public AirPortParkingLotParser() throws SQLException {
-
+		super();
+	   _schemaName = "project";
+		super.connectDB();
 		LinkedList<AirPortParkingLot> airPortParkingLotInfoList = null;
 		try {
 			airPortParkingLotInfoList = airPortParkingLotParsing();
@@ -74,35 +74,58 @@ public class AirPortParkingLotParser {
 		closeDB();
 	}
 
+	@Override
 	public void connectDB() throws SQLException {
-		try {
-			Class.forName(jdbcDriver);
-	         conn = DriverManager.getConnection(jdbcUrl1, "root", "root");// check your username and pw
-	         st = conn.createStatement();
-
-	         String sql = "DROP DATABASE IF EXISTS  project";
-	         r = st.executeUpdate(sql);
-	         sql = "DROP USER IF EXISTS  project@localhost";
-	         r = st.executeUpdate(sql);
-	         sql = "create user project@localhost identified WITH mysql_native_password  by 'project'";
-	         r = st.executeUpdate(sql);
-	         sql = "create database project";
-	         r = st.executeUpdate(sql);
-	         sql = "grant all privileges on project.* to project@localhost with grant option";
-	         r = st.executeUpdate(sql);
-	         sql = "commit";
-	         r = st.executeUpdate(sql);
-	         sql = "USE project";
-	         r = st.executeUpdate(sql);
-	         
-	         
-	         Class.forName(jdbcDriver);
-	         conn = DriverManager.getConnection(jdbcUrl2, "project", "project");// check your username and pw
-	         st = conn.createStatement();
-
+//		try {
+////			Class.forName(jdbcDriver);
+////			conn = DriverManager.getConnection(jdbcUrl, "madang", "madang");// check your username and pw
+//			st = conn.createStatement();
+//
+//			/////////////incheonairportlot 테이블 drop 후 새로 생성///////////////
+//			String sql = "DROP TABLE if exists incheonairportlot";
+//			r = st.executeUpdate(sql);
+//			sql = "CREATE TABLE incheonairportlot(\r\n" + "floor VARCHAR(45) NOT NULL,\r\n"
+//					+ "parking VARCHAR(45) NOT NULL,\r\n" + "parkingarea VARCHAR(45) NOT NULL,\r\n"
+//					+ "datetm VARCHAR(45) NOT NULL\r\n" + ")";
+//			r = st.executeUpdate(sql);
+//			sql = "ALTER TABLE incheonairportlot \r\n" + "  ADD CONSTRAINT floor_pk PRIMARY KEY (floor)\r\n";
+//			r = st.executeUpdate(sql);
+//
+//			///////////////////airportlot 테이블 drop 후 새로 생성///////////////////
+//
+//			sql = "DROP TABLE if exists airportlot";
+//			r = st.executeUpdate(sql);
+//
+//			sql = "CREATE TABLE airportlot(\r\n"
+//					+ "airportKor VARCHAR(45) NOT NULL,\r\n" + "parkingAirportCodeName VARCHAR(45) NOT NULL,\r\n"
+//					+ "parkingCongestion VARCHAR(45) NOT NULL,\r\n"
+//					+ "parkingCongestionDegree VARCHAR(45) NOT NULL,\r\n"
+//					+ "parkingOccupiedSpace  VARCHAR(45) NOT NULL,\r\n" + "parkingTotalSpace VARCHAR(45) NOT NULL,\r\n"
+//					+ "sysGetdate VARCHAR(45) NOT NULL,\r\n" + "sysGettime VARCHAR(45) NOT NULL\r\n" + ")";
+//			r = st.executeUpdate(sql);
+//
+//			sql = "ALTER TABLE airportlot \r\n"
+//					+ "  ADD CONSTRAINT parkingAirportCodeName_pk PRIMARY KEY (parkingAirportCodeName)\r\n";
+//			r = st.executeUpdate(sql);
+//
+//		} catch (ClassNotFoundException e) {
+//			System.out.println("DB 연결실패");
+//			//e.printStackTrace();
+//		}
 		
+		
+		
+			try {
+				Class.forName(jdbcDriver);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+//			conn = DriverManager.getConnection(jdbcUrl, "madang", "madang");// check your username and pw
+			st = conn.createStatement();
+
 			/////////////incheonairportlot 테이블 drop 후 새로 생성///////////////
-			sql = "DROP TABLE if exists incheonairportlot";
+			String sql = "DROP TABLE if exists incheonairportlot";
 			r = st.executeUpdate(sql);
 			sql = "CREATE TABLE incheonairportlot(\r\n" + "floor VARCHAR(45) NOT NULL,\r\n"
 					+ "parking VARCHAR(45) NOT NULL,\r\n" + "parkingarea VARCHAR(45) NOT NULL,\r\n"
@@ -127,22 +150,6 @@ public class AirPortParkingLotParser {
 			sql = "ALTER TABLE airportlot \r\n"
 					+ "  ADD CONSTRAINT parkingAirportCodeName_pk PRIMARY KEY (parkingAirportCodeName)\r\n";
 			r = st.executeUpdate(sql);
-
-		} catch (ClassNotFoundException e) {
-			System.out.println("DB 연결실패");
-			//e.printStackTrace();
-		}
-	}
-
-	public void closeDB() {
-		try {
-			pstmt.close();
-			// rs.close();
-			conn.close();
-		} catch (SQLException e) {
-			System.out.println("DB close실패");
-			//e.printStackTrace();
-		}
 	}
 
 	public void insertInCheonAPInfo(InCheonAirPortParkingLot inCheonAirPortParkingLot) { //incheonairportlot 테이블에  값 집어넣기
