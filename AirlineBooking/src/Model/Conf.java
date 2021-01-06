@@ -10,7 +10,7 @@ import java.util.Vector;
 public class Conf {
 
 	String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-	//String jdbcDriver = "com.mysql.jdbc.Driver";
+	// String jdbcDriver = "com.mysql.jdbc.Driver";
 	
 	String jdbcUrl = "jdbc:mysql://localhost:3306/"; 
 	String meta = "?&serverTimezone=Asia/Seoul&useSSL=false";
@@ -26,8 +26,8 @@ public class Conf {
 	String _schemaName;
 
 	public Conf() {
-		    _userName = "project"; // example
-    		_userPw = "project";
+		    _userName = "root"; // example
+    		_userPw = "111111";
 	   }
 
 	public void connectDB() throws SQLException {

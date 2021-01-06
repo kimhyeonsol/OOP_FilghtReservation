@@ -40,7 +40,6 @@ public class Parser extends Conf{
 	
 	
 	public Parser() throws SQLException {
-		super();
 		_schemaName = "project";
 
 		ArrayList<Info> list = null;
@@ -156,7 +155,7 @@ public class Parser extends Conf{
     	
         ArrayList<StringBuilder> stringList = new ArrayList<StringBuilder>();
       
-        for(int i=0; i<depTime.length; i++) {
+        for(int i=0; i<1/*depTime.length*/; i++) {
         	for(int airportIdx=0; airportIdx<20; airportIdx++) {
         		StringBuilder urlBuilder = new StringBuilder("http://openapi.tago.go.kr/openapi/service/DmstcFlightNvgInfoService/getFlightOpratInfoList"); /*URL*/
            	 	urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=FpPWO7Gz4nzdNAPaCzneE6y9T5SZSVpqsbPjpWPXd8sGGLoZz5%2FrkNpLZ%2BrmwDmrDL5hc38x8xKv08sq%2BzUcDw%3D%3D"); /*Service Key*/
