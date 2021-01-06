@@ -156,10 +156,10 @@ public class Parser extends Conf{
     	
         ArrayList<StringBuilder> stringList = new ArrayList<StringBuilder>();
       
-        for(int i=0; i<1/*depTime.length*/; i++) {
+        for(int i=0; i<depTime.length; i++) {
         	for(int airportIdx=0; airportIdx<20; airportIdx++) {
         		StringBuilder urlBuilder = new StringBuilder("http://openapi.tago.go.kr/openapi/service/DmstcFlightNvgInfoService/getFlightOpratInfoList"); /*URL*/
-           	 	urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=37UrltMraQgPIfceu%2B9Pc4oGX4ZmSwuWOPVVYxWgN%2FuU8QJCzUOhCPEafXtilZ2dm42cQuwlUUZCaarom%2Fy0iA%3D%3D"); /*Service Key*/
+           	 	urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=FpPWO7Gz4nzdNAPaCzneE6y9T5SZSVpqsbPjpWPXd8sGGLoZz5%2FrkNpLZ%2BrmwDmrDL5hc38x8xKv08sq%2BzUcDw%3D%3D"); /*Service Key*/
                 urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
                 urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지 번호*/
                 urlBuilder.append("&" + URLEncoder.encode("depAirportId","UTF-8") + "=" + URLEncoder.encode(realOutput[airportIdx][0], "UTF-8")); /*출발공항ID*/
@@ -191,6 +191,7 @@ public class Parser extends Conf{
             }
             rd.close();
             conn.disconnect();
+            System.out.println(sb.toString());
             
             try {
             	

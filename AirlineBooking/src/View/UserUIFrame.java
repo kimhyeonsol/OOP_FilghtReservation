@@ -428,7 +428,7 @@ public class UserUIFrame extends JFrame {// user 프레임(카드레이 아웃)
       public JLabel titleLb = new JLabel("항공권 검색");
 
       public JLabel lb[] = new JLabel[3];// 비행기 선택 조건 레이블
-      public String lbStr[] = { "가는 날", "오는 날", "가는 인원" };
+      public String lbStr[] = { "가는 날  ex)20201225", "오는 날  ex)20201225", "가는 인원" };
       public JTextField flightsearchTextField[] = new JTextField[3];// 내가 선택한 조건 받아오는 textField
       public JButton flightSearchButton = new JButton("검색하기");// 해당 조건 비행기 검색 버튼
 
@@ -543,8 +543,8 @@ public class UserUIFrame extends JFrame {// user 프레임(카드레이 아웃)
                lb[i] = new JLabel(lbStr[i]);
                lb[i].setHorizontalAlignment(JLabel.CENTER);
                lb[i].setFont(new Font("맑은고딕", Font.BOLD, 16));
-               lb[i].setLocation(450, 55 + (i * 45));
-               lb[i].setSize(80, 20);
+               lb[i].setLocation(420, 55 + (i * 45));
+               lb[i].setSize(200, 20);
                add(lb[i]);
             }
 
