@@ -8,44 +8,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class ReservationDAO {
-
-	String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-	//String jdbcDriver = "com.mysql.jdbc.Driver";
-	String jdbcUrl = "jdbc:mysql://localhost:3306/airplanereservation?&serverTimezone=Asia/Seoul&useSSL=false";
-	Connection conn;
-
-	PreparedStatement pstmt;
-	ResultSet rs;
-
-	Vector<String> items = null;
-	String sql;
+public class ReservationDAO extends Conf{
 
 	public ReservationDAO() {
+		super();
+		_schemaName = "airplanereservation";
 		try {
 			connectDB();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public void connectDB() throws SQLException {
-		try {
-			Class.forName(jdbcDriver);
-			conn = DriverManager.getConnection(jdbcUrl, "root", "root");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void closeDB() {
-		try {
-			pstmt.close();
-			rs.close();
-			conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			System.out.println("ReservationDAO DB 연결 실패!");
 		}
 	}
 

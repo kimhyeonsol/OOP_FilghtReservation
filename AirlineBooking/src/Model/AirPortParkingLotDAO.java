@@ -8,44 +8,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class AirPortParkingLotDAO {
-   String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-   //String jdbcDriver = "com.mysql.jdbc.Driver";
-   String jdbcUrl = "jdbc:mysql://localhost:3306/madang?&serverTimezone=Asia/Seoul&useSSL=false";
-   Connection conn;
-
-   PreparedStatement pstmt;
-   ResultSet rs;
-
-   Vector<String> items = null;
-   String sql;
+public class AirPortParkingLotDAO extends Conf{
 
    public AirPortParkingLotDAO() {
-      connectDB();
-   }
-
-   public void connectDB() {
+	   super();
+	   _schemaName = "madang";
       try {
-         Class.forName(jdbcDriver);
-
-         conn = DriverManager.getConnection(jdbcUrl, "madang", "madang");
-         if (conn == null)
-            System.out.println("conn is null");
-      } catch (Exception e) {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-   }
-
-   public void closeDB() {
-      try {
-         pstmt.close();
-         rs.close();
-         conn.close();
-      } catch (SQLException e) {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
+		connectDB();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+//		e.printStackTrace();
+		System.out.println("AirPortParkingLotDAO DB 연결 실패!");
+	}
    }
 
    public ArrayList<AirPortParkingLot> getAPInfo(String airPort) { //airPort값과 일치하는 공항의 주차장 정보를 가져옴

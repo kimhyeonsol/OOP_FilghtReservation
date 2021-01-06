@@ -8,46 +8,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class AirLineDAO {
-
-   String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-   //String jdbcDriver = "com.mysql.jdbc.Driver";
-   String jdbcUrl = "jdbc:mysql://localhost:3306/airplanereservation?&serverTimezone=Asia/Seoul&useSSL=false";
-   Connection conn;
-
-   PreparedStatement pstmt;
-   ResultSet rs;
-
-   Vector<String> items = null;
-   String sql;
+public class AirLineDAO extends Conf {
 
    public AirLineDAO() {
-      connectDB();
-   }
-
-   public void connectDB() {
+	   super();
+	   _schemaName = "airplanereservation";
       try {
-         Class.forName(jdbcDriver);
-
-         conn = DriverManager.getConnection(jdbcUrl, "root", "root");
-         if (conn == null)
-            System.out.println("conn is null");
-      } catch (Exception e) {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
+		connectDB();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+//		e.printStackTrace();
+		System.out.println("AirLineDAO DB 연결 실패!");
+	}
    }
 
-   public void closeDB() {
-      try {
-         pstmt.close();
-         rs.close();
-         conn.close();
-      } catch (SQLException e) {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-   }
 
    // 전체 항공 정보를 가져오는 메소드
    public ArrayList<AirLine> getAllALInfo() throws SQLException {
@@ -112,7 +86,7 @@ public class AirLineDAO {
       pstmt.setString(1, arrAirportNm);
       pstmt.setString(2, depAirportNm);
       pstmt.setString(3, date + "%");
-      System.out.println(pstmt);
+//      System.out.println(pstmt);
       rs = pstmt.executeQuery();
 
       while (rs.next()) {
@@ -142,7 +116,7 @@ public class AirLineDAO {
          pstmt.setString(3, String.valueOf(p.getEconomyCharge()));
          pstmt.setString(4, String.valueOf(p.getPrestigeCharge()));
          pstmt.setString(5, String.valueOf(p.getID()));
-         System.out.println(pstmt);
+//         System.out.println(pstmt);
 
          int r = pstmt.executeUpdate();
          if (r > 0)

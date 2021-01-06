@@ -10,47 +10,22 @@ import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
-public class UserDAO {
+public class UserDAO extends Conf {
 
-	String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-	//String jdbcDriver = "com.mysql.jdbc.Driver";
-	String jdbcUrl = "jdbc:mysql://localhost:3306/airplanereservation?&serverTimezone=Asia/Seoul&useSSL=false";
-	Connection conn;
 
-	PreparedStatement pstmt;
-	ResultSet rs;
-
-	Vector<String> items = null;
-	String sql;
 
 	public UserDAO() {
+		super();
+		_schemaName = "airplanereservation";
 		try {
 			connectDB();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
+			System.out.println("UserDAO DB 연결 실패!");
 		}
 	}
 
-	public void connectDB() throws SQLException {
-		try {
-			Class.forName(jdbcDriver);
-			conn = DriverManager.getConnection(jdbcUrl, "root", "root");
-			System.out.println("DB 연결");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void closeDB() {
-		try {
-			pstmt.close();
-			rs.close();
-			conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public ArrayList<User> getAll() throws SQLException {
 		sql = "select * from user";
