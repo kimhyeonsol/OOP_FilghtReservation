@@ -663,6 +663,10 @@ public class ManagerUIFrame extends JFrame {
 		JOptionPane.showMessageDialog(null, "항공권 ID는 숫자로만 입력해주세요!");
 	}
 	
+	public void flightTimeDialog() { //항공권 ID 다이얼로그
+		JOptionPane.showMessageDialog(null, "시간은 년월일시분 형태로 입력해주세요!\nex)202012250825");
+	}
+	
 	
 
 }

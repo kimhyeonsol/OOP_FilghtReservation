@@ -1032,6 +1032,14 @@ public class MainController {
 							v.flightFreightDialog();
 							return;
 						}
+						
+						//출발시간, 도착시간 입력형태 검사
+						if(v.flightPanel.fliCreatetextField[1].getText().length()!=12 ||
+								v.flightPanel.fliCreatetextField[2].getText().length()!=12) {
+							v.flightTimeDialog();
+							return;
+						}
+						
 						info.setAirLineNm(v.flightPanel.fliCreatetextField[0].getText());
 						info.setDepPlandTime(v.flightPanel.fliCreatetextField[1].getText());
 						info.setArrPlandTime(v.flightPanel.fliCreatetextField[2].getText());
@@ -1089,6 +1097,13 @@ public class MainController {
 								|| v.flightPanel.fliUpdatetextField[3].getText().equals("")
 								|| v.flightPanel.fliUpdatetextField[4].getText().equals("")) {
 							v.flightTextFieldDialog();
+							return;
+						}
+						
+						//출발시간, 도착시간 입력형태 검사
+						if(v.flightPanel.fliUpdatetextField[1].getText().length()!=12 ||
+								v.flightPanel.fliUpdatetextField[2].getText().length()!=12) {
+							v.flightTimeDialog();
 							return;
 						}
 						
