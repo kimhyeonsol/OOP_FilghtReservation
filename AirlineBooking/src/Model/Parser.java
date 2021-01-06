@@ -40,8 +40,8 @@ public class Parser extends Conf{
 	
 	
 	public Parser() throws SQLException {
+		super();
 		_schemaName = "project";
-
 		ArrayList<Info> list = null;
 		try {
 			list = parsing();

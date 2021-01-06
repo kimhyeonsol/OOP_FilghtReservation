@@ -15,6 +15,7 @@ public class UserDAO extends Conf {
 
 
 	public UserDAO() {
+		super();
 		_schemaName = "project";
 		try {
 			connectDB();

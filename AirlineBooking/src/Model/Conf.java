@@ -26,8 +26,8 @@ public class Conf {
 	String _schemaName;
 
 	public Conf() {
-		    _userName = "root"; // example
-    		_userPw = "111111";
+		    _userName = "project"; // example
+    		_userPw = "project";
 	   }
 
 	public void connectDB() throws SQLException {

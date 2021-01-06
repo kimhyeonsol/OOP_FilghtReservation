@@ -11,6 +11,7 @@ import java.util.Vector;
 public class ReservationDAO extends Conf{
 
 	public ReservationDAO() {
+		super();
 		_schemaName = "project";
 		try {
 			connectDB();
