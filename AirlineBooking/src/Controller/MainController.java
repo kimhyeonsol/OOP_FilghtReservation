@@ -256,7 +256,7 @@ public class MainController {
 						v.resNum = 1;
 						
 						// 텍스트 필드에 아무것도 입력되지 않았을 때
-						if(resnum.equals(""))
+						if(resnum == null)
 						{
 							v.myReservationTextFieldDialog();
 							return;
