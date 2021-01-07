@@ -249,7 +249,7 @@ public class LoginUIFrame extends JFrame {
 		startUIPanel.userButton.addActionListener(listener);
 		startUIPanel.managerButton.addActionListener(listener);
 
-		for (JButton comp : componentList) {
+		for (JButton comp : componentList) { // 배열 내 버튼 처리
 			comp.addActionListener(listener);
 		}
 	}
