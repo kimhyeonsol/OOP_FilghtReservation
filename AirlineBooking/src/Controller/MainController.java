@@ -92,7 +92,7 @@ public class MainController {
 
 		private ArrayList<PrintWriter> outMsgs = new ArrayList<PrintWriter>();
 
-		public void updateSelectedSeat(int selectedAirLine) {
+		public void updateSelectedSeat(int selectedAirLine) { // 좌석 선택 패널의 예약된 좌석 갱신 함수
 			_selectedAirLine = selectedAirLine;
 			ArrayList<Reservation> resList = null;
 			try {
@@ -117,18 +117,18 @@ public class MainController {
 			}
 		}
 
-		public void updateReservationList() {
+		public void updateReservationList() { // 예약 변경(추가, 좌석 변경)에 따른 예약 리스트 갱신 함수
 			ArrayList<Reservation> res = null;
-			User currentUser = uDAO.getUser(_userID);
-			try {
-				res = rDAO.getReservationListByUser(currentUser.getID());
+			User currentUser = uDAO.getUser(_userID); // 현재 로그인 유저의
+			try { 
+				res = rDAO.getReservationListByUser(currentUser.getID()); // 모든 예약 리스트를 받고
 			} catch (SQLException e1) {
 //				e1.printStackTrace();
 				System.out.println("DB 오류!");
 			}
 
 			String reservationListStr = "예약 ID\t항공사 이름\t예약자 이름\t좌석\t출발 시간\t도착 시간\t출발 공항\t도착 공항\t비용\n";
-			for (Reservation r : res) {
+			for (Reservation r : res) { // List에 추가한다.
 				AirLine outAL = aDAO.getALInfo(r.getInfo());
 				User outU = uDAO.getUser(r.getUser());
 
@@ -151,22 +151,22 @@ public class MainController {
 						+ outAL.getDepAirportNm() + "\t" + outAL.getArrAirportNm() + "\t" + pee + "\n";
 			}
 
-			v.myInfoPanel.myReservationUpdatePanel.textArea.setText(reservationListStr);
+			v.myInfoPanel.myReservationUpdatePanel.textArea.setText(reservationListStr); // reservationList에 세팅
 			v.myInfoPanel.myReservationUpdatePanel.repaint();
 		}
 
 		public UserUIController(UserUIFrame ui) {
 			this.v = ui;
 			
-			isChangeSeat = false;
+			isChangeSeat = false; // ChangeSeat가 true인 경우, 좌석 선택 패널에서 현재 예약 정보 패널 카드로 돌아간다.
 
 			connectServer();
-//         connectServer();
+//         connectServer(); Thread 동기화 테스트
 //         connectServer();
 
 			v.addExitWindowListener(new WindowAdapter() {
 				@Override
-				public void windowClosing(WindowEvent e) {
+				public void windowClosing(WindowEvent e) { // 창을 닫을 시 서버에 로그아웃 메세지 전달
 					int confirm = JOptionPane.showOptionDialog(null, "Are You Sure to Close Application?",
 							"Exit Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null,
 							null);
@@ -201,7 +201,7 @@ public class MainController {
 						MCT.setLoginC(LF);
 						LinkedList<String> strArray = new LinkedList<String>();
 						outMsg.println(gson.toJson(new Message(v._userId, "", strArray, "logout")));
-						v.userMenuExit();
+						v.userMenuExit();  // view에서 dispose 호출
 					}
 
 					else if (obj == v.myInfoPanel.backButton) {// 뒤로가기버튼
@@ -590,7 +590,7 @@ public class MainController {
 							}
 
 						}
-						v.selectSeatPanel.cnt = 0;
+						v.selectSeatPanel.cnt = 0; // 초기화 
 						v.selectSeatPanel.seatlist.clear();
 						v.selectedSeatTextarea.setText("");
 
