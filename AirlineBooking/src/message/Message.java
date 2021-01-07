@@ -57,8 +57,4 @@ public class Message {
 		return type;
 	}
 	
-//	public String getRecieverId() {
-//		return recieverId;
-//	}
-	
 }

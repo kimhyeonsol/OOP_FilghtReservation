@@ -29,15 +29,6 @@ public class Parser extends Conf{
 	int r;
 	   
 	   Scanner scanner=new Scanner(System.in);
-	   
-//	   String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-//	   String jdbcUrl = "jdbc:mysql://localhost:3306/airplanereservation?&serverTimezone=Asia/Seoul&useSSL=false";
-//	   
-//	   java.sql.Connection conn;
-//	   
-//	   PreparedStatement pstmt;
-//	   ResultSet rs;
-	
 	
 	public Parser() throws SQLException {
 		super();
@@ -54,7 +45,6 @@ public class Parser extends Conf{
 		
 		
 		st = conn.createStatement();
-		//r = st.executeUpdate(sql);
 		
 		//airlineinfo 테이블 생성
 		sql = "CREATE TABLE if not exists airlineinfo(\r\n" + "ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,\r\n"
@@ -124,17 +114,6 @@ public class Parser extends Conf{
 		count++;
 	}
 	
-//	public void connectDB() throws SQLException {
-//		try {
-//			Class.forName(jdbcDriver);
-//			conn = DriverManager.getConnection(jdbcUrl, "root", "root");// check your username and pw
-//			System.out.println("연결완료");
-//		} catch (ClassNotFoundException e) {
-//			e.printStackTrace();
-//		}
-//	}
-
-  
     
     public ArrayList<Info> parsing() throws IOException{
 
@@ -176,7 +155,7 @@ public class Parser extends Conf{
         	HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Content-type", "application/json");
-//            System.out.println("Response code: " + conn.getResponseCode());
+
             BufferedReader rd;
             if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
                 rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -254,19 +233,6 @@ public class Parser extends Conf{
         }
         
         return list;
- 
-//        for(Info i:list)
-//        {
-//        	System.out.println("항공사 "+i.getAirlineNm());
-//          System.out.println("출발 공항 "+i.getArrAirportNm());
-//          System.out.println("출발 시간 "+i.getArrPlandTime());
-//          System.out.println("도착 공항 "+i.getDepAirportNm());
-//          System.out.println("도착 시간 "+i.getDepPlandTime());
-//          System.out.println("economyCharge "+i.getEconomyCharge());
-//          System.out.println("prestigeCharge "+i.getPrestigeCharge());
-//          
-//          System.out.println("----------------------------");
-//      }
     }
     
     
