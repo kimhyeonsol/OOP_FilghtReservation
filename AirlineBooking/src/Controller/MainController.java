@@ -58,7 +58,7 @@ public class MainController {
 	AirPortParkingLotDAO pDAO = new AirPortParkingLotDAO();
 
 	int seatNum;
-
+	
 	public MainController() {
 		MCT = this;
 		uDAO = new UserDAO();
