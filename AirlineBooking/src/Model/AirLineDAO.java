@@ -70,7 +70,7 @@ public class AirLineDAO extends Conf {
 
       } catch (SQLException e) {
          // TODO Auto-generated catch block
-         e.printStackTrace();
+//         e.printStackTrace();
       }
 
       return null;
@@ -126,7 +126,7 @@ public class AirLineDAO extends Conf {
 
          return r;
       } catch (SQLException e) {
-         e.printStackTrace();
+//         e.printStackTrace();
       }
       return 0;
    }
@@ -158,7 +158,7 @@ public class AirLineDAO extends Conf {
 
       } catch (SQLException e) {
          // TODO Auto-generated catch block
-         e.printStackTrace();
+//         e.printStackTrace();
       }
       return 0;
    }
@@ -182,7 +182,7 @@ public class AirLineDAO extends Conf {
 
       } catch (SQLException e) {
          // TODO Auto-generated catch block
-         e.printStackTrace();
+//         e.printStackTrace();
       }
 
       return 0;

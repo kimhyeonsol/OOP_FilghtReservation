@@ -81,7 +81,7 @@ public class ReservationDAO extends Conf{
 			r.setSeatNum(rs.getInt("seatNum"));
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+//			e1.printStackTrace();
 			System.out.println("쿼리문 오류");
 			return false;
 		}
@@ -150,7 +150,7 @@ public class ReservationDAO extends Conf{
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			return false;
 		}
 	}
@@ -168,7 +168,7 @@ public class ReservationDAO extends Conf{
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			return false;
 		}
 	}
@@ -182,7 +182,7 @@ public class ReservationDAO extends Conf{
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			return false;
 		}
 	}

@@ -49,7 +49,7 @@ public class AirPortParkingLotDAO extends Conf{
 
       } catch (SQLException e) {
          // TODO Auto-generated catch block
-         e.printStackTrace();
+//         e.printStackTrace();
       }
       return null;
    }
@@ -76,7 +76,7 @@ public class AirPortParkingLotDAO extends Conf{
 
       } catch (SQLException e) {
          // TODO Auto-generated catch block
-         e.printStackTrace();
+//         e.printStackTrace();
       }
 
       return null;

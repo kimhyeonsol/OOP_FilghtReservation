@@ -39,7 +39,7 @@ public class Conf {
 				System.out.println("conn is null");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 	}
 
@@ -49,7 +49,7 @@ public class Conf {
 			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 	}
 

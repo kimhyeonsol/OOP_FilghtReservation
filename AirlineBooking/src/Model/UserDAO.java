@@ -95,7 +95,7 @@ public class UserDAO extends Conf {
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			return false;
 		}
 	}
@@ -116,7 +116,7 @@ public class UserDAO extends Conf {
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			return false;
 		}
 	}
@@ -137,7 +137,7 @@ public class UserDAO extends Conf {
 			return r;
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 
 		}
 		return 0;
